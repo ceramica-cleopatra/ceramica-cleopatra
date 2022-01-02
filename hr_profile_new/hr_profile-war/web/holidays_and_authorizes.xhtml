@@ -1,0 +1,354 @@
+<?xml version='1.0' encoding='windows-1256' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./hr_profile_template.xhtml">
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-history"/>
+                    <h:outputText value="متابعات" />
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="رصيد الإجازات و الأذون" />
+            </ui:define>
+            <ui:define name="body">
+                <h:form id="form">
+<!--                    <p:dataGrid var="hol" value="{holidays_and_authorizes.list}" columns="4" layout="grid" id="hol">
+
+                        <p:panel rendered="{not empty hol[1]}" header="{hol[0]}" style="text-align:center;">
+                            <h:panelGrid columns="1" style="width:100%">
+                                <h:outputText value="{hol[1]}" />
+                            </h:panelGrid>
+                        </p:panel>
+                        <p:panel rendered="{empty hol[1]}" style="text-align:center;height: 100%">
+                            <p:spacer height="50" width="1"/>
+                            <h:outputText style="font-weight: bold;font-size: 13px"  value="{hol[0]}" />
+                        </p:panel>
+                    </p:dataGrid>-->
+
+
+
+
+                    <p:panelGrid style="text-align: center;width: 100%">
+                        <f:facet name="header">
+                            <p:row>
+                                <p:column colspan="2">
+                                </p:column>
+                                <p:column style="width: 170px">
+                                    <h:outputText value="الرصيد"/>
+                                </p:column>
+                                <p:column style="width: 170px">
+                                    <h:outputText value="المستهلك"/>
+                                </p:column>
+                                <p:column style="width: 170px">
+                                    <h:outputText value="المتبقى"/>
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+
+
+
+                        <p:row>
+                            <p:column rowspan="6">
+                                <h:outputText value="أجازة إعتيادية"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="عارضة"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="10"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.opposedHolUsed}"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="#{10-holidays_and_authorizes.hrAuthAndHolBalance.opposedHolUsed}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column >
+                                <h:outputText value="سنوى"/>
+                            </p:column>
+                             <p:column >
+                                <h:outputText value="6"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.annualHolUsed}"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="#{6-holidays_and_authorizes.hrAuthAndHolBalance.annualHolUsed}"/>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column >
+                                <h:outputText value="إستثنائية"/>
+                            </p:column>
+                             <p:column >
+                                 <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.totalExceptionalHol}"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.exceptionalHolUsed}"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.totalExceptionalHol-holidays_and_authorizes.hrAuthAndHolBalance.exceptionalHolUsed}"/>
+                            </p:column>
+                        </p:row>
+
+
+                         <p:row>
+                            <p:column >
+                                <h:outputText value="أعتيادى مرحل من 2020"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="#{holidays_and_authorizes.previousEmpHolidays.holDays}"/>
+                            </p:column>
+                              <p:column >
+                                <h:outputText value="-"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="-"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column >
+                                <h:outputText value="بدل راحة مرحل من 2020"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="#{holidays_and_authorizes.previousEmpHolidays.rahatDays}"/>
+                            </p:column>
+                             <p:column >
+                                <h:outputText value="-"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="-"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="إعتيادى"/>
+                            </p:column>
+                             <p:column >
+                                <h:outputText value="-"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.normalHolUsed}"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="-"/>
+                            </p:column>
+                        </p:row>
+                        <f:facet name="footer">
+                            <p:row style="text-align: center">
+                             <p:column colspan="2">
+                                <h:outputText value="الإجمالى"/>
+                            </p:column>
+                             <p:column >
+                                 <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.totalNormalHol+holidays_and_authorizes.hrAuthAndHolBalance.totalExceptionalHol}"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.totalNormalHol-holidays_and_authorizes.hrAuthAndHolBalance.normalHolRemind+holidays_and_authorizes.hrAuthAndHolBalance.totalExceptionalHol}"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.normalHolRemind}"/>
+                            </p:column>
+                            </p:row>
+                        </f:facet>
+                    </p:panelGrid>
+
+
+                    <p:spacer height="20"/>
+
+                    <p:panelGrid style="text-align: center;width: 100%">
+                        <f:facet name="header">
+                            <p:row>
+                                <p:column >
+                                </p:column>
+                                <p:column style="width: 170px">
+                                    <h:outputText value="الرصيد"/>
+                                </p:column>
+                                <p:column style="width: 170px">
+                                    <h:outputText value="المستهلك"/>
+                                </p:column>
+                                <p:column style="width: 170px">
+                                    <h:outputText value="المتبقى"/>
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+
+
+
+                        <p:row>
+                            <p:column rowspan="2">
+                                <h:outputText value="بدل الراحة"/>
+                            </p:column>
+
+                            <p:column >
+                                <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.insteadHolRemind+holidays_and_authorizes.hrAuthAndHolBalance.insteadHolUsed}"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.insteadHolUsed}"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.insteadHolRemind}"/>
+                            </p:column>
+
+                        </p:row>
+                    </p:panelGrid>
+
+                    <p:spacer height="20"/>
+
+                     <p:panelGrid style="text-align: center;width: 100%">
+                        <f:facet name="header">
+                            <p:row>
+                                <p:column colspan="2">
+                                </p:column>
+                                <p:column style="width: 170px">
+                                    <h:outputText value="الرصيد"/>
+                                </p:column>
+                                <p:column style="width: 170px">
+                                    <h:outputText value="المستهلك"/>
+                                </p:column>
+                                <p:column style="width: 170px">
+                                    <h:outputText value="المتبقى"/>
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+
+
+
+                        <p:row>
+                            <p:column rowspan="4">
+                                <h:outputText value="الأذون"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="إذن لم يعتمد"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="-"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.totBindingAuth}"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="-"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column >
+                                <h:outputText value="إذن معتمد"/>
+                            </p:column>
+                             <p:column >
+                                <h:outputText value="-"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.totAuthUsed}"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="-"/>
+                            </p:column>
+                        </p:row>
+
+                        <f:facet name="footer">
+                            <p:row style="text-align: center">
+                             <p:column colspan="2">
+                                <h:outputText value="الإجمالى"/>
+                            </p:column>
+                             <p:column >
+                                 <h:outputText value="240"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.totBindingAuth+holidays_and_authorizes.hrAuthAndHolBalance.totAuthUsed}"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="#{240-(holidays_and_authorizes.hrAuthAndHolBalance.totBindingAuth+holidays_and_authorizes.hrAuthAndHolBalance.totAuthUsed)}"/>
+                            </p:column>
+                            </p:row>
+                        </f:facet>
+                    </p:panelGrid>
+
+
+                    <p:spacer height="20"/>
+
+                    <p:panelGrid style="text-align: center;width: 100%">
+                        <f:facet name="header">
+                            <p:row>
+                                <p:column colspan="2">
+                                </p:column>
+                                <p:column style="width: 170px">
+                                    <h:outputText value="الرصيد"/>
+                                </p:column>
+                                <p:column style="width: 170px">
+                                    <h:outputText value="المستهلك"/>
+                                </p:column>
+                                <p:column style="width: 170px">
+                                    <h:outputText value="المتبقى"/>
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+
+
+
+                        <p:row>
+                            <p:column rowspan="4">
+                                <h:outputText value="أذون الشهر الماضى"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="إذن لم يعتمد"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="-"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.prevMonthBindingAuthCnt}"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="-"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column >
+                                <h:outputText value="إذن معتمد"/>
+                            </p:column>
+                             <p:column >
+                                <h:outputText value="-"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.prevMonthAuthUsedCnt}"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="-"/>
+                            </p:column>
+                        </p:row>
+
+                        <f:facet name="footer">
+                            <p:row style="text-align: center">
+                             <p:column colspan="2">
+                                <h:outputText value="الإجمالى"/>
+                            </p:column>
+                             <p:column >
+                                 <h:outputText value="240"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.prevMonthBindingAuthCnt+holidays_and_authorizes.hrAuthAndHolBalance.prevMonthAuthUsedCnt}"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="#{240-(holidays_and_authorizes.hrAuthAndHolBalance.prevMonthBindingAuthCnt+holidays_and_authorizes.hrAuthAndHolBalance.prevMonthAuthUsedCnt)}"/>
+                            </p:column>
+                            </p:row>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

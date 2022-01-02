@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8""?>
+
+<items baseHref="audio/" defaultVol="100">
+
+<sound id="x" href="004.mp3" />
+
+</items>

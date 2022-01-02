@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./hr_profile_template.xhtml">
+
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-history"/>
+                    <h:outputText value="#{msg.FollowUp}" />
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="#{msg.RmnRequestOrder}" />
+            </ui:define>
+            <ui:define name="body">
+                <link type="text/css" rel="stylesheet" href="resources/primefaces-sunny/theme.css" />
+                <script language="javascript" src="hr_profile_js.js" type="text/javascript"/>
+                <style type="text/css">
+                    .font{
+                        font-size: 12px!important;
+                        font-weight: bold!important;
+                        font-family: sans-serif!important;
+                    }
+                </style>
+                <h:form id="frm">
+                    <p:growl widgetVar="growl" id="growl" life="3000" showDetail="true" showSummary="true"/>
+                    <div align="center" style="width: 100%">
+                        <p:commandButton update="growl :frm:rmnList" actionListener="#{rmnSrfRequest.saveRequests}" value="#{msg.Save}" icon="ui-icon-disk"/>
+                        <p:commandButton action="#{rmnSrfRequest.back}" ajax="false" value="#{msg.Back}" icon="ui-icon-arrowreturnthick-1-w"/>
+                    </div>
+                    <p:dataTable styleClass="font"  emptyMessage="#{msg.NoResultsFound}" id="rmnList" dir="RTL" paginator="true" widgetVar="rmnList" value="#{rmnSrfRequest.rmnListRequestedToPrintDTOs}" var="rmnList"
+                                 rows="15">
+                        <p:column width="13" style="padding: 1px 1px" headerText="">
+                            <p:commandButton rendered="#{not empty rmnList.address}" oncomplete="PF('prevDrivers').show()" update="prevDrivers" icon="ui-icon-search"/>
+                            <p:dialog dir="RTL" width="500" height="300" header="#{msg.RmnRequestDetails}" widgetVar="prevDrivers" id="prevDrivers" >
+                                <p:dataTable var="precDriv" scrollable="true" scrollHeight="100" scrollRows="3" value="#{rmnList.drivers}">
+                                    <p:column headerText="#{msg.RmnRequestPrevDrivers}">
+                                        <h:outputText value="#{precDriv}"/>
+                                    </p:column>
+                                </p:dataTable>
+                                <p:panelGrid columns="2">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg.RmnRequestAddressDetails}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{msg.RmnRequestAddress}"/>
+                                    <h:outputText value="#{rmnList.address}"/>
+                                    <h:outputText value="#{msg.RmnRequestCity}"/>
+                                    <h:outputText value="#{rmnList.clntCity}"/>
+                                    <h:outputText value="#{msg.RmnRequestArea}"/>
+                                    <h:outputText value="#{rmnList.clntArea}"/>
+                                </p:panelGrid>
+                            </p:dialog>
+                        </p:column>
+                        <p:column width="10" headerText="#{msg.RmnWithoutSrfOrdrType}">
+                            <h:outputText value="#{rmnList.crmkSehy eq &quot;C&quot; ? msg.Crmk : (rmnList.crmkSehy eq &quot;D&quot;? msg.Dcre : msg.Sehy)}"/>
+                        </p:column>
+                        <p:column width="20" headerText="#{msg.RmnWithoutSrfOrdrNo}">
+                            <h:outputText value="#{rmnList.rmnNo}"/>
+                        </p:column>
+                        <p:column width="25" headerText="#{msg.RmnWithoutSrfHandNo}">
+                            <h:outputText value="#{rmnList.rmnHandNo}"/>
+                        </p:column>
+                        <p:column width="35" headerText="#{msg.RmnWithoutSrfTrnsDate}">
+                            <h:outputText value="#{rmnList.trnsDate}" converter="#{customConvertDateTime}"/>
+                        </p:column>
+                        <p:column width="15" headerText="#{msg.RmnWithoutSrfPeriod}">
+                            <h:outputText value="#{rmnList.prdId}"/>
+                        </p:column>
+                        <p:column width="35" headerText="#{msg.RmnRequestDestination}">
+                            <h:outputText value="#{rmnList.storeName}"/>
+                        </p:column>
+                        <p:column width="20" headerText="#{msg.Qty}">
+                            <h:outputText value="#{rmnList.totalQty}"/>
+                        </p:column>
+                        <p:column width="40" headerText="#{msg.RmnWithoutSrfCustomerName}">
+                            <h:outputText style="width: 100%" value="#{rmnList.clntName}" />
+                        </p:column>
+                        <p:column  width="35" headerText="#{msg.RmnWithoutSrfPhone}">
+                            <h:outputText style="width: 100%" value="#{rmnList.clntPhone}" />
+                        </p:column>
+                        <p:column width="70" headerText="#{msg.RmnWithoutSrfDelivaryName}">
+                            <p:commandButton oncomplete="PF('drvDlg').show()" update="drvDlg" icon="ui-icon-search">
+                                <f:setPropertyActionListener target="#{rmnSrfRequest.currentRow}" value="#{rmnList}"/>
+                            </p:commandButton>
+                            <p:inputText style="width: 70%" value="#{rmnList.driverName}" />
+                            <p:dialog dir="RTL" header="#{msg.RmnWithoutSrfDrivers}" id="drvDlg" width="400" height="300" widgetVar="drvDlg">
+                                <p:dataTable dir="RTL" rowKey="#{drvDT}" rowIndexVar="x" selection="#{rmnSrfRequest.selectedDriver}" selectionMode="single" id="drvDT" var="drvDT" value="#{rmnSrfRequest.brnDrivers}" widgetVar="drvDT">
+                                    <p:ajax event="rowSelect" update="drvDT :frm:rmnList" listener="#{rmnSrfRequest.updateDriver}" oncomplete="PF('drvDlg').hide()"/>
+                                    <p:column filterMatchMode="contains" filterBy="#{drvDT[0]}" width="15" headerText="#{msg.RmnRequestDriverCode}">
+                                        <h:outputText value="#{drvDT[0]}" />
+                                    </p:column>
+                                    <p:column filterMatchMode="contains" filterBy="#{drvDT[1]}" width="40"  headerText="#{msg.RmnWithoutSrfDriverName}">
+                                        <h:outputText value="#{drvDT[1]}" />
+                                    </p:column>
+                                </p:dataTable>
+                            </p:dialog>
+                        </p:column>
+                        <p:column width="40" headerText="#{msg.RmnWithoutSrfPhone}">
+                            <p:inputText style="width: 100%" value="#{rmnList.driverPhone}" />
+                        </p:column>
+                        <p:column width="40" headerText="#{msg.RmnWithoutSrfLoadDate}">
+                            <p:inputMask size="8" id="mask" value="#{rmnList.loadDate}" converter="#{customConvertDateTime}" mask="99/99/9999" />
+                        </p:column>
+                    </p:dataTable>
+                    <p:spacer height="10"/>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

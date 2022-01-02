@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='windows-1256' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <meta charset="utf-8"/>
+        <link rel='stylesheet prefetch' href='font-awesome/css/font-awesome.min.css'/>
+        <link rel="stylesheet" href="css/style3.css"/>
+        <script type="text/javascript"  src='js/jquery.min.js'></script>
+        <script type="text/javascript"  src="js/index_1.js"></script>
+        <script language="javascript" src="hr_profile_js.js" type="text/javascript"/>
+        <title>#{msg.EmployeeProfile}</title>
+    </h:head>
+    <h:body>
+        <script type="text/javascript" language="javascript">
+            function btnReset() {
+                var $auth = $('.auth');
+                var $overlay = $('.overlay');
+                var $loginButton = $('.btn');
+                var $backButton = $('.bottom-button');
+                clearTimeout(timeOut);
+                var $s = $('.s');
+                var $line = $('.line');
+                $(this).addClass('back');
+                $s.removeClass('spread');
+                $line.removeClass('open');
+                $overlay.removeClass('open');
+                $auth.addClass('opa');
+                $auth.removeClass('close');
+                $loginButton.removeClass('loading');
+                $('.nav-menu').removeClass('open');
+              }
+        </script>
+        <p:growl showDetail="true" showSummary="true" widgetVar="growl" id="growl" life="2000" />
+        <div class="wrapper">
+            <div class="background" style="background: url('#{loginBean.background}')!important;"></div>
+            <div class="auth opa">
+
+                <div class="image-size">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <img onclick="document.getElementById('logInFRM:cmd').click()" class="fa fa-circle fa-stack-1x" style="width: 40px;height: 50px;margin-left: 90px;" src="images/cleo.png"/>
+                </div>
+                <div class="login-title">
+                    <h3>Employee Profile</h3>
+                </div>
+                <h:form id="logInFRM">  
+                    <p:focus context="logInFRM"/>
+                    <div class="inputWrapper">
+                         <h:panelGrid id="panelGrid" width="100%" >
+                            <input style="visibility: #{loginBean.isAdmin ? 'visible' :'hidden'}" id="empname" name="logInFRM:empname" onkeypress="return handleEnter(this, event)" type="text" class="username" placeholder="Enter Employee code"/>
+                        </h:panelGrid>
+                        
+                        <div class="user-icon">
+                            <i class="fa fa-user fa-fw"></i>
+                        </div>
+
+                        <input name="logInFRM:username" onkeypress="return handleEnter(this, event)" type="text" class="username" placeholder="Enter your code"/>
+                        <div class="user-icon">
+                            <i class="fa fa-key fa-fw"></i>
+                        </div>
+                        <input name="logInFRM:password" onkeypress="return handleEnter(this, event)" type="password" class="password" placeholder="Enter your password"/>
+                       
+                        <p:commandButton styleClass="btn btn-login" value="#{msg.Login}" ajax="true"  id="logIn" update="msg"  action="#{loginBean.login}" />
+                    </div>
+                    <p:commandButton style="visibility: hidden;width: 1px;height: 1px" id="cmd" actionListener="#{loginBean.setAdminFlag}" immediate="true" update=":logInFRM:panelGrid"/>
+                </h:form>
+                <p:messages closable="true" showDetail="true" autoUpdate="true" showSummary="true" id="msg" style="font-size: 12px!important" showIcon="true" />
+                <!--  <div class="overlay">
+                    <div class="profile">
+                      <div class="overlay-color"></div>
+                    </div>
+                    <div class="profile-left">
+                      <h5>Date</h5>
+                      <span>May 10th, 2015</span>
+                    </div>
+                    <div class="profile-right">
+                      <h5>Team</h5>
+                      <span>Management</span>
+                    </div>
+                    <div class="tasks">
+                      <div class="task">
+                        <img src="http://www.freedigitalphotos.net/images/gallery-thumbnails.php?id=54012690482861871531622583" alt="" class="task-pic"/>
+                        <h3>Meeting!</h3>
+                        <span><i class="fa fa-clock-o"></i>9:00 AM</span>
+                      </div>
+                      <div class="task">
+                        <img src="http://www.freedigitalphotos.net/images/gallery-thumbnails.php?id=1309949958494783511039444" alt="" class="task-pic"/>
+                        <h3>More Meeting!</h3>
+                        <span><i class="fa fa-clock-o"></i>12:00 PM</span>
+                      </div>
+                      <div class="task">
+                        <img src="http://pixabay.com/static/uploads/photo/2015/04/20/13/41/person-731479_640.jpg" alt="" class="task-pic"/>
+                        <h3>Meeting Again!?</h3>
+                        <span><i class="fa fa-clock-o"></i>15:00 PM</span>
+                      </div>
+                    </div>
+                    <div class="footer">
+                      <div class="no">
+                        <h3>Thanks for login</h3>
+                      </div>
+                    <div class="bottom-button">
+                    </div>!-->
+            </div>
+        </div>
+    </h:body>
+</html>
+

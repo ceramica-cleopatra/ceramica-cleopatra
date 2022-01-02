@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./hr_profile_template.xhtml">
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-check-square-o"/>
+                    <h:outputText value="#{msg.Approves}" />
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="#{msg.ActivatePreviousDoc}" />
+            </ui:define>
+
+            <ui:define name="body">
+                <h:form id="frm">
+                    <p:growl id="growl" showDetail="true" life="3000"  />
+                    <p:dataTable value="#{activatePreviousDoc.crmkActivatePreviousDocReqList}" var="requestList" id="requestList"
+                                 editable="true" paginator="true" rows="10"  paginatorPosition="bottom">
+                        <p:ajax event="rowEdit" listener="#{activatePreviousDoc.update}" update="requestList :frm:growl" />
+                        <p:column width="30" headerText="#{msg.DocumentType}">
+                            <h:outputText value="#{requestList.docType eq &quot;11&quot; ? msg.Talabya : msg.Rmn}"/>
+                        </p:column>
+
+                        <p:column width="40" headerText="#{msg.Crmk} / #{msg.Dcre}">
+                            <h:outputText value="#{requestList.crmkSehy eq &quot;C&quot; ? msg.Crmk : (requestList.crmkSehy eq &quot;D&quot; ? msg.Dcre : msg.Sehy)}"/>
+                        </p:column>
+
+                        <p:column width="40" headerText="#{msg.OrdrNo}">
+                            <h:outputText value="#{requestList.docNo}"/>
+                        </p:column>
+
+                        <p:column width="40" headerText="#{msg.HandNo}">
+                            <h:outputText value="#{requestList.docHandNo}"/>
+                        </p:column>
+
+                        <p:column width="60" headerText="#{msg.LocationName}">
+                            <h:outputText value="#{requestList.brnId.name}"/>
+                        </p:column>
+
+                        <p:column width="30" headerText="#{msg.PeriodYear}">
+                            <h:outputText value="#{requestList.docPrdId}"/>
+                        </p:column>
+
+                        <p:column width="40" headerText="#{msg.EntryDate}">
+                            <h:outputText value="#{requestList.trnsDate}" converter="#{customConvertDateTime}" />
+                        </p:column>
+
+                        <p:column width="70" headerText="#{msg.EmployeeName}">
+                            <h:outputText value="#{requestList.empReqNo.empName}" />
+                        </p:column>
+
+                        <p:column width="30" headerText="#{msg.Activate}" style="text-align: center;">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:graphicImage value="/images/check.png" rendered="#{requestList.activate eq &quot;Y&quot;}" />
+                                    <h:graphicImage value="/images/cross.png" rendered="#{requestList.activate eq &quot;N&quot;}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:selectOneMenu value="#{requestList.activate}" style="font-weight:bold;font-size:small;width: 100%">
+                                        <f:selectItem itemLabel="#{msg.Activate}" itemValue="Y"/>
+                                        <f:selectItem itemLabel="#{msg.DoNotActivate}" itemValue="N"/>
+                                    </p:selectOneMenu>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column width="20" headerText="#{msg.Edit}" style="text-align: center;" >
+                            <p:rowEditor />
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

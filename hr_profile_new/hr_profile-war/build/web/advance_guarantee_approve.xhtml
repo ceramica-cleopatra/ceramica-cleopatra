@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title></title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./hr_profile_template.xhtml">
+
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-check-square-o"/>
+                    <h:outputText value="#{msg.Approves}" />
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="#{msg.AdvanceGuaranteeApproval}" />
+            </ui:define>
+
+            <ui:define name="body">
+
+                <h:form id="frm_list">
+                    <p:growl id="growl" showDetail="true" life="4000"  />
+                    <p:dataTable   id="req" widgetVar="req" var="advance" value="#{advanceGuaranteeApprove.hrAdvanceRequestList}"
+                                   editable="true" paginator="true" rows="10"  paginatorPosition="bottom" >
+                        <p:ajax event="rowEdit" listener="#{advanceGuaranteeApprove.update}" update="req :frm_list:growl" />
+                        <p:column width="75"  headerText="#{msg.Date}" style="text-align: center;">
+                            <h:outputText value="#{advance.trnsDate}" style="text-align: center;font-weight:bold;font-size:small;" converter="#{customConvertDateTime}" />
+                        </p:column>
+                        <p:column width="30" headerText="#{msg.EmpNo}" style="text-align: center;">
+                            <h:outputText value="#{advance.empNo.empNo}" style="font-weight:bold;font-size:small;"/>
+                        </p:column>
+                        <p:column width="100" headerText="#{msg.EmpName}" style="text-align: center;">
+                            <h:outputText value="#{advance.empNo.empName}" style="font-weight:bold;font-size:small;"/>
+                        </p:column>
+                        <p:column width="50"  headerText="#{msg.Value}" style="text-align: center;">
+                            <h:outputText value="#{advance.amount}" style="text-align: center;font-weight:bold;font-size:small;"/>
+                        </p:column>
+                        <p:column width="45"  headerText="#{msg.Aggreement}" style="text-align: center;">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:graphicImage value="/images/check.png" rendered="#{advance.guaranteeNo.empNo eq advanceGuaranteeApprove.hrEmpInfo.empNo and advance.guaranteeApprove eq &quot;Y&quot;}" />
+                                    <h:graphicImage value="/images/cross.png" rendered="#{advance.guaranteeNo.empNo eq advanceGuaranteeApprove.hrEmpInfo.empNo and advance.guaranteeApprove eq &quot;N&quot;}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:selectOneMenu value="#{advance.guaranteeApprove}" style="font-weight:bold;font-size:small;width: 100%">
+                                        <f:selectItem itemLabel="#{msg.Aggreement}" itemValue="Y"/>
+                                        <f:selectItem itemLabel="#{msg.Reject}" itemValue="N"/>
+                                    </p:selectOneMenu>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column width="30" headerText="#{msg.Edit}" style="text-align: center;" >
+                            <p:rowEditor rendered="#{advance.deptMngApprove eq null}" />
+                        </p:column>
+                    </p:dataTable>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

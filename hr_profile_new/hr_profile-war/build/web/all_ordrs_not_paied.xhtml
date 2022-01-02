@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='windows-1256' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+    <ui:composition template="./hr_profile_template.xhtml">
+     <ui:define name="header_menu">
+        <h:form style="position: relative;left: 0px;top: 10px" id="frm_header" >
+        <p:dock position="top" halign="left">
+     <p:menuitem style="color: black;font-size: small"  value="Home" icon="/images/home.png" url="/faces/home.xhtml"/>
+     <p:menuitem style="color: black;font-size: small" value="Mail" icon="/images/mail.png" url="http://mail.ccg.com.eg"/>
+     <p:menuitem style="color: black;font-size: small" value="Logout" icon="/images/logout.png" onclick="document.getElementById('frm_header:logout').click();"/>
+     </p:dock>
+        <h:commandButton style="visibility: hidden" id="logout" action="#{loginBean.logout}"/>
+    </h:form>
+        </ui:define>
+        <ui:define name="user_data">
+            <h:form>
+            <p:fieldset style="width: 244px;background: #326DA7;position: relative;left: 2px;">
+                <div align="right">
+                <h:panelGrid columns="2">
+                   <h:panelGrid columns="3" dir="RTL">
+                   <h:outputText value="الأسم" style="color: orange;font-weight:bold;font-size:xx-small"/>
+                   <h:outputText value="  :  " style="color: orange;font-weight:bold;font-size: xx-small" />
+                   <h:outputText value="#{emp_info.hrempinfo.empName}" style="color: lightgoldenrodyellow;font-size: xx-small; font-weight:bold;width: 150%"/>
+<!--                   <h:outputText value="الوظيفة" style="color: orange;font-weight:bold;font-size: xx-small"/>
+                   <h:outputText value="  :  " style="color: orange;font-weight:bold;font-size: xx-small" />
+                   <h:outputText value="#{emp_info.hrempinfo.jobName}" style="color: lightgoldenrodyellow;font-size: xx-small; font-weight:bold;width: 150%"/>
+                   <h:outputText value="القسم" style="color: orange;font-weight:bold;font-size: xx-small"/>
+                   <h:outputText value="  :  " style="color: orange;font-weight:bold;font-size: xx-small" />
+                   <h:outputText value="#{emp_info.hrempinfo.deptName}" style="color: lightgoldenrodyellow;font-size: xx-small; font-weight:bold;width: 150%"/>-->
+                   </h:panelGrid>
+                  <h:graphicImage value="#{emp_info.img}" width="60" height="70" />
+               </h:panelGrid>
+              </div>
+               </p:fieldset>
+              </h:form>
+        </ui:define>
+      <ui:define name="title">
+      <div align="center" style="float: right;background-image: url('images/arrow.png');width: 190px;height: 40px;">
+          <h:graphicImage value="/images/spacer.gif" width="0" height="25"/>
+          <table align="right">
+          <tr style="height: 2px">
+          </tr>
+          <tr style="position: relative;top: 0px;">
+          <td>
+          <h:outputText value="الآجـــــــل*" style="color: gold;font: Lucida Grande, Lucida Sans, Arial, sans-serif;font-size: small;font-weight: bolder"/>
+          </td>
+          <td>
+          <h:graphicImage style="float: right;" value="/images/monitor.png" width="25" height="25"/>
+          </td>
+          </tr>
+          </table>
+      </div>
+      </ui:define>
+      <ui:define name="menu">
+        <div dir="rtl" align="center">
+      <h:panelGrid columns="1">
+          <p:menubar effect="fade" model="#{menuBean.menumodel}" autoSubmenuDisplay="true" />
+      </h:panelGrid>
+      </div>
+      </ui:define>
+        <ui:define name="img">
+            <h:graphicImage value="/images/worker-34.gif" width="95" height="100" />
+        </ui:define>
+      <ui:define name="body">
+        <script language="javascript" src="hr_profile_js.js" type="text/javascript">
+        </script>
+        <script language="javascript" type="text/javascript" >
+          function f1()
+            {
+              handle_date("frm:frm_date");
+            }
+            function f2()
+            {
+              handle_date("frm:to_date");
+            }
+        </script>
+
+      <h:form id="frm">
+      <div align="center">
+      <h:panelGrid style="width: 705px;background-color:#D0DDE7" columns="4" cellpadding="5" dir="RTL">
+      <h:panelGrid columns="3">
+          <h:outputText value="من تاريخ" style="font-weight: bold;font-size: small;color: darkblue" />
+      <h:outputText value=":" style="font-weight: bold;font-size: small;color: darkblue"/>
+      <h:inputText id="frm_date" onkeypress="return handleEnter(this, event)" onchange="f1();" value="#{all_ordrs_not_paied.from_date}" converterMessage="يجب إدخال التاريخ على هيئة dd/mm/yyyy"  style="font-size: small;color: darkblue;width: 50%" converter="#{customConvertDateTime}"/>
+      </h:panelGrid>
+      <h:panelGrid columns="3">
+      <h:outputText value="الى تاريخ" style="font-weight: bold;font-size: small;color: darkblue"/>
+      <h:outputText value=":" style="font-weight: bold;font-size: small;color: darkblue"/>
+      <h:inputText id="to_date" onkeypress="return handleEnter(this, event)" onchange="f2();" value="#{all_ordrs_not_paied.to_date}"  converterMessage="يجب إدخال التاريخ على هيئة dd/mm/yyyy" style="font-size: small;color: darkblue;width: 50%" converter="#{customConvertDateTime}" />
+      </h:panelGrid>
+      <h:panelGrid columns="3">
+      <h:outputText value="الفرع" style="font-weight: bold;font-size: small;color: darkblue"/>
+      <h:outputText value=":" style="font-weight: bold;font-size: small;color: darkblue"/>
+      <h:selectOneMenu value="#{all_ordrs_not_paied.brn_id}" onkeypress="return handleEnter(this, event)"
+                       style="font-size:small;font-family:'Times New Roman', 'Arial Black', times, Serif;width:100.0%;color: darkblue;font-weight:bold;">
+        <f:selectItem/>
+        <f:selectItems value="#{all_ordrs_not_paied.crmkBranchList}" />
+      </h:selectOneMenu>
+      </h:panelGrid>
+          <p:commandButton value="بحث" image="ui-icon ui-icon-search"  actionListener="#{all_ordrs_not_paied.search}" update="frm:ordr" />
+      </h:panelGrid>
+
+
+          <p:dataTable style="width: 705px"   binding="#{all_ordrs_not_paied.dt}" id="ordr"  var="ordr" value="#{all_ordrs_not_paied.orders_not_paied_list}" paginator="true" rows="15"  paginatorPosition="bottom" emptyMessage="لا يوجد نتائج للبحث" >
+              <p:column sortBy="#{ordr.hrId.empName}" style="text-align: center" headerText="الموظف">
+             <h:outputText value="#{ordr.hrId.empName}" style="color:darkblue;font-size: smaller;"/>
+          </p:column>
+              <p:column sortBy="#{ordr.branchName}" style="text-align: center" headerText="المعرض">
+             <h:outputText value="#{ordr.branchName}" style="color:darkblue;font-size: smaller;"/>
+          </p:column>
+              <p:column sortBy="#{ordr.total}" style="text-align: center" headerText="الإجمالى">
+             <h:outputText value="#{ordr.total}" style="color:darkblue;font-size: smaller;"/>
+          </p:column>
+              <p:column sortBy="#{ordr.rmn}" style="text-align: center" headerText="المتبقى">
+             <h:outputText value="#{ordr.rmn}" style="color:darkblue;font-size: smaller;"/>
+          </p:column>
+              <p:column sortBy="#{ordr.payed}" style="text-align: center" headerText="المسدد">
+              <h:outputText value="#{ordr.payed}" style="color:darkblue;font-size: smaller;"/>
+          </p:column>
+              <p:column sortBy="#{ordr.yomyaNo}" style="text-align: center" headerText="رقم اليومية">
+              <h:outputText value="#{ordr.yomyaNo}" style="color:darkblue;font-size: smaller;"/>
+          </p:column>
+              <p:column sortBy="#{ordr.clintPhone}" style="text-align: center" headerText="التليفون">
+              <h:outputText value="#{ordr.clintPhone}" style="color:darkblue;font-size: smaller;"/>
+          </p:column>
+              <p:column sortBy="#{ordr.clntName}" style="text-align: center" headerText="العميل">
+              <h:outputText value="#{ordr.clntName}" style="color:darkblue;font-size: smaller;"/>
+          </p:column>
+              <p:column sortBy="#{ordr.ordrDate}" style="text-align: center" headerText="تاريخ الطلبية">
+              <h:outputText value="#{ordr.ordrDate}" converter="#{customConvertDateTime}" style="color:darkblue;font-size: smaller;"/>
+          </p:column>
+              <p:column sortBy="#{ordr.crmkDcre}" style="text-align: center" headerText="النوع">
+               <h:outputText value="#{ordr.crmkDcre == &quot;C&quot; ? &quot;س&quot; : (ordr.crmkDcre == &quot;D&quot; ? &quot;د&quot; : &quot;ص&quot;)}" style="color:darkblue;font-size: smaller;"/>
+          </p:column>
+              <p:column sortBy="#{ordr.no}" style="text-align: center" headerText="رقم الطلبية">
+              <h:outputText value="#{ordr.no}" style="color:darkblue;font-size: smaller;"/>
+          </p:column>
+      </p:dataTable>
+      </div>
+     <h:outputLink id="lnk" title="طباعة">
+        <p:printer target="ordr" />
+        <h:graphicImage value="/images/printer.png" height="35" width="40"/>
+      </h:outputLink>
+      </h:form>
+      </ui:define>
+    </ui:composition>
+    </h:body>
+</html>
+

@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body dir="rtl">
+        <ui:composition template="./hr_profile_template.xhtml">
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-pencil-square-o"/>
+                    <h:outputText value="#{msg.Requests}" />
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="#{msg.Advance}" />
+            </ui:define>
+
+            <ui:define name="body">
+                <script language="javascript" src="hr_profile_js.js" type="text/javascript"/>
+                <h:form id="frm">
+                    <p:growl id="growl" showDetail="true" life="4000" />
+                    <p:fieldset id="fs">
+                        <div align="center">
+                            <h:panelGrid dir="RTL" width="100%" columns="1" cellspacing="3" cellpadding="5">
+                                <h:outputText value="#{msg.MrFundBorrowResponsible}" style="font-size:small;font-weight: bold"/>
+                                <p:spacer height="10"/>
+                                <h:panelGrid columns="7">
+                                    <p:spacer height="40" width="70"/>
+                                    <h:outputText value="#{msg.PleaseApproveAdvanceRequest}" style="font-size:small;font-weight: bold"/>
+                                    <p:spacer height="40" width="10"/>
+                                    <p:inputText disabled="#{not empty advanceRequest.hrAdvanceRequest.respApprove}" size="7" onkeypress="return handleEnter(this, event)" value="#{advanceRequest.hrAdvanceRequest.amount}" style="font-size:small;font-weight: bold"/>
+                                    <p:spacer height="1" width="150"/>
+                                    <h:outputText value="#{msg.Cancel}" />
+                                    <h:selectBooleanCheckbox disabled="#{not empty advanceRequest.hrAdvanceRequest.respApprove}" tabindex="1000"  onkeypress="return handleEnter(this, event)" value="#{advanceRequest.cancel}" />
+
+                                    <h:outputText/>
+                                    <h:panelGrid columns="5">
+                                        <h:outputText value="#{msg.Guarantee}" style="font-size:small;font-weight: bold"/>
+                                        <p:spacer height="40" width="30"/>
+                                        <p:inputText size="5" disabled="#{not empty advanceRequest.hrAdvanceRequest.respApprove}" value="#{advanceRequest.hrAdvanceRequest.guaranteeNo}" style="font-size:small;font-weight: bold" onkeypress="return handleEnter(this, event)">
+                                            <f:converter converterId="EmpConverter"/>
+                                            <p:ajax listener="#{fundBorrow.removeGuarantee1Data}" event="change" immediate="true" update=":frm:guarantee"/>
+                                        </p:inputText>
+                                        <p:spacer height="40" width="3"/>
+                                        <p:inputText readonly="true" id="guarantee" onkeypress="return handleEnter(this, event)" value="#{advanceRequest.hrAdvanceRequest.guaranteeNo.empName}" style="font-size:small;font-weight: bold"/>
+                                    </h:panelGrid>
+                                    <h:outputText/>
+                                    <h:outputText/>
+                                    <h:outputText/>
+                                    <h:outputText/>
+                                    <h:outputText/>
+
+                                    <h:outputText/>
+                                    <h:panelGrid columns="5">
+                                        <h:outputText value="#{msg.DeptMng}" style="font-size:small;font-weight: bold"/>
+                                        <p:spacer height="40" width="10"/>
+                                        <p:inputText disabled="#{not empty advanceRequest.hrAdvanceRequest.respApprove}" size="5" value="#{advanceRequest.hrAdvanceRequest.deptMngNo}" style="font-size:small;font-weight: bold" onkeypress="return handleEnter(this, event)">
+                                            <f:converter converterId="EmpConverter"/>
+                                            <p:ajax listener="#{fundBorrow.removeGuarantee1Data}" event="change" immediate="true" update=":frm:deptMng"/>
+                                        </p:inputText>
+                                        <p:spacer height="40" width="3"/>
+                                        <p:inputText readonly="true"  id="deptMng" onkeypress="return handleEnter(this, event)" value="#{advanceRequest.hrAdvanceRequest.deptMngNo.empName}" style="font-size:small;font-weight: bold"/>
+                                    </h:panelGrid>
+                                    <h:outputText/>
+                                    <h:outputText/>
+                                    <h:outputText/>
+                                    <h:outputText/>
+                                    <h:outputText/>
+                                    <h:outputText/>
+                                </h:panelGrid>
+                                <p:spacer height="30"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2">
+                                <p:commandButton disabled="#{not empty advanceRequest.hrAdvanceRequest.respApprove}" update="growl fs privious" actionListener="#{advanceRequest.saveRequest}" value="#{msg.Save}" />
+                                <p:commandButton update="fs" id="cmd" actionListener="#{advanceRequest.newSearch}" value="#{msg.NewRequest}" />
+                            </h:panelGrid>
+                        </div>
+                    </p:fieldset>
+                    <p:dataTable  id="privious" widgetVar="privious"  var="privious" selection="#{advanceRequest.selectedRequest}" selectionMode="single" value="#{advanceRequest.hrAdvanceRequestList}" rowKey="#{privious.id}" rowIndexVar="indx" paginatorPosition="bottom" rows="10" paginator="true" >
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.PreviousRequests}"/>
+                        </f:facet>
+                        <p:ajax event="rowSelect" listener="#{advanceRequest.rowSelectListner}" update=":frm:fs"/>
+                        <p:column width="40" headerText="#{msg.Date}">
+                            <h:outputText value="#{privious.trnsDate}" converter="#{customConvertDateTime}" style="font-size:small;font-weight: bold"/>
+                        </p:column>
+                        <p:column style="text-align: center" width="30" headerText="#{msg.Value}">
+                            <h:outputText value="#{privious.amount}" style="font-size:small;;font-weight: bold;" />
+                        </p:column>
+                        <p:column width="70" headerText="#{msg.Guarantee}">
+                            <h:outputText value="#{privious.guaranteeNo.empName}" style="font-size:small;font-weight: bold" />
+                        </p:column>
+                        <p:column style="text-align: center" width="25" headerText="#{msg.ApproveStatus}">
+                            <h:graphicImage value="/images/check.png" rendered="#{privious.guaranteeApprove eq &quot;Y&quot;}" />
+                            <h:graphicImage value="/images/cross.png" rendered="#{privious.guaranteeApprove eq &quot;N&quot;}" />
+                        </p:column>
+                        <p:column width="70" headerText="#{msg.DeptMng}">
+                            <h:outputText value="#{privious.deptMngNo.empName}" style="font-size:small;font-weight: bold" />
+                        </p:column>
+                        <p:column style="text-align: center" width="25" headerText="#{msg.ApproveStatus}">
+                            <h:graphicImage value="/images/check.png" rendered="#{privious.deptMngApprove eq &quot;Y&quot;}" />
+                            <h:graphicImage value="/images/cross.png" rendered="#{privious.deptMngApprove eq &quot;N&quot;}" />
+                        </p:column>
+                        <p:column width="70" headerText="#{msg.FundBorrowResponsible}">
+                            <h:outputText value="#{privious.fundRespNo.empName}" style="font-size:small;font-weight: bold" />
+                        </p:column>
+                        <p:column style="text-align: center" width="25" headerText="#{msg.ApproveStatus}">
+                            <h:graphicImage value="/images/check.png" rendered="#{privious.respApprove eq &quot;Y&quot;}" />
+                            <h:graphicImage value="/images/cross.png" rendered="#{privious.respApprove eq &quot;N&quot;}" />
+                        </p:column>
+                        <p:column style="text-align: center" width="25" headerText="#{msg.Cancel}">
+                            <h:graphicImage value="/images/check.png" rendered="#{privious.cancel eq &quot;Y&quot;}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

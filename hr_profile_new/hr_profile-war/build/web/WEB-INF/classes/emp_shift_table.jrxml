@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="emp_shift_table" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="from_date" class="java.util.Date"/>
+	<parameter name="to_date" class="java.util.Date"/>
+	<parameter name="emp_no" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[select to_char(t.trns_date,'Day') day,t.trns_date,s.name shift_name,info.emp_name,info.location
+        from hr_emp_time t,hr_shift s,hr_emp_info info
+        where s.id=t.shift_id
+        and t.hd_id=info.emp_no
+        and t.hd_id=$P{emp_no}
+        and t.trns_date between $P{from_date} and $P{to_date}
+        order by t.trns_date]]>
+	</queryString>
+	<field name="DAY" class="java.lang.String"/>
+	<field name="TRNS_DATE" class="java.sql.Timestamp"/>
+	<field name="SHIFT_NAME" class="java.lang.String"/>
+	<field name="EMP_NAME" class="java.lang.String"/>
+	<field name="LOCATION" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="42">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="-59" width="555" height="101" backcolor="#006699"/>
+				<staticText>
+					<reportElement x="386" y="43" width="147" height="27" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="16" isBold="true" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[جدول الشيفت من تاريخ ]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="dd-MM-yyyy">
+					<reportElement x="250" y="43" width="136" height="27" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="16" isBold="true" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{from_date}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="189" y="43" width="61" height="27" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="16" isBold="true" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[الى تاريخ ]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="dd-MM-yyyy">
+					<reportElement x="85" y="43" width="104" height="27" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="16" isBold="true" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{to_date}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="468" y="73" width="65" height="28" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="16" isBold="true" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[الموظف :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="192" y="73" width="58" height="27" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="16" isBold="true" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[الموقع :]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="">
+					<reportElement x="244" y="73" width="228" height="27" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="16" isBold="true" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{EMP_NAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="">
+					<reportElement x="1" y="73" width="197" height="27" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="16" isBold="true" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{LOCATION}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="26">
+			<line>
+				<reportElement x="1" y="24" width="553" height="1" forecolor="#666666"/>
+			</line>
+			<rectangle>
+				<reportElement mode="Opaque" x="438" y="0" width="117" height="23" forecolor="#006699" backcolor="#E6E6E6"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Opaque" x="455" y="3" width="80" height="19" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[اليوم]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Opaque" x="274" y="0" width="164" height="23" forecolor="#006699" backcolor="#E6E6E6"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Transparent" x="274" y="1" width="165" height="24" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[التاريخ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Opaque" x="1" y="0" width="273" height="23" forecolor="#006699" backcolor="#E6E6E6"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Opaque" x="20" y="2" width="234" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[الشيفت]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<rectangle>
+				<reportElement mode="Opaque" x="438" y="0" width="117" height="20" forecolor="#006699" backcolor="#FFFFFF"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<textField isStretchWithOverflow="true" pattern="dd-MM-yyyy">
+				<reportElement x="438" y="0" width="116" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Opaque" x="274" y="0" width="164" height="20" forecolor="#006699" backcolor="#FFFFFF"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<textField isStretchWithOverflow="true" pattern="dd-MM-yyyy">
+				<reportElement x="274" y="0" width="164" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TRNS_DATE}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Opaque" x="1" y="0" width="273" height="20" forecolor="#006699" backcolor="#FFFFFF"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="1" y="0" width="273" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SHIFT_NAME}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6"/>
+				<textElement>
+					<font isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,320 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body dir="rtl">
+        <ui:composition template="./hr_profile_template.xhtml">
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-list-alt"/>
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="#{msg.MosqueCrmkReq}" />
+            </ui:define>
+
+            <ui:define name="body">
+                <script language="javascript" src="hr_profile_js.js" type="text/javascript"/>
+                <h:form id="frm">
+                    <p:growl id="messages" showDetail="true" />
+
+                    <p:wizard id="wizard"  nextLabel="#{msg.Next}" backLabel="#{msg.Back}" style="direction: rtl;height: 60%;text-align: right">
+                        <p:tab title="#{msg.ViewerDetails}">
+                            <p:panel>
+                                <p:messages/>
+                                <h:panelGrid columns="1">
+                                    <p:spacer width="5" height="20"/>
+                                    <h:panelGrid id="viewer" columns="2">
+                                        <h:panelGrid columns="5" cellspacing="5" cellpadding="5">
+
+                                            <h:outputText value="#{msg.ViewerName}"
+                                                          style="font-size:110%; font-weight:bold;text-align:center;"/>
+                                            <p:spacer width="5" height="1"/>
+                                            <p:inputText value="#{mosqueCrmkReq.hrMosqueCrmkReq.empNo}" size="6" onkeypress="return handleEnter(this, event)">
+                                                <f:converter converterId="EmpConverter"/>
+                                                <f:ajax event="valueChange" render="viewer"/>
+                                            </p:inputText>
+                                            <p:spacer width="5" height="1"/>
+                                            <p:inputText required="true" requiredMessage="#{msg.MustEnterViewerName}" value="#{mosqueCrmkReq.hrMosqueCrmkReq.empName1}" onkeypress="return handleEnter(this, event)"/>
+
+                                            <h:outputText value="#{msg.ViewerName}" rendered="#{mosqueCrmkReq.showEmp2}"
+                                                          style="font-size:110%; font-weight:bold;text-align:center;"/>
+                                            <p:spacer width="5" height="1" rendered="#{mosqueCrmkReq.showEmp2}"/>
+                                            <p:inputText value="#{mosqueCrmkReq.hrMosqueCrmkReq.empNo2}" rendered="#{mosqueCrmkReq.showEmp2}" size="6" onkeypress="return handleEnter(this, event)">
+                                                <f:converter converterId="EmpConverter"/>
+                                                <f:ajax event="valueChange" render="viewer"/>
+                                            </p:inputText>
+                                            <p:spacer width="5" height="1" rendered="#{mosqueCrmkReq.showEmp2}"/>
+                                            <p:inputText value="#{mosqueCrmkReq.hrMosqueCrmkReq.empName2}" rendered="#{mosqueCrmkReq.showEmp2}" onkeypress="return handleEnter(this, event)"/>
+
+                                            <h:outputText value="#{msg.ViewerName}" rendered="#{mosqueCrmkReq.showEmp3}"
+                                                          style="font-size:110%; font-weight:bold;text-align:center;"/>
+                                            <p:spacer width="5" height="1" rendered="#{mosqueCrmkReq.showEmp3}"/>
+                                            <p:inputText value="#{mosqueCrmkReq.hrMosqueCrmkReq.empNo3}" rendered="#{mosqueCrmkReq.showEmp3}" size="6" onkeypress="return handleEnter(this, event)">
+                                                <f:converter converterId="EmpConverter"/>
+                                                <f:ajax event="valueChange" render="viewer"/>
+                                            </p:inputText>
+                                            <p:spacer width="5" height="1" rendered="#{mosqueCrmkReq.showEmp3}"/>
+                                            <p:inputText value="#{mosqueCrmkReq.hrMosqueCrmkReq.empName3}" rendered="#{mosqueCrmkReq.showEmp3}" onkeypress="return handleEnter(this, event)"/>
+
+                                            <h:outputText value="#{msg.ViewerName}" rendered="#{mosqueCrmkReq.showEmp4}"
+                                                          style="font-size:110%; font-weight:bold;text-align:center;"/>
+                                            <p:spacer width="5" rendered="#{mosqueCrmkReq.showEmp4}" height="1"/>
+                                            <p:inputText value="#{mosqueCrmkReq.hrMosqueCrmkReq.empNo4}" rendered="#{mosqueCrmkReq.showEmp4}" size="6" onkeypress="return handleEnter(this, event)">
+                                                <f:converter converterId="EmpConverter"/>
+                                                <f:ajax event="valueChange" render="viewer"/>
+                                            </p:inputText>
+                                            <p:spacer width="5" height="1" rendered="#{mosqueCrmkReq.showEmp4}"/>
+                                            <p:inputText value="#{mosqueCrmkReq.hrMosqueCrmkReq.empName4}" rendered="#{mosqueCrmkReq.showEmp4}" onkeypress="return handleEnter(this, event)"/>
+
+                                            <h:outputText value="#{msg.ViewerName}" rendered="#{mosqueCrmkReq.showEmp5}"
+                                                          style="font-size:110%; font-weight:bold;text-align:center;"/>
+                                            <p:spacer width="5" rendered="#{mosqueCrmkReq.showEmp5}" height="1"/>
+                                            <p:inputText value="#{mosqueCrmkReq.hrMosqueCrmkReq.empNo5}" rendered="#{mosqueCrmkReq.showEmp5}" size="6" onkeypress="return handleEnter(this, event)">
+                                                <f:converter converterId="EmpConverter"/>
+                                                <f:ajax event="valueChange" render="viewer"/>
+                                            </p:inputText>
+                                            <p:spacer width="5" height="1" rendered="#{mosqueCrmkReq.showEmp5}"/>
+                                            <p:inputText value="#{mosqueCrmkReq.hrMosqueCrmkReq.empName5}" rendered="#{mosqueCrmkReq.showEmp5}" onkeypress="return handleEnter(this, event)"/>
+
+                                        </h:panelGrid>
+                                        <p:commandLink update="wizard"  action="#{mosqueCrmkReq.addNewViewer}" style="width: 6%;text-align: center;position: relative;bottom: 0px">
+                                            <h:graphicImage value="/images/add.png"/>
+                                        </p:commandLink>
+                                    </h:panelGrid>
+                                    <p:spacer width="5" height="20"/>
+                                    <h:panelGrid columns="3" cellspacing="5" cellpadding="5">
+                                        <h:outputText value="#{msg.PhoneNo}"
+                                                      style="font-size:110%; font-weight:bold;text-align:center;"/>
+                                        <p:spacer width="5" height="1"/>
+                                        <p:inputText required="true" requiredMessage="#{msg.MustEnterPhone}" value="#{mosqueCrmkReq.hrMosqueCrmkReq.phoneNo}" style="width:80%;text-align: center;font-size:small;" onkeypress="return handleEnter(this, event)">
+                                        </p:inputText>
+                                    </h:panelGrid>
+
+                                    <p:spacer width="5" height="20"/>
+
+                                    <h:panelGrid columns="3" cellspacing="5" cellpadding="5">
+                                        <h:outputText value="#{msg.Notes}"
+                                                      style="font-size:110%; font-weight:bold;text-align:center;"/>
+                                        <p:spacer width="5" height="1"/>
+                                        <p:inputTextarea cols="100" value="#{mosqueCrmkReq.hrMosqueCrmkReq.notes}" style="width:80%;text-align: center;font-size:small;">
+                                        </p:inputTextarea>
+                                    </h:panelGrid>
+                                    <p:spacer width="5" height="50"/>
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+                        <p:tab title="#{msg.ViewDetails}">
+                            <p:panel>
+                                <p:messages/>
+                                <h:panelGrid columns="1">
+                                    <h:panelGrid columns="3" cellspacing="30" cellpadding="30">
+                                        <h:outputText value="#{msg.MosqueName}"
+                                                      style="font-size:110%; font-weight:bold;text-align:center;"/>
+                                        <p:spacer width="5" height="1"/>
+                                        <p:inputText required="true" requiredMessage="#{msg.MustEnterMosqueName}" value="#{mosqueCrmkReq.hrMosqueCrmkReq.mosque}" onkeypress="return handleEnter(this, event)"/>
+                                    </h:panelGrid>
+                                    <p:spacer width="5" height="20"/>
+                                    <h:panelGrid columns="3" cellspacing="30" cellpadding="30">
+                                        <h:outputText value="#{msg.VillageName}"
+                                                      style="font-size:110%; font-weight:bold;text-align:center;"/>
+                                        <p:spacer width="5" height="1"/>
+                                        <p:inputText required="true" requiredMessage="#{msg.MustEnterVillageName}" value="#{mosqueCrmkReq.hrMosqueCrmkReq.village}" onkeypress="return handleEnter(this, event)"/>
+                                    </h:panelGrid>
+                                    <p:spacer width="5" height="20"/>
+                                    <h:panelGrid columns="3" cellspacing="30" cellpadding="30">
+                                        <h:outputText value="#{msg.GovernName}"
+                                                      style="font-size:110%; font-weight:bold;text-align:center;"/>
+                                        <p:spacer width="5" height="1"/>
+                                        <p:inputText required="true" requiredMessage="#{msg.MustEnterGovernName}" value="#{mosqueCrmkReq.hrMosqueCrmkReq.govern}" onkeypress="return handleEnter(this, event)"/>
+                                    </h:panelGrid>
+                                    <p:spacer width="5" height="20"/>
+                                    <h:panelGrid columns="3" cellspacing="20" cellpadding="20">
+                                        <h:outputText value="#{msg.AddressDetail}"
+                                                      style="font-size:110%; font-weight:bold;text-align:center;"/>
+                                        <p:spacer width="5" height="1"/>
+                                        <p:inputText required="true" requiredMessage="#{msg.MustEnterAddress}" value="#{mosqueCrmkReq.hrMosqueCrmkReq.address}" size="50" onkeypress="return handleEnter(this, event)"/>
+                                    </h:panelGrid>
+                                    <p:spacer width="5" height="20"/>
+                                    <h:panelGrid columns="3" cellspacing="20" cellpadding="20">
+                                        <h:outputText value="#{msg.ViewDate}"
+                                                      style="font-size:110%; font-weight:bold;text-align:center;"/>
+                                        <p:spacer width="5" height="1"/>
+                                        <p:inputMask required="true" requiredMessage="#{msg.MustEnterViewDate}" mask="99/99/9999" value="#{mosqueCrmkReq.hrMosqueCrmkReq.viewDate}"  converterMessage="#{msg.DateConverter}"  converter="#{customConvertDateTime}"
+                                                     style="width:80%;text-align: center;font-size:small;" onkeypress="return handleEnter(this, event)">
+                                        </p:inputMask>
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+
+                        <p:tab title="#{msg.WallArea}">
+                            <p:panel>
+                                <p:messages/>
+                                <h:panelGrid columns="1">
+                                    <h:panelGrid columns="3" cellspacing="20" cellpadding="20">
+                                        <h:outputText value="#{msg.Length}"
+                                                      style="font-size:110%; font-weight:bold;text-align:center;"/>
+                                        <p:spacer width="5" height="1"/>
+                                        <p:inputText size="5" required="true" requiredMessage="#{msg.MustEnterLength}" value="#{mosqueCrmkReq.hrMosqueCrmkReq.wallL1}" onkeypress="return handleEnter(this, event)"/>
+                                    </h:panelGrid>
+                                    <p:spacer width="5" height="20"/>
+                                    <h:panelGrid columns="3" cellspacing="20" cellpadding="20">
+                                        <h:outputText value="#{msg.Width}"
+                                                      style="font-size:110%; font-weight:bold;text-align:center;"/>
+                                        <p:spacer width="5" height="1"/>
+                                        <p:inputText required="true" requiredMessage="#{msg.MustEnterWidth}" size="5" value="#{mosqueCrmkReq.hrMosqueCrmkReq.wallW1}" onkeypress="return handleEnter(this, event)"/>
+                                    </h:panelGrid>
+                                    <p:spacer width="5" height="20"/>
+                                    <h:panelGrid columns="3" cellspacing="20" cellpadding="20">
+                                        <h:outputText value="#{msg.Length}"
+                                                      style="font-size:110%; font-weight:bold;text-align:center;"/>
+                                        <p:spacer width="5" height="1"/>
+                                        <p:inputText size="5" required="true" requiredMessage="#{msg.MustEnterLength}" value="#{mosqueCrmkReq.hrMosqueCrmkReq.wallL2}" onkeypress="return handleEnter(this, event)"/>
+                                    </h:panelGrid>
+                                    <p:spacer width="5" height="20"/>
+                                    <h:panelGrid columns="3" cellspacing="20" cellpadding="20">
+                                        <h:outputText value="#{msg.Width}"
+                                                      style="font-size:110%; font-weight:bold;text-align:center;"/>
+                                        <p:spacer width="5" height="1"/>
+                                        <p:inputText required="true" requiredMessage="#{msg.MustEnterWidth}" size="5" value="#{mosqueCrmkReq.hrMosqueCrmkReq.wallW2}" onkeypress="return handleEnter(this, event)"/>
+                                    </h:panelGrid>
+                                    <p:spacer width="5" height="20"/>
+                                    <h:panelGrid columns="3" cellspacing="20" cellpadding="20">
+                                        <h:outputText value="#{msg.BathCount}"
+                                                      style="font-size:110%; font-weight:bold;text-align:center;"/>
+                                        <p:spacer width="5" height="1"/>
+                                        <p:inputText size="5" required="true" requiredMessage="#{msg.MustEnterBathNumber}" value="#{mosqueCrmkReq.hrMosqueCrmkReq.wallBathNo}" onkeypress="return handleEnter(this, event)"/>
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+
+                        <p:tab title="#{msg.BathMirorrs}">
+                            <p:panel>
+                                <p:messages/>
+                                <h:panelGrid columns="1">
+                                    <p:spacer width="5" height="20"/>
+                                    <h:panelGrid columns="3" cellspacing="20" cellpadding="20">
+                                        <h:outputText value="#{msg.Width}"
+                                                      style="font-size:110%; font-weight:bold;text-align:center;"/>
+                                        <p:spacer width="5" height="1"/>
+                                        <p:inputText required="true" requiredMessage="#{msg.MustEnterWidth}" size="5" value="#{mosqueCrmkReq.hrMosqueCrmkReq.mirrorW}" onkeypress="return handleEnter(this, event)"/>
+                                    </h:panelGrid>
+                                    <p:spacer width="5" height="40"/>
+                                    <h:panelGrid columns="3" cellspacing="20" cellpadding="20">
+                                        <h:outputText value="#{msg.MirrorsNo}"
+                                                      style="font-size:110%; font-weight:bold;text-align:center;"/>
+                                        <p:spacer width="5" height="1"/>
+                                        <p:inputText size="5" required="true" requiredMessage="#{msg.MustEnterMirrorsNumber}" value="#{mosqueCrmkReq.hrMosqueCrmkReq.mirrorNo}" onkeypress="return handleEnter(this, event)"/>
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+
+                        <p:tab title="#{msg.WallStreamArea}">
+                            <p:panel>
+                                <p:messages/>
+                                <h:panelGrid columns="1">
+                                    <p:spacer width="30" height="20"/>
+                                    <h:panelGrid columns="3" cellspacing="20" cellpadding="20">
+                                        <h:outputText value="#{msg.WallStreamArea}"
+                                                      style="font-size:110%; font-weight:bolder;text-align:center;"/>
+                                        <p:spacer width="5" height="1"/>
+                                        <p:inputText required="true" requiredMessage="#{msg.MustEnterWallStreamArea}" size="5" value="#{mosqueCrmkReq.hrMosqueCrmkReq.wallStreamArea}" onkeypress="return handleEnter(this, event)"/>
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+
+                        <p:tab title="#{msg.BathFloorArea}">
+                            <p:panel>
+                                <p:messages/>
+                                <h:panelGrid columns="1">
+                                    <p:spacer width="30" height="20"/>
+                                    <h:panelGrid columns="3" cellspacing="20" cellpadding="20">
+                                        <h:outputText value="#{msg.Length}"
+                                                      style="font-size:110%; font-weight:bold;text-align:center;"/>
+                                        <p:spacer width="5" height="1"/>
+                                        <p:inputText size="5" required="true" requiredMessage="#{msg.MustEnterLength}" value="#{mosqueCrmkReq.hrMosqueCrmkReq.floorL}" onkeypress="return handleEnter(this, event)"/>
+                                    </h:panelGrid>
+                                    <p:spacer width="30" height="20"/>
+                                    <h:panelGrid columns="3" cellspacing="20" cellpadding="20">
+                                        <h:outputText value="#{msg.Width}"
+                                                      style="font-size:110%; font-weight:bold;text-align:center;"/>
+                                        <p:spacer width="5" height="1"/>
+                                        <p:inputText required="true" requiredMessage="#{msg.MustEnterWidth}" size="5" value="#{mosqueCrmkReq.hrMosqueCrmkReq.floorW}" onkeypress="return handleEnter(this, event)"/>
+                                    </h:panelGrid>
+                                    <p:spacer width="30" height="20"/>
+                                    <h:panelGrid columns="3" cellspacing="20" cellpadding="20">
+                                        <h:outputText value="#{msg.BathCount}"
+                                                      style="font-size:110%; font-weight:bold;text-align:center;"/>
+                                        <p:spacer width="5" height="1"/>
+                                        <p:inputText size="5" required="true" requiredMessage="#{msg.MustEnterBathNumber}" value="#{mosqueCrmkReq.hrMosqueCrmkReq.floorBathNo}" onkeypress="return handleEnter(this, event)"/>
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+
+                        <p:tab title="#{msg.FloorSittingArea}">
+                            <p:panel>
+                                <p:messages/>
+                                <h:panelGrid columns="1">
+                                    <p:spacer width="30" height="20"/>
+                                    <h:panelGrid columns="3" cellspacing="20" cellpadding="20">
+                                        <h:outputText value="#{msg.Length}"
+                                                      style="font-size:110%; font-weight:bold;text-align:center;"/>
+                                        <p:spacer width="5" height="1"/>
+                                        <p:inputText size="5" required="true" requiredMessage="#{msg.MustEnterLength}" value="#{mosqueCrmkReq.hrMosqueCrmkReq.floorSittingL}" onkeypress="return handleEnter(this, event)"/>
+                                    </h:panelGrid>
+                                    <p:spacer width="30" height="20"/>
+                                    <h:panelGrid columns="3" cellspacing="20" cellpadding="20">
+                                        <h:outputText value="#{msg.Width}"
+                                                      style="font-size:110%; font-weight:bold;text-align:center;"/>
+                                        <p:spacer width="5" height="1"/>
+                                        <p:inputText size="5" required="true" requiredMessage="#{msg.MustEnterWidth}" value="#{mosqueCrmkReq.hrMosqueCrmkReq.floorSittingW}" onkeypress="return handleEnter(this, event)"/>
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+
+                        <p:tab title="#{msg.Total}">
+                            <p:panel>
+                                <p:messages/>
+                                <h:panelGrid columns="1">
+                                    <p:spacer width="30" height="20"/>
+                                    <h:panelGrid columns="3" cellspacing="5" cellpadding="5">
+                                        <h:outputText value="#{msg.TotalWallCrmk}"
+                                                      style="font-size:110%; font-weight:bolder;text-align:center;"/>
+                                        <p:spacer width="5" height="1"/>
+                                        <p:inputText size="5" required="true" requiredMessage="#{msg.MustEnterTotalWall}" value="#{mosqueCrmkReq.hrMosqueCrmkReq.totalWall}" onkeypress="return handleEnter(this, event)"/>
+                                    </h:panelGrid>
+                                    <p:spacer width="1" height="30"/>
+                                    <h:panelGrid columns="3" cellspacing="5" cellpadding="5">
+                                        <h:outputText value="#{msg.TotalFloorCrmk}"
+                                                      style="font-size:110%; font-weight:bolder;text-align:center;"/>
+                                        <p:spacer width="5" height="1"/>
+                                        <p:inputText size="5" required="true" requiredMessage="#{msg.MustEnterTotalFloor}" value="#{mosqueCrmkReq.hrMosqueCrmkReq.totalFloor}" onkeypress="return handleEnter(this, event)"/>
+                                    </h:panelGrid>
+                                    <p:spacer width="1" height="30"/>
+                                    <div style="width: 100%" align="center">
+                                        <p:commandButton image="ui-icon ui-icon-disk" update="messages frm" id="save" value="#{msg.RequestSave}" action="#{mosqueCrmkReq.saveRequest}" />
+                                    </div>
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+                    </p:wizard>
+
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

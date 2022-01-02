@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="./hr_profile_template.xhtml">
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-history"/>
+                    <h:outputText value="Administration" />
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="#{msg.ShowroomTrgtSetup}" />
+            </ui:define>
+            <ui:define name="body">
+                <h:form id="frm">
+                    <p:growl id="growl" life="2000" showDetail="true" showSummary="true" autoUpdate="true"/>
+                    <h:panelGrid>
+                        <p:commandButton value="#{msg.AddEmployee}" update=":frm:dlg" action="#{showroomAllSetup.updateLocations}" oncomplete="PF('dlg').show();" />
+                        <p:spacer height="10" width="50"/>
+                        <p:dataTable rowKey="#{trgtLevelHd}" value="#{showroomAllSetup.hrMainTrgtLevelList}" rowIndexVar="x" scrollRows="100" scrollable="true" scrollHeight="400" var="trgtLevelHd" widgetVar="trgtLevel" id="trgtLevel" selection="#{showroomAllSetup.selectedLevelHd}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{showroomAllSetup.updateSelectedLevel}" oncomplete="PF('dlg').show()" update=":frm:dlg"/>
+                            <p:column width="100" headerText="#{msg.EmpNo}">
+                                <h:outputText value="#{trgtLevelHd.empNo.empNo}"/>
+                            </p:column>
+                            <p:column headerText="#{msg.EmpName}">
+                                <h:outputText value="#{trgtLevelHd.empNo.empName}"/>
+                            </p:column>
+                            <p:column headerText="#{msg.JobName}">
+                                <h:outputText value="#{trgtLevelHd.empNo.jobName}"/>
+                            </p:column>
+                            <p:column headerText="#{msg.LocationName}">
+                                <h:outputText value="#{trgtLevelHd.empNo.location}"/>
+                            </p:column>
+                            <p:column width="100" headerText="#{msg.Delete}">
+                                <p:commandButton icon="ui-icon-closethick" actionListener="#{showroomAllSetup.deleteTrgtLevelHd}" update="trgtLevel">
+                                    <f:param name="id" value="#{x}"/>
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGrid>
+                    <p:dialog id="dlg" header="#{msg.AddEmployee}" widgetVar="dlg" width="600" >
+                        <h:panelGrid columns="1">
+                            <h:panelGrid columns="3">
+                                <h:outputText value="#{msg.EmployeeName}" style="font-weight: bold;font-size: small"/>
+                                <p:commandButton icon="ui-icon-search"
+                                                 oncomplete="PF('empDlg').show()"
+                                                 title="Please choose an item"
+                                                 style="border:none;"
+                                                 disabled="#{showroomAllSetup.updateFlag}"/>
+                                <p:inputText disabled="#{showroomAllSetup.updateFlag}" id="empName" readonly="true" value="#{showroomAllSetup.filteredEmp.empName}"/>
+                            </h:panelGrid>
+                            <p:spacer height="10" width="50"/>
+                            <h:panelGrid columns="2">
+                                <p:pickList id="locationsList" value="#{showroomAllSetup.allLocations}" addLabel="#{msg.Add}" addAllLabel="#{msg.AddAll}"
+                                            removeAllLabel="#{msg.RemoveAll}" removeLabel="#{msg.Remove}"  var="location" effect="bounce" style="direction: ltr;"
+                                            itemValue="#{location}" itemLabel="#{location.name}" showSourceControls="false" showTargetControls="false" showCheckbox="true"
+                                            showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" converter="#{locationConvertor}" labelDisplay="inline"  responsive="true">
+
+                                    <f:facet name="sourceCaption">#{msg.AvailableShowrooms}</f:facet>
+                                    <f:facet name="targetCaption">#{msg.ChoosenShowrooms}</f:facet>
+                                    <p:column>
+                                        <h:outputText value="#{location.name}" />
+                                    </p:column>
+                                </p:pickList>
+                                <p:spacer height="20" width="50"/>
+                                <p:commandButton action="#{showroomAllSetup.saveChanges}" oncomplete="PF('dlg').hide()" update=":frm" value="#{msg.Save}"/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </p:dialog>
+                    <p:dialog id="empDlg" header="#{msg.EmployeeName}" width="300" height="400" widgetVar="empDlg">
+                        <p:dataTable rowKey="#{emp}" value="#{showroomAllSetup.empList}" rowIndexVar="x" scrollRows="100" scrollable="true" scrollHeight="400" var="emp" widgetVar="emp" id="emp" selection="#{showroomAllSetup.selectedEmp}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{showroomAllSetup.updateSelectedEmp}" oncomplete="PF('empDlg').hide()" update=":frm:empName"/>
+                            <p:column filterMatchMode="contains" filterBy="#{emp.empName}">
+                                <h:outputText value="#{emp.empName}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

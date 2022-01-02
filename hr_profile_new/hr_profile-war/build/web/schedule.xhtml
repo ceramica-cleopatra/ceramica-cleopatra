@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='windows-1256' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+         <ui:composition template="./hr_profile_template.xhtml">
+     <ui:define name="header_menu">
+        <h:form style="position: relative;left: 0px;top: 10px" id="frm_header" >
+        <p:dock position="top" halign="left">
+     <p:menuitem style="color: black;font-size: small"  value="Home" icon="/images/home.png" url="/faces/home.xhtml"/>
+     <p:menuitem style="color: black;font-size: small" value="Mail" icon="/images/mail.png" url="http://mail.ccg.com.eg"/>
+     <p:menuitem style="color: black;font-size: small" value="Logout" icon="/images/logout.png" onclick="document.getElementById('frm_header:logout').click();"/>
+     </p:dock>
+        <h:commandButton style="visibility: hidden" id="logout" action="#{loginBean.logout}"/>
+    </h:form>
+        </ui:define>
+      <ui:define name="user_data">
+           <p:fieldset style="width: 244px;background: #326DA7;position: relative;left: 2px;">
+                <div align="right">
+                <h:panelGrid columns="2">
+                   <h:panelGrid columns="3" dir="RTL">
+                   <h:outputText value="الأسم" style="color: orange;font-weight:bold;font-size:xx-small"/>
+                   <h:outputText value="  :  " style="color: orange;font-weight:bold;font-size: xx-small" />
+                   <h:outputText value="#{emp_info.hrempinfo.empName}" style="color: lightgoldenrodyellow;font-size: xx-small; font-weight:bold;width: 150%"/>
+<!--                   <h:outputText value="الوظيفة" style="color: orange;font-weight:bold;font-size: xx-small"/>
+                   <h:outputText value="  :  " style="color: orange;font-weight:bold;font-size: xx-small" />
+                   <h:outputText value="#{emp_info.hrempinfo.jobName}" style="color: lightgoldenrodyellow;font-size: xx-small; font-weight:bold;width: 150%"/>
+                   <h:outputText value="القسم" style="color: orange;font-weight:bold;font-size: xx-small"/>
+                   <h:outputText value="  :  " style="color: orange;font-weight:bold;font-size: xx-small" />
+                   <h:outputText value="#{emp_info.hrempinfo.deptName}" style="color: lightgoldenrodyellow;font-size: xx-small; font-weight:bold;width: 150%"/>-->
+                   </h:panelGrid>
+                  <h:graphicImage value="#{emp_info.img}" width="60" height="70" />
+               </h:panelGrid>
+              </div>
+               </p:fieldset>
+        </ui:define>
+     <ui:define name="title">
+      <div align="center" style="float: right;background-image: url('images/arrow.png');width: 190px;height: 40px;">
+          <h:graphicImage value="/images/spacer.gif" width="0" height="25"/>
+          <table align="right">
+          <tr style="height: 2px">
+          </tr>
+          <tr style="position: relative;top: 0px;">
+          <td>
+          <h:outputText value="جدول المهام" style="color: gold;font: Lucida Grande, Lucida Sans, Arial, sans-serif;font-size: small;font-weight: bolder"/>
+          </td>
+          <td>
+          <h:graphicImage style="float: right;" value="/images/monitor.png" width="25" height="25"/>
+          </td>
+          </tr>
+          </table>
+      </div>
+      </ui:define>
+       <ui:define name="img">
+            <h:graphicImage value="/images/worker-17.gif" width="95" height="100" />
+        </ui:define>
+      <ui:define name="menu">
+        <div dir="rtl" align="center">
+      <h:panelGrid columns="1">
+          <p:menubar effect="fade" model="#{menuBean.menumodel}" autoSubmenuDisplay="true" />
+      </h:panelGrid>
+      </div>
+      </ui:define>
+      <ui:define name="body">
+          <p:resources/>
+          <script type="text/javascript" language="javascribt">
+            function chk_data()
+            {
+              if(document.getElementById('frm_schedule:data').value!="")
+              {
+               panel.show();
+              }
+              else
+              {
+                panel.close();
+              }
+            }
+          </script>
+     <h:form id="frm_schedule" dir="RTL">
+     
+     <p:growl id="messages" showDetail="true" />
+
+     <p:schedule value="#{schedule.eventModel}" binding="#{schedule.s}" id="schedule"
+                 editable="true" widgetVar="myschedule" locale="ar"
+                 eventSelectListener="#{schedule.onEventSelect}"
+                 dateSelectListener="#{schedule.onDateSelect}"
+                 eventMoveListener="#{schedule.onEventMove}"
+                 eventResizeListener="#{schedule.onEventResize}"
+                 onEventMoveUpdate="messages" onEventResizeUpdate="messages"
+                 onDateSelectUpdate="eventDetails,data" onDateSelectComplete="chk_data();"
+                 onEventSelectUpdate="eventDetails,data" onEventSelectComplete="chk_data();"
+                 leftHeaderTemplate=""
+                 rightHeaderTemplate="prev,next"
+                 >
+
+    </p:schedule>
+
+
+       
+         <p:panel widgetVar="panel" header="متابعة مهمة" id="p" closable="true" style="position: absolute;bottom: 300px;right: 500px;width: 420px;height: 280px" >
+          <h:panelGrid dir="RTL" id="eventDetails" columns="1">
+             <h:panelGroup >
+             
+             <h:outputText value="الخطة :" style="color: darkred;font-weight: bold;width: 100px" />
+             <h:outputText id="title" value="#{schedule.event.title}" style="color: darkblue;font-weight: bold;width: 100px"/>
+             </h:panelGroup>
+              <h:panelGrid columns="3">
+              <h:panelGroup>
+             <h:outputLabel for="from" value="من :" style="color: darkred;font-weight: bold;width: 100px"/>
+             <h:outputText id="from" value="#{schedule.event.startDate}" converter="#{customConvertDateTime}" style="color: darkblue;font-weight: bold;width: 100px"/>
+              </h:panelGroup>
+              <p:spacer width="80" height="1"/>
+              <h:panelGroup>
+             <h:outputLabel for="to" value="الى :" style="color: darkred;font-weight: bold;width: 100px"/>
+             <h:outputText id="to" value="#{schedule.event.endDate}" converter="#{customConvertDateTime}" style="color: darkblue;font-weight: bold;width: 100px"/>
+              </h:panelGroup>
+             </h:panelGrid>
+             <h:panelGrid columns="3">
+             <h:panelGroup>
+             <h:outputLabel value="الحالة الحالية :" style="color: darkred;font-weight: bold;width: 100px"/>
+             <h:outputText value="#{schedule.lastStatus eq &quot;1&quot; ? &quot;لم يتم التنفيذ&quot; : (schedule.lastStatus eq &quot;2&quot; ? &quot;جارى التنفيذ&quot; : &quot;تم التنفيذ&quot;)}" converter="#{customConvertDateTime}" style="color: darkblue;font-weight: bold;width: 100px"/>
+             </h:panelGroup>
+               <p:spacer width="60" height="1"/>
+             <h:panelGroup>
+             <h:outputLabel value="المدير :" style="color: darkred;font-weight: bold;width: 100px"/>
+             <h:outputText value="#{schedule.manger}" style="color: darkblue;font-weight: bold;width: 100px"/>
+              </h:panelGroup>
+             </h:panelGrid>
+             <h:panelGrid columns="3">
+             <h:panelGroup>
+             <h:outputText value="تغيير الحالة"   style="color: darkred;font-weight: bold;width: 100px"/>
+             <h:selectOneMenu id="r" value="#{schedule.newStatus}" style="color: darkblue;font-weight: bold;width: 100px">
+             <f:selectItem/>
+             <f:selectItem itemValue="1" itemLabel="لم يتم التنفيذ"/>
+             <f:selectItem itemValue="2" itemLabel="جارى التنفيذ"/>
+             <f:selectItem itemValue="3" itemLabel="تم التنفيذ"/>
+             </h:selectOneMenu>
+             </h:panelGroup>
+             <p:spacer width="50" height="1"/>
+             <p:commandButton update="messages,schedule" value="حفظ" actionListener="#{schedule.addStatus}" oncomplete="myschedule.update();panel.close();document.getElementById('frm_schedule:populate_schedule').click();"/>
+             </h:panelGrid>
+         </h:panelGrid>
+             <h:inputText id="data" style="visibility: hidden"  value="#{schedule.event.data}"/>
+         
+         <p:editor widgetVar="editor" width="400" height="100" value="#{schedule.editor}" />
+         <div align="center">
+             <p:commandButton update="messages" value="إرسال" oncomplete="editor.clear()" actionListener="#{schedule.sendResponse}"/>
+         </div>
+         </p:panel>
+         <p:commandButton style="visibility: hidden"  update="schedule" id="populate_schedule" actionListener="#{schedule.populate_schedule}"/>
+         <p:draggable for="p" />
+     </h:form>
+
+      </ui:define>
+      </ui:composition>
+    </h:body>
+</html>
+

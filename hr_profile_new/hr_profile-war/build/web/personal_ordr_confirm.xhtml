@@ -1,0 +1,213 @@
+<?xml version='1.0' encoding='windows-1256' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <f:view>
+    <ui:composition template="./hr_profile_template.xhtml">
+       <ui:define name="header_menu">
+        <h:form style="position: relative;left: 0px;top: 10px" id="frm_header" >
+        <p:dock position="top" halign="left">
+     <p:menuitem style="color: black;font-size: small"  value="Home" icon="/images/home.png" url="/faces/home.xhtml"/>
+     <p:menuitem style="color: black;font-size: small" value="Mail" icon="/images/mail.png" url="http://mail.ccg.com.eg"/>
+     <p:menuitem style="color: black;font-size: small" value="Logout" icon="/images/logout.png" onclick="document.getElementById('frm_header:logout').click();"/>
+     </p:dock>
+        <h:commandButton style="visibility: hidden" id="logout" action="#{loginBean.logout}"/>
+    </h:form>
+        </ui:define>
+        <ui:define name="user_data">
+            <h:form>
+
+            <p:fieldset style="width: 244px;background: #326DA7;position: relative;left: 2px;">
+                <div align="right">
+                <h:panelGrid columns="2">
+                   <h:panelGrid columns="3" dir="RTL">
+                   <h:outputText value="الأسم" style="color: orange;font-weight:bold;font-size:xx-small"/>
+                   <h:outputText value="  :  " style="color: orange;font-weight:bold;font-size: xx-small" />
+                   <h:outputText value="#{emp_info.hrempinfo.empName}" style="color: lightgoldenrodyellow;font-size: xx-small; font-weight:bold;width: 150%"/>
+<!--                   <h:outputText value="الوظيفة" style="color: orange;font-weight:bold;font-size: xx-small"/>
+                   <h:outputText value="  :  " style="color: orange;font-weight:bold;font-size: xx-small" />
+                   <h:outputText value="#{emp_info.hrempinfo.jobName}" style="color: lightgoldenrodyellow;font-size: xx-small; font-weight:bold;width: 150%"/>
+                   <h:outputText value="القسم" style="color: orange;font-weight:bold;font-size: xx-small"/>
+                   <h:outputText value="  :  " style="color: orange;font-weight:bold;font-size: xx-small" />
+                   <h:outputText value="#{emp_info.hrempinfo.deptName}" style="color: lightgoldenrodyellow;font-size: xx-small; font-weight:bold;width: 150%"/>-->
+                   </h:panelGrid>
+                  <h:graphicImage value="#{emp_info.img}" width="60" height="70" />
+               </h:panelGrid>
+              </div>
+               </p:fieldset>
+               </h:form>
+        </ui:define>
+      <ui:define name="title">
+      <div align="center" style="float: right;background-image: url('images/arrow.png');width: 190px;height: 40px;">
+          <h:graphicImage value="/images/spacer.gif" width="0" height="25"/>
+          <table align="right">
+          <tr style="height: 2px">
+          </tr>
+          <tr style="position: relative;top: 0px;">
+          <td>
+          <h:outputText value="إعتماد خصم طلبية " style="color: gold;font: Lucida Grande, Lucida Sans, Arial, sans-serif;font-size: small;font-weight: bolder"/>
+          </td>
+          <td>
+          <h:graphicImage style="float: right;" value="/images/monitor.png" width="25" height="25"/>
+          </td>
+          </tr>
+          </table>
+      </div>
+      </ui:define>
+       <ui:define name="img">
+            <h:graphicImage value="/images/worker-31.gif" width="95" height="100" />
+        </ui:define>
+      <ui:define name="menu">
+          <h:form>
+        <div dir="rtl" align="center">
+      <h:panelGrid columns="1">
+          <p:menubar effect="fade" style="font-weight: bold"  model="#{menuBean.menumodel}" autoSubmenuDisplay="true" />
+      </h:panelGrid>
+      </div>
+         </h:form>
+      </ui:define>
+        <ui:define name="body">
+
+
+      <h:form onsubmit="document.getElementById('frm_list:populate_list').click();" id="frm_list">
+      <p:growl id="growl" showDetail="true" life="3000"  />
+      <p:dataTable  id="request" widgetVar="req" var="ordr" value="#{personalOrdrConfirm.hrPersonalOrdrRequests}"  height="10"  dynamic="true"
+                    onRowEditUpdate="growl" paginator="true" rows="9"  paginatorPosition="bottom" binding="#{personalOrdrConfirm.dt}" rowEditListener="#{personalOrdrConfirm.confirm_ordr_dscnt}" selectionMode="single" >
+       <p:column style="height:1%;width:1%">
+           <p:commandButton  update="dlg"  id="selectButton"  oncomplete="dialog.show()" image="ui-icon ui-icon-search" title="View">
+                <f:setPropertyActionListener value="#{ordr}" target="#{personalOrdrConfirm.hrPersonalOrdrRequest}"/>
+            </p:commandButton>  
+       </p:column>
+      <p:column headerText="تعديل" style="text-align: center;width:5%" >
+       <p:rowEditor />
+      </p:column>
+     <p:column  headerText="قبول/رفض" style="width:6%; text-align: center;">
+     <p:cellEditor>
+     <f:facet name="output">
+         <h:graphicImage value="/images/check.png" rendered="#{ordr.approve eq &quot;Y&quot;}" />
+       <h:graphicImage value="/images/cross.png" rendered="#{ordr.approve eq &quot;N&quot;}" />
+     </f:facet>
+     <f:facet name="input">
+         <h:selectOneMenu value="#{ordr.approve}" style="width:130%;text-align: center;font-size:small;color: darkblue;font-weight:bold;font-family:'Times New Roman', 'Arial Black', times, Serif;color: darkblue;font-weight:bold;">
+      <f:selectItem/>
+      <f:selectItem itemLabel="قبول" itemValue="Y"/>
+      <f:selectItem itemLabel="رفض" itemValue="N"/>
+      </h:selectOneMenu>
+     </f:facet>
+     </p:cellEditor>
+     </p:column>
+       <p:column  headerText="نسبة الخصم" style="text-align: center">
+        <p:cellEditor>
+            <f:facet name="output">
+                <h:outputText value="%" style="text-align: center;font-size:small;width:100.0%;color: darkblue;font-weight:bold;font-family:'Times New Roman', 'Arial Black', times, Serif;color: darkblue;font-weight:bold;" rendered="#{not empty ordr.dscnt}"/>
+              <h:outputText value="#{ordr.dscnt}" style="text-align: center;font-size:small;width:100.0%;color: darkblue;font-weight:bold;font-family:'Times New Roman', 'Arial Black', times, Serif;color: darkblue;font-weight:bold;"/>
+            </f:facet>
+            <f:facet name="input">
+            <h:inputText value="#{ordr.dscnt}" style="text-align: center;font-size:small;width:100.0%;color: darkblue;font-weight:bold;font-family:'Times New Roman', 'Arial Black', times, Serif;color: darkblue;font-weight:bold;"/>
+            </f:facet>
+        </p:cellEditor>
+       </p:column>
+      <p:column headerText="قيمة الطلبية" style="text-align: center">
+          <h:outputText value="#{ordr.totVal}"  style="font-size:small;width:100.0%;color: darkblue;font-weight:bold;font-family:'Times New Roman', 'Arial Black', times, Serif;color: darkblue;font-weight:bold;"/>
+      </p:column>
+      <p:column headerText="تاريخ الطلبية" style="text-align: center">
+          <h:outputText value="#{ordr.ordrTrnsDate}" converter="#{customConvertDateTime}" style="font-size:small;width:100.0%;color: darkblue;font-weight:bold;font-family:'Times New Roman', 'Arial Black', times, Serif;color: darkblue;font-weight:bold;"/>
+      </p:column>
+      <p:column headerText="النوع" style="text-align: center">
+          <h:outputText value="#{ordr.crmkSehy eq &quot;C&quot; ? &quot;سيراميك&quot; : (ordr.crmkSehy eq &quot;D&quot; ? &quot;ديكور&quot; : &quot;صحى&quot;)}" style="font-size:small;width:100.0%;color: darkblue;font-weight:bold;font-family:'Times New Roman', 'Arial Black', times, Serif;color: darkblue;font-weight:bold;"/>
+      </p:column>
+       <p:column headerText="الفرع" style="text-align: center">
+          <h:outputText value="#{ordr.brnId.name}" style="font-size:small;width:100.0%;color: darkblue;font-weight:bold;font-family:'Times New Roman', 'Arial Black', times, Serif;color: darkblue;font-weight:bold;"/>
+      </p:column>
+      
+       <p:column headerText="رقم الطلبية" style="text-align: center">
+           <h:outputText value="#{ordr.ordrNo}" style="font-size:small;width:100.0%;color: darkblue;font-weight:bold;font-family:'Times New Roman', 'Arial Black', times, Serif;color: darkblue;font-weight:bold;"/>
+      </p:column>
+      <p:column headerText="الموظف" style="text-align: center">
+           <h:outputText value="#{ordr.empNo.name}" style="font-size:small;width:100.0%;color: darkblue;font-weight:bold;font-family:'Times New Roman', 'Arial Black', times, Serif;color: darkblue;font-weight:bold;"/>
+      </p:column>
+       <p:column headerText="التاريخ" style="text-align: center">
+           <h:outputText value="#{ordr.trnsDate}" converter="#{customConvertDateTime}" style="font-size:small;width:100.0%;color: darkblue;font-weight:bold;font-family:'Times New Roman', 'Arial Black', times, Serif;color: darkblue;font-weight:bold;"/>
+      </p:column>
+
+     </p:dataTable>
+      <p:commandButton style="visibility: hidden" id="populate_list" actionListener="#{personalOrdrConfirm.update_req_list}" update="growl,request"/>
+     
+
+      
+      </h:form>
+
+      <h:form onsubmit="document.getElementById('frm_list:populate_list').click();">
+          <p:commandButton style="visibility: hidden" update="req" id="pubulate"/>
+    <p:dialog   header="Detail" widgetVar="dialog" resizable="true" id="dlg"
+    showEffect="fade" hideEffect="explode" modal="true">
+    <p:dataTable  id="req" widgetVar="req" var="ordr" value="#{personalOrdrConfirm.hrPersonalOrdrRequestList}"  height="10"  dynamic="true"
+    onRowEditUpdate="growl" paginator="true" rows="9"  paginatorPosition="bottom"  rowEditListener="#{personalOrdrConfirm.confirm_ordr_dscnt}" selectionMode="single" >
+       
+     
+     <p:column  headerText="قبول/رفض" style="width:6%; text-align: center;">
+     <p:cellEditor>
+     <f:facet name="output">
+         <h:graphicImage value="/images/check.png" rendered="#{ordr.approve eq &quot;Y&quot;}" />
+       <h:graphicImage value="/images/cross.png" rendered="#{ordr.approve eq &quot;N&quot;}" />
+     </f:facet>
+     <f:facet name="input">
+         <h:selectOneMenu value="#{ordr.approve}" style="width:130%;text-align: center;font-size:small;color: darkblue;font-weight:bold;font-family:'Times New Roman', 'Arial Black', times, Serif;color: darkblue;font-weight:bold;">
+      <f:selectItem/>
+      <f:selectItem itemLabel="قبول" itemValue="Y"/>
+      <f:selectItem itemLabel="رفض" itemValue="N"/>
+      </h:selectOneMenu>
+     </f:facet>
+     </p:cellEditor>
+     </p:column>
+       <p:column  headerText="نسبة الخصم" style="text-align: center">
+        <p:cellEditor>
+            <f:facet name="output">
+                <h:outputText value="%" style="text-align: center;font-size:small;width:100.0%;color: darkblue;font-weight:bold;font-family:'Times New Roman', 'Arial Black', times, Serif;color: darkblue;font-weight:bold;" rendered="#{not empty ordr.dscnt}"/>
+              <h:outputText value="#{ordr.dscnt}" style="text-align: center;font-size:small;width:100.0%;color: darkblue;font-weight:bold;font-family:'Times New Roman', 'Arial Black', times, Serif;color: darkblue;font-weight:bold;"/>
+            </f:facet>
+            <f:facet name="input">
+            <h:inputText value="#{ordr.dscnt}" style="text-align: center;font-size:small;width:100.0%;color: darkblue;font-weight:bold;font-family:'Times New Roman', 'Arial Black', times, Serif;color: darkblue;font-weight:bold;"/>
+            </f:facet>
+        </p:cellEditor>
+       </p:column>
+      <p:column headerText="قيمة الطلبية" style="text-align: center">
+          <h:outputText value="#{ordr.totVal}"  style="font-size:small;width:100.0%;color: darkblue;font-weight:bold;font-family:'Times New Roman', 'Arial Black', times, Serif;color: darkblue;font-weight:bold;"/>
+      </p:column>
+      <p:column headerText="تاريخ الطلبية" style="text-align: center">
+          <h:outputText value="#{ordr.ordrTrnsDate}" converter="#{customConvertDateTime}" style="font-size:small;width:100.0%;color: darkblue;font-weight:bold;font-family:'Times New Roman', 'Arial Black', times, Serif;color: darkblue;font-weight:bold;"/>
+      </p:column>
+      <p:column headerText="النوع" style="text-align: center">
+          <h:outputText value="#{ordr.crmkSehy eq &quot;C&quot; ? &quot;سيراميك&quot; : (ordr.crmkSehy eq &quot;D&quot; ? &quot;ديكور&quot; : &quot;صحى&quot;)}" style="font-size:small;width:100.0%;color: darkblue;font-weight:bold;font-family:'Times New Roman', 'Arial Black', times, Serif;color: darkblue;font-weight:bold;"/>
+      </p:column>
+       <p:column headerText="الفرع" style="text-align: center">
+          <h:outputText value="#{ordr.brnId.name}" style="font-size:small;width:100.0%;color: darkblue;font-weight:bold;font-family:'Times New Roman', 'Arial Black', times, Serif;color: darkblue;font-weight:bold;"/>
+      </p:column>
+
+       <p:column headerText="رقم الطلبية" style="text-align: center">
+           <h:outputText value="#{ordr.ordrNo}" style="font-size:small;width:100.0%;color: darkblue;font-weight:bold;font-family:'Times New Roman', 'Arial Black', times, Serif;color: darkblue;font-weight:bold;"/>
+      </p:column>
+      <p:column headerText="الموظف" style="text-align: center">
+           <h:outputText value="#{ordr.empNo.name}" style="font-size:small;width:100.0%;color: darkblue;font-weight:bold;font-family:'Times New Roman', 'Arial Black', times, Serif;color: darkblue;font-weight:bold;"/>
+      </p:column>
+       <p:column headerText="التاريخ" style="text-align: center">
+           <h:outputText value="#{ordr.trnsDate}" converter="#{customConvertDateTime}" style="font-size:small;width:100.0%;color: darkblue;font-weight:bold;font-family:'Times New Roman', 'Arial Black', times, Serif;color: darkblue;font-weight:bold;"/>
+      </p:column>
+
+     </p:dataTable>
+                  </p:dialog>
+            </h:form>
+
+      </ui:define>
+    </ui:composition>
+     </f:view>
+    </h:body>
+</html>
+

@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./hr_profile_template.xhtml">
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-cog"/>
+                    <h:outputText value="Administration" />
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="#{msg.AddAlert}" />
+            </ui:define>
+            <ui:define name="body">
+                <h:form id="filterFrm">
+                    <p:growl id="growl" life="2000" showDetail="true" showSummary="true" autoUpdate="true"/>
+                    <div align="center">
+                        <h:panelGroup id="pg">
+                            <h:panelGrid columns="5">
+                                <p:inputSwitch style="width:50%;text-align: center;font-size:small;" onLabel="#{msg.Active}" offLabel="#{msg.NotActive}" id="active" value="#{add_alert.active_boolean}" />
+                                <p:spacer width="200" height="1"/>
+                                <h:panelGrid columns="2">
+                                    <h:outputText style="width:50%;text-align: center;font-size:small;" value="#{msg.BackgroundColor}"/>
+                                    <p:colorPicker value="#{add_alert.bgColor}" />
+                                </h:panelGrid>
+                                <p:spacer width="245" height="1"/>
+                                <p:commandButton style="height: 28px;font-size: 13px" icon="ui-icon-search" value="#{msg.Show}" id="show" />
+                            </h:panelGrid>
+                            <p:editor id="editor" widgetVar="editor"  width="800"  height="250"  value="#{add_alert.alert}"/>
+
+
+                            <h:panelGrid width="700px" id="pgRecievers" columns="7">
+                                <h:outputText value="#{msg.JobGrpName}" style="font-weight: bold;font-size: small"/>
+                                <h:panelGrid columns="2">
+                                    <p:commandButton icon="ui-icon-search"
+                                                     oncomplete="PF('grpDlg').show()"
+                                                     title="Please choose an item"
+                                                     style="border:none;"/>
+                                    <p:inputText id="grpName" readonly="true" value="#{add_alert.filteredGrp.name}"/>
+                                </h:panelGrid>
+                                <p:spacer height="1" width="20"/>
+                                <h:outputText value="#{msg.JobName}" style="font-weight: bold;font-size: small"/>
+                                <h:panelGrid columns="2">
+                                    <p:commandButton icon="ui-icon-search"
+                                                     oncomplete="PF('jobDlg').show()"
+                                                     title="Please choose an item"
+                                                     style="border:none;"/>
+                                    <p:inputText size="27" id="jobName" readonly="true" value="#{add_alert.filteredJob.name}"/>
+                                </h:panelGrid>
+                                <p:spacer width="50" height="30"/>
+                                <p:commandButton value="#{msg.Add}" actionListener="#{add_alert.addReceiver}" update=":filterFrm:receivers,pgRecievers growl" icon="ui-icon-plus"/>
+
+                                <h:outputText value="#{msg.DeptName}" style="font-weight: bold;font-size: small"/>
+                                <h:panelGrid columns="2">
+                                    <p:commandButton icon="ui-icon-search"
+                                                     oncomplete="PF('deptDlg').show()"
+                                                     title="Please choose an item"
+                                                     style="border:none;"/>
+                                    <p:inputText id="deptName" readonly="true" value="#{add_alert.filteredDept.name}"/>
+                                </h:panelGrid>
+                                <p:spacer height="1" width="20"/>
+                                <h:outputText value="#{msg.LocationName}" style="font-weight: bold;font-size: small"/>
+                                <h:panelGrid columns="2">
+                                    <p:commandButton icon="ui-icon-search"
+                                                     oncomplete="PF('locDlg').show()"
+                                                     title="Please choose an item"
+                                                     style="border:none;"/>
+                                    <p:inputText id="locName" readonly="true" value="#{add_alert.filteredLoc.name}"/>
+                                </h:panelGrid>
+
+
+                            </h:panelGrid>
+
+
+                            <p:dataTable paginatorPosition="bottom" style="width: 800px"  id="receivers" var="receivers" value="#{add_alert.hrProfileAlertReceiverList}" paginator="true" rows="2"  >
+                                <p:column width="50" headerText="#{msg.JobName}">
+                                    <h:outputText value="#{receivers.jobId.name}" />
+                                </p:column>
+                                <p:column width="50" headerText="#{msg.LocationName}">
+                                    <h:outputText value="#{receivers.locId.name}" />
+                                </p:column>
+                                <p:column width="50" headerText="#{msg.DeptName}">
+                                    <h:outputText value="#{receivers.deptId.name}" />
+                                </p:column>
+                                <p:column width="50" headerText="#{msg.JobGrpName}">
+                                    <h:outputText value="#{receivers.jobGrpId.name}" />
+                                </p:column>
+                                <p:column width="50" headerText="#{msg.Delete}">
+                                    <p:commandButton update="receivers" icon="ui-icon-closethick" action="#{add_alert.deleteReceiver}">
+                                        <f:param name="receiverId" value="#{receivers.id}"/>
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
+
+                        </h:panelGroup>
+
+
+                        <p:dialog id="grpDlg" header="#{msg.JobGrpName}" width="300" height="400" widgetVar="grpDlg">
+                            <p:dataTable rowKey="#{grp}" value="#{add_alert.jobGrpList}" rowIndexVar="x" scrollRows="100" scrollable="true" scrollHeight="400" var="grp" widgetVar="grp" id="grp" selection="#{add_alert.selectedGrp}" selectionMode="single">
+                                <p:ajax event="rowSelect" listener="#{add_alert.updateSelectedGrp}" oncomplete="PF('grpDlg').hide()" update=":filterFrm:grpName"/>
+                                <p:column filterMatchMode="contains" filterBy="#{grp.name}">
+                                    <h:outputText value="#{grp.name}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:dialog>
+                        <p:dialog id="jobDlg" header="#{msg.JobName}" width="300" height="400" widgetVar="jobDlg">
+                            <p:dataTable rowKey="#{job}" value="#{add_alert.jobList}" rowIndexVar="x" scrollRows="100" scrollable="true" scrollHeight="400" var="job" widgetVar="job" id="job" selection="#{add_alert.selectedJob}" selectionMode="single">
+                                <p:ajax event="rowSelect" listener="#{add_alert.updateSelectedJob}" oncomplete="PF('jobDlg').hide()" update=":filterFrm:jobName"/>
+                                <p:column filterMatchMode="contains" filterBy="#{job.name}">
+                                    <h:outputText value="#{job.name}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:dialog>
+                        <p:dialog id="deptDlg" header="#{msg.DeptName}" width="300" height="400" widgetVar="deptDlg">
+                            <p:dataTable rowKey="#{dept}" value="#{add_alert.deptList}" rowIndexVar="x" scrollRows="100" scrollable="true" scrollHeight="400" var="dept" widgetVar="dept" id="dept" selection="#{add_alert.selectedDept}" selectionMode="single">
+                                <p:ajax event="rowSelect" listener="#{add_alert.updateSelectedDept}" oncomplete="PF('deptDlg').hide()" update=":filterFrm:deptName"/>
+                                <p:column filterMatchMode="contains" filterBy="#{dept.name}">
+                                    <h:outputText value="#{dept.name}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:dialog>
+                        <p:dialog id="locDlg" header="#{msg.LocationName}" width="300" height="400" widgetVar="locDlg">
+                            <p:dataTable rowKey="#{loc}" value="#{add_alert.locList}" rowIndexVar="x" scrollRows="100" scrollable="true" scrollHeight="400" var="loc" widgetVar="loc" id="loc" selection="#{add_alert.selectedLoc}" selectionMode="single">
+                                <p:ajax event="rowSelect" listener="#{add_alert.updateSelectedLoc}" oncomplete="PF('locDlg').hide()" update=":filterFrm:locName"/>
+                                <p:column filterMatchMode="contains" filterBy="#{loc.name}">
+                                    <h:outputText value="#{loc.name}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:dialog>
+
+                        <p:spacer height="10"/>
+
+                        <p:commandButton icon="ui-icon-disk" update="dt,:filterFrm:growl,editor,pg,receivers" value="#{msg.Save}"  action="#{add_alert.save_alert}"/>
+                        <p:commandButton icon="ui-icon-plus" update="dt,:filterFrm:growl,editor,pg,receivers" value="#{msg.New}" action="#{add_alert.addNew}" onclick="editor.clear()"/>
+                    
+                    <p:spacer height="50"/>
+                    <p:dataTable style="width: 800px" paginatorPosition="bottom"  id="dt" var="alert" value="#{add_alert.list}" rowKey="#{alert}" paginator="true" rows="10"  selectionMode="single" selection="#{add_alert.hrProfileAlertHd}"   >
+                        <p:ajax event="rowSelect" listener="#{add_alert.row_select}" update=":filterFrm:pg,:filterFrm:op"/>
+                        <p:column width="50" headerText="#{msg.Date}">
+                            <h:outputText value="#{alert.trnsDate}" converter="#{customConvertDateTime}"/>
+                        </p:column>
+                        <p:column width="100" headerText="#{msg.BackgroundColor}">
+                            <h:outputText value="#{alert.bgColor}" style="background-color: \##{alert.bgColor}" />
+                        </p:column>
+                        <p:column width="20" id="alert#{alert}" headerText="#{msg.Active}">
+                            <h:graphicImage value="/images/check.png" rendered="#{alert.active eq &quot;Y&quot; }" />
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <p:overlayPanel  style="width: 700px;background: ##{add_alert.bgColor}" for="show" id="op" hideEvent="" widgetVar="alert" showEffect="fade" hideEffect="fade" dismissable="false" showCloseIcon="true">
+                        <h:outputText value="#{add_alert.alert}" escape="false"/>
+                    </p:overlayPanel>
+                 </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

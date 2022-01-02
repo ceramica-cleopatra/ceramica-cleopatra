@@ -1,0 +1,228 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./hr_profile_template.xhtml">
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-pencil-square-o"/>
+                    <h:outputText value="#{msg.Requests}" />
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="#{msg.FundBorrow}" />
+
+            </ui:define>
+
+            <ui:define name="body">
+                <script language="javascript" src="hr_profile_js.js" type="text/javascript"/>
+                <h:form id="frm">
+                    <p:growl id="growl" showDetail="true" life="5000" />
+                    <p:fieldset id="fs">
+                        <div align="right">
+                            <h:panelGrid width="100%" columns="1" cellspacing="3" cellpadding="5">
+                                <h:panelGrid width="100%" columns="18">
+                                    <h:outputText value="#{msg.PleaseConfirmMyFundBorrowRequest}" style="font-size:small;"/>
+                                    <p:spacer width="5"/>
+                                    <p:inputText disabled="#{(not empty fundBorrow.hrBorrowFundRequest.resAmount and fundBorrow.editFlag eq &quot;N&quot;) or not empty fundBorrow.hrBorrowFundRequest.empConfirm}" onkeypress="return handleEnter(this, event)" style="font-size:small;font-weight:bold;" value="#{fundBorrow.hrBorrowFundRequest.reqAmount}" >
+                                        <f:convertNumber pattern="###,###,###"/>
+                                    </p:inputText>
+                                    <p:spacer width="20"/>
+                                    <h:outputText value="#{msg.FundBorrrowMonths}" style="font-size:small;"/>
+                                    <p:spacer width="5"/>
+                                    <p:inputText disabled="#{(not empty fundBorrow.hrBorrowFundRequest.resAmount and fundBorrow.editFlag eq &quot;N&quot;) or not empty fundBorrow.hrBorrowFundRequest.empConfirm}" onkeypress="return handleEnter(this, event)" style="font-size:small;font-weight:bold;" value="#{fundBorrow.hrBorrowFundRequest.reqMonths}" />
+                                    <p:spacer width="20" height="1"/>
+                                    <h:outputText value="#{msg.FundBorrowStartDate}" style="font-size:small;"/>
+                                    <p:spacer width="5"/>
+                                    <p:inputText validatorMessage="#{msg.InvalidMonth}" disabled="#{(not empty fundBorrow.hrBorrowFundRequest.resAmount and fundBorrow.editFlag eq &quot;N&quot;) or not empty fundBorrow.hrBorrowFundRequest.empConfirm}" onkeypress="return handleEnter(this, event)" style="font-size:small;font-weight:bold;" value="#{fundBorrow.month}" >
+                                        <f:validateLength maximum="2" minimum="1"/>
+                                        <f:validateLongRange minimum="1" maximum="31"/>
+                                    </p:inputText>
+                                    <p:spacer width="20" height="1"/>
+                                    <h:outputText value="#{msg.ForYear}" style="font-size:small;"/>
+                                    <p:spacer width="5"/>
+                                    <p:inputText validatorMessage="#{msg.InvalidYear}" disabled="#{(not empty fundBorrow.hrBorrowFundRequest.resAmount and fundBorrow.editFlag eq &quot;N&quot;) or not empty fundBorrow.hrBorrowFundRequest.empConfirm}" onkeypress="return handleEnter(this, event)" style="font-size:small;font-weight:bold;" value="#{fundBorrow.year}" >
+                                        <f:validateLength maximum="4" minimum="4"/>
+                                        <f:validateLongRange minimum="2021" maximum="2025"/>
+                                    </p:inputText>
+                                    <p:spacer width="30" height="1"/>
+                                    <h:outputText value="#{msg.Cancel}" style="font-size:small;"/>
+                                    <h:selectBooleanCheckbox onkeypress="return handleEnter(this, event)" id="checkBox"  disabled="#{(not empty fundBorrow.hrBorrowFundRequest.resAmount and fundBorrow.editFlag eq &quot;N&quot;) or not empty fundBorrow.hrBorrowFundRequest.empConfirm}" value="#{fundBorrow.cancel}"/>
+                                </h:panelGrid>
+                                <p:spacer height="10" width="1"/>
+                                <h:panelGrid width="100%" columns="3">
+                                    <p:panelGrid  style="width: 100%;text-align: center" columns="5">
+                                        <p:spacer width="120" height="1" />
+                                        <h:outputText style="text-align: center" value="#{msg.EmpNo}"/>
+                                        <h:outputText style="text-align: center" value="#{msg.EmpName}"/>
+                                        <h:outputText style="text-align: center" value="#{msg.Mobile}"/>
+                                        <h:outputText style="text-align: center" value="#{msg.Aggreement}"/>
+
+                                        <h:outputText style="text-align: center" value="#{msg.FundBorrowGuarantee1}"/>
+                                        <p:inputText disabled="#{(not empty fundBorrow.hrBorrowFundRequest.resAmount and fundBorrow.editFlag eq &quot;N&quot;) or not empty fundBorrow.hrBorrowFundRequest.empConfirm}"  value="#{fundBorrow.hrBorrowFundRequest.guarantee1}" onkeypress="return handleEnter(this, event)">
+                                            <f:converter converterId="EmpConverter"/>
+                                            <p:ajax listener="#{fundBorrow.removeGuarantee1Data}" event="change" immediate="true" update=":frm:guarantee1 :frm:g1Phone :frm:pgG1"/>
+                                        </p:inputText>
+                                        <h:panelGrid>
+                                            <h:outputText value="#{fundBorrow.hrBorrowFundRequest.guarantee1.empName}" id="guarantee1"/>
+                                        </h:panelGrid>
+                                        <h:panelGrid>
+                                            <p:inputText disabled="#{(not empty fundBorrow.hrBorrowFundRequest.resAmount and fundBorrow.editFlag eq &quot;N&quot;) or not empty fundBorrow.hrBorrowFundRequest.empConfirm}"  onkeypress="return handleEnter(this, event)" id="g1Phone" value="#{fundBorrow.hrBorrowFundRequest.g1Phone}" />
+                                        </h:panelGrid>
+                                        <h:panelGroup id="pgG1">
+                                            <h:graphicImage value="/images/check.png" rendered="#{fundBorrow.hrBorrowFundRequest.guarantee1Confirm eq &quot;Y&quot;}" />
+                                            <h:graphicImage value="/images/cross.png" rendered="#{fundBorrow.hrBorrowFundRequest.guarantee1Confirm eq &quot;N&quot;}" />
+                                        </h:panelGroup>
+
+                                        <h:outputText style="text-align: center" value="#{msg.FundBorrowGuarantee2}"/>
+                                        <p:inputText disabled="#{(not empty fundBorrow.hrBorrowFundRequest.resAmount and fundBorrow.editFlag eq &quot;N&quot;) or not empty fundBorrow.hrBorrowFundRequest.empConfirm}" value="#{fundBorrow.hrBorrowFundRequest.guarantee2}" onkeypress="return handleEnter(this, event)">
+                                            <f:converter converterId="EmpConverter"/>
+                                            <p:ajax listener="#{fundBorrow.removeGuarantee2Data}" event="change" immediate="true" update=":frm:guarantee2 :frm:g2Phone :frm:pgG2"/>
+                                        </p:inputText>
+                                        <h:panelGrid>
+                                            <h:outputText value="#{fundBorrow.hrBorrowFundRequest.guarantee2.empName}" id="guarantee2"/>
+                                        </h:panelGrid>
+                                        <h:panelGrid>
+                                            <p:inputText disabled="#{(not empty fundBorrow.hrBorrowFundRequest.resAmount and fundBorrow.editFlag eq &quot;N&quot;) or not empty fundBorrow.hrBorrowFundRequest.empConfirm}" onkeypress="return handleEnter(this, event)" id="g2Phone" value="#{fundBorrow.hrBorrowFundRequest.g2Phone}" />
+                                        </h:panelGrid>
+                                        <h:panelGroup id="pgG2">
+                                            <h:graphicImage value="/images/check.png" rendered="#{fundBorrow.hrBorrowFundRequest.guarantee2Confirm eq &quot;Y&quot;}" />
+                                            <h:graphicImage value="/images/cross.png" rendered="#{fundBorrow.hrBorrowFundRequest.guarantee2Confirm eq &quot;N&quot;}" />
+                                        </h:panelGroup>
+
+                                        <h:outputText style="text-align: center" value="#{msg.FundBorrowDeptMng}"/>
+                                        <p:inputText disabled="#{(not empty fundBorrow.hrBorrowFundRequest.resAmount and fundBorrow.editFlag eq &quot;N&quot;) or not empty fundBorrow.hrBorrowFundRequest.empConfirm}" value="#{fundBorrow.hrBorrowFundRequest.deptMng}" onkeypress="return handleEnter(this, event)">
+                                            <f:converter converterId="EmpConverter"/>
+                                            <p:ajax listener="#{fundBorrow.removeDeptMngData}" event="change" immediate="true" update=":frm:deptMng :frm:deptMngPhone :frm:pgDeptMng"/>
+                                        </p:inputText>
+                                        <h:panelGrid>
+                                            <h:outputText value="#{fundBorrow.hrBorrowFundRequest.deptMng.empName}" id="deptMng"/>
+                                        </h:panelGrid>
+                                        <h:panelGrid>
+                                            <p:inputText id="deptMngPhone" disabled="#{(not empty fundBorrow.hrBorrowFundRequest.resAmount and fundBorrow.editFlag eq &quot;N&quot;) or not empty fundBorrow.hrBorrowFundRequest.empConfirm}" onkeypress="return handleEnter(this, event)" value="#{fundBorrow.hrBorrowFundRequest.deptMngPhone}" />
+                                        </h:panelGrid>
+                                        <h:panelGroup id="pgDeptMng">
+                                            <h:graphicImage value="/images/check.png" rendered="#{fundBorrow.hrBorrowFundRequest.deptMngConfirm eq &quot;Y&quot;}" />
+                                            <h:graphicImage value="/images/cross.png" rendered="#{fundBorrow.hrBorrowFundRequest.deptMngConfirm eq &quot;N&quot;}" />
+                                        </h:panelGroup>
+
+                                        <h:outputText style="text-align: center" value="#{msg.FundBorrowResponsible}"/>
+                                        <h:outputText />
+                                        <h:outputText value="#{fundBorrow.hrBorrowFundRequest.mngNo.empName}"/>
+                                        <h:outputText/>
+                                        <h:panelGroup >
+                                            <h:graphicImage value="/images/check.png" rendered="#{fundBorrow.hrBorrowFundRequest.mngConfirm eq &quot;Y&quot;}" />
+                                            <h:graphicImage value="/images/cross.png" rendered="#{fundBorrow.hrBorrowFundRequest.mngConfirm eq &quot;N&quot;}" />
+                                        </h:panelGroup>
+
+                                    </p:panelGrid>
+                                    <p:spacer width="20" height="1"/>
+                                    <h:panelGrid columns="1">
+                                        <p:commandButton disabled="#{(not empty fundBorrow.hrBorrowFundRequest.resAmount and fundBorrow.editFlag eq &quot;N&quot;) or not empty fundBorrow.hrBorrowFundRequest.empConfirm}" image="ui-icon ui-icon-disk" update="growl fs req" actionListener="#{fundBorrow.saveFundBorrow}" value="#{msg.RequestSave}" />
+                                        <p:spacer height="5" width="1"/>
+                                        <p:commandButton style="width: 100%" disabled="#{empty fundBorrow.hrBorrowFundRequest or empty fundBorrow.hrBorrowFundRequest.id}" image="ui-icon ui-icon-plus" update=":frm:fs,:frm:mngFs" actionListener="#{fundBorrow.newRequest}" value="#{msg.NewRequest}" />
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                        </div>
+                    </p:fieldset>
+                    <p:spacer height="10"/>
+                    <p:fieldset id="mngFs" style="font-size: small;background: olivedrab">
+                        <div align="right">
+                            <h:panelGrid width="100%" columns="3">
+                                <h:panelGrid width="100%" columns="7">
+                                    <h:outputText value="#{msg.FundBorrowResponse}" style="font-weight: bold;font-size: medium"/>
+                                    <p:spacer width="20" height="1"/>
+                                    <h:panelGroup>
+                                        <h:outputText value="#{msg.Value} :" style="width: 100%;font-weight: bold;font-size: small"/>
+                                        <p:spacer width="5" height="1"/>
+                                        <h:outputText  value="#{fundBorrow.hrBorrowFundRequest.resAmount}" style="width: 100%;font-weight: bold;font-size: small;color: maroon">
+                                            <f:convertNumber pattern="###,###,###"/>
+                                        </h:outputText>
+                                    </h:panelGroup>
+                                    <p:spacer width="20" height="1"/>
+                                    <h:panelGroup>
+                                        <h:outputText value="#{msg.FundBorrrowMonths} :" style="width: 100%;font-weight: bold;font-size: small"/>
+                                        <p:spacer width="5" height="1"/>
+                                        <h:outputText value="#{fundBorrow.hrBorrowFundRequest.resMonths}" style="width: 100%;font-weight: bold;font-size: small;color: maroon"/>
+                                    </h:panelGroup>
+                                    <p:spacer width="20" height="1"/>
+                                    <h:panelGroup>
+                                        <h:outputText value="#{msg.FundBorrowStartDate} :" style="width: 100%;font-weight: bold;font-size: small"/>
+                                        <p:spacer width="5" height="1"/>
+                                        <h:outputText value="#{fundBorrow.hrBorrowFundRequest.resStart}" style="width: 100%;font-weight: bold;font-size: small;color: maroon">
+                                            <f:converter converterId="YearMonthConverter"/>
+                                        </h:outputText>
+                                    </h:panelGroup>
+                                </h:panelGrid>
+                                <p:spacer width="30" height="1"/>
+                                <h:panelGrid width="100%" columns="3">
+                                    <p:commandButton value="#{msg.Aggreement}" disabled="#{not empty fundBorrow.hrBorrowFundRequest.empConfirm  or not empty fundBorrow.hrBorrowFundRequest.mngConfirm or empty fundBorrow.hrBorrowFundRequest.id or empty fundBorrow.hrBorrowFundRequest.mngNo}" update="fs mngFs growl" action="#{fundBorrow.applyEmpResponse('1')}" icon="ui-icon-check">
+                                        <p:confirm header="#{msg.AlarmHeader}" message="#{fundBorrow.agreementMsg}" icon="ui-icon-alert" />
+                                    </p:commandButton>
+                                    <p:commandButton value="#{msg.Reject}" disabled="#{not empty fundBorrow.hrBorrowFundRequest.empConfirm  or not empty fundBorrow.hrBorrowFundRequest.mngConfirm  or empty fundBorrow.hrBorrowFundRequest.id  or empty fundBorrow.hrBorrowFundRequest.mngNo}" update="fs mngFs growl" action="#{fundBorrow.applyEmpResponse('2')}" icon="ui-icon-close">
+                                        <p:confirm header="#{msg.AlarmHeader}" message="#{msg.FundEmpRejectionAlarm}" icon="ui-icon-alert" />
+                                    </p:commandButton>
+                                    <p:commandButton value="#{msg.Edit}" disabled="#{not empty fundBorrow.hrBorrowFundRequest.empConfirm  or empty fundBorrow.hrBorrowFundRequest.id or empty fundBorrow.hrBorrowFundRequest.mngNo}" update="fs" action="#{fundBorrow.applyEmpResponse('3')}" icon="ui-icon-pencil"/>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <p:spacer height="10"/>
+                            <h:panelGroup>
+                                <h:outputText value="#{msg.Notes}" style="width: 100px;font-weight: bold;font-size: medium"/>
+                                <p:spacer width="30" height="1"/>
+                                <h:outputText value="#{fundBorrow.hrBorrowFundRequest.mngNotes}" dir="RTL"  style="width: 100%;font-weight: bold;font-size: small;text-align: right;color: maroon"/>
+                            </h:panelGroup>
+                        </div>
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="#{msg.Yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="#{msg.No}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+                    </p:fieldset>
+
+                    <p:dataTable   id="req" widgetVar="req" var="fund" dir="rtl" value="#{fundBorrow.reqList}" rowKey="#{fund.id}" rowIndexVar="indx"
+                                   paginator="true" rows="5"  paginatorPosition="bottom" selectionMode="single"  selection="#{fundBorrow.selectedReauest}">
+                        <f:facet name="header">
+                            <h:outputText  value="#{msg.FollowUpPreviousRequests}" style="text-align: center;font-size: large"/>
+                        </f:facet>
+                        <p:ajax listener="#{fundBorrow.onSelect}" event="rowSelect" update=":frm:mngFs,:frm:req,:frm:fs" />
+                        <p:column width="50" headerText="#{msg.Serial}" style="text-align: center;">
+                            <h:outputText value="#{fund.serial}"/>
+                        </p:column>
+                        <p:column width="105" headerText="#{msg.RequestDate}" style="text-align: center;">
+                            <h:outputText value="#{fund.reqDate}" converter="#{customConvertDateTime}"/>
+                        </p:column>
+                        <p:column width="105" headerText="#{msg.Value}" style="text-align: center;">
+                            <h:outputText value="#{fund.reqAmount}">
+                                <f:convertNumber pattern="###,###,###"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column width="105" headerText="#{msg.FundBorrrowMonths}" style="text-align: center;">
+                            <h:outputText value="#{fund.reqMonths}"/>
+                        </p:column>
+                        <p:column width="105" headerText="#{msg.FundBorrowStartDate}" style="text-align: center;">
+                            <h:outputText value="#{fund.reqStart.timeInMillis}" converter="#{customConvertDateTime}"/>
+                        </p:column>
+                        <p:column width="105" headerText="#{msg.FundBorrowGuarantee1}" style="text-align: center;">
+                            <h:outputText value="#{fund.guarantee1.empName}"/>
+                        </p:column>
+                        <p:column width="105" headerText="#{msg.FundBorrowGuarantee2}" style="text-align: center;">
+                            <h:outputText value="#{fund.guarantee2.empName}"/>
+                        </p:column>
+                        <p:column width="105" headerText="#{msg.ApproveStatus}" style="text-align: center;">
+                            <h:graphicImage value="/images/check.png" rendered="#{fund.mngConfirm eq &quot;Y&quot;}" />
+                            <h:graphicImage value="/images/cross.png" rendered="#{fund.mngConfirm eq &quot;N&quot;}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

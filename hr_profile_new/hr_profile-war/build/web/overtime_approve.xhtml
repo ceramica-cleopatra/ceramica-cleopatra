@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body dir="rtl">
+        <ui:composition template="./hr_profile_template.xhtml">
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-check-square-o"/>
+                    <h:outputText value="#{msg.Approves}" />
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="#{msg.OvertimeApprove}" />
+            </ui:define>
+
+            <ui:define name="body">
+                <style type="text/css">
+                    .notAllApproved{
+                        background: yellow;
+                        color:red;
+                    }
+                </style>
+                <h:form id="frm">
+                    <p:growl id="growl" showDetail="true" life="3000" />
+                    <p:dataTable id="overtime" paginator="true" rowStyleClass="#{not overtime.approveAll ? 'notAllApproved' : null}" rows="30" paginatorPosition="bottom" paginatorAlwaysVisible="true" rowIndexVar="t"
+                                 value="#{overtimeApprove.overtimeList}" var="overtime" rowExpandMode="single">
+
+                        <p:column width="30" style="text-align: center" headerText="#{msg.EmpNo}">
+                            <h:outputText style="font-weight:bold;font-size:small;" value="#{overtime.empNo}"/>
+                        </p:column>
+                        <p:column width="100" style="text-align: center" headerText="#{msg.EmpName}">
+                            <h:outputText style="font-weight:bold;font-size:small;" value="#{overtime.empName}"/>
+                        </p:column>
+                        <p:column width="120" style="text-align: center" headerText="#{msg.LocationName}">
+                            <h:outputText style="font-weight:bold;font-size:small;" value="#{overtime.location}"/>
+                        </p:column>
+                         
+                        <p:column width="10">
+                            <p:rowToggler/>
+                        </p:column>
+                        <p:rowExpansion>
+                            
+                            <p:dataTable id="dt" paginator="false" rows="31" rowIndexVar="t" rowKey="#{overtimeDt.id}"
+                                         value="#{overtime.overtimeApproveDtDTOList}" var="overtimeDt">
+
+                                <p:column width="60" style="text-align: center" headerText="#{msg.Date}">
+                                    <h:outputText style="font-weight:bold;font-size:small;" value="#{overtimeDt.trnsDate}" converter="#{customConvertDateTime}"/>
+                                </p:column>
+                                
+                                <p:column width="30" style="text-align: center" headerText="#{msg.InTrns}">
+                                    <h:outputText style="font-weight:bold;font-size:small;" value="#{overtimeDt.inTrns}"/>
+                                </p:column>
+                                <p:column width="30" style="text-align: center" headerText="#{msg.OutTrns}">
+                                    <h:outputText style="font-weight:bold;font-size:small;" value="#{overtimeDt.outTrns}"/>
+                                </p:column>
+                                <p:column width="30" style="text-align: center" headerText="#{msg.PlusMinutes}">
+                                    <h:outputText style="font-weight:bold;font-size:small;" value="#{overtimeDt.plusMinuts}"/>
+                                    <f:facet name="footer">
+                                        <h:outputText style="font-weight:bold;font-size:small;" value="#{overtime.totalPlusMinuts}"/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column width="30" style="text-align: center" >
+                                    <f:facet name="header">
+                                        <p:selectBooleanCheckbox value="#{overtime.approveAll}">
+                                            <p:ajax update="dt" listener="#{overtimeApprove.markAllAsApproved}"/>
+                                            <f:param name="empNo" value="#{overtime.empNo}"/>
+                                        </p:selectBooleanCheckbox>
+                                    </f:facet>
+                                    <p:selectBooleanCheckbox  value="#{overtimeDt.approveAsString}">
+                                        <f:converter converterId="booleanConverter"/>
+                                    </p:selectBooleanCheckbox>
+                                    <f:facet name="footer">
+                                        <p:commandButton update=":frm:growl dt :frm:overtime" value="#{msg.Save}" actionListener="#{overtimeApprove.save}">
+                                            <f:param name="empNo" value="#{overtime.empNo}" />
+                                        </p:commandButton>
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>
+                        </p:rowExpansion>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

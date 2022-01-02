@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="hr_fund_borrow_details" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="trnsMonth" class="java.lang.String"/>
+	<parameter name="trnsYear" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM(
+        SELECT HD.BORROW_AMOUNT,INFO.EMP_NO,INFO.EMP_NAME,INFO.LOCATION,HD.PAY_MONTHS,'مجدولة' status,to_char(HD.START_DATE,'mm') trns_month,to_char(HD.START_DATE,'yyyy') trns_year
+        FROM HR_BORROW_ZAMALA_HD HD,
+             HR_EMP_INFO_FULL INFO
+        WHERE INFO.EMP_NO(+)=HD.EMP_NO
+        AND NVL(CANCELED,'N')='N'
+        union
+        SELECT req.REQ_AMOUNT,INFO.EMP_NO,INFO.EMP_NAME,INFO.LOCATION,req.REQ_MONTHS,'غير مجدولة' status,to_char(req.REQ_START,'mm') trns_month,to_char(req.REQ_START,'yyyy') trns_year
+        FROM HR_BORROW_FUND_REQUEST req,HR_BORROW_ZAMALA_HD HD,
+             HR_EMP_INFO_FULL INFO
+        WHERE INFO.EMP_NO(+)=REQ.EMP_NO
+        AND REQ.ID=HD.REQ_ID(+)
+        AND   nvl(REQ.DEPT_MNG_CONFIRM,'N')='Y'
+        AND   REQ.MNG_CONFIRM IS NULL
+        AND HD.ID IS NULL
+        AND NVL(CANCEL,'N')='N'
+        ) WHERE trns_month=to_number($P{trnsMonth}) AND trns_year=to_number($P{trnsYear})
+        ORDER BY STATUS desc]]>
+	</queryString>
+	<field name="BORROW_AMOUNT" class="java.math.BigDecimal"/>
+	<field name="EMP_NO" class="java.math.BigDecimal"/>
+	<field name="EMP_NAME" class="java.lang.String"/>
+	<field name="LOCATION" class="java.lang.String"/>
+	<field name="PAY_MONTHS" class="java.math.BigDecimal"/>
+	<field name="STATUS" class="java.lang.String"/>
+	<field name="TRNS_MONTH" class="java.lang.String"/>
+	<field name="TRNS_YEAR" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement style="SubTitle" x="0" y="20" width="552" height="22" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ السلف المجدولة وغير المجدولة خلال شهر]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="116" y="21" width="29" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="16" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{trnsMonth}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="31" y="21" width="90" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="16" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{trnsYear}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="14" width="80" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="501" y="14" width="51" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="334" y="14" width="167" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="227" y="14" width="107" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="157" y="14" width="70" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="80" y="14" width="77" height="20"/>
+			</rectangle>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="93" y="18" width="52" height="15"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[قيمة السلفة]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="502" y="18" width="50" height="15"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[الكود]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="383" y="17" width="63" height="15"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[الإسم]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="246" y="17" width="72" height="15"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[الموقع]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="158" y="17" width="69" height="15"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[عدد الشهور]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="18" y="18" width="52" height="15"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[الحالة]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" mode="Opaque" x="335" y="0" width="166" height="15"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{EMP_NAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" mode="Opaque" x="158" y="0" width="69" height="15"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{PAY_MONTHS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" mode="Opaque" x="502" y="0" width="50" height="15"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{EMP_NO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" mode="Opaque" x="227" y="0" width="106" height="15"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{LOCATION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" mode="Opaque" x="1" y="0" width="78" height="15"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{STATUS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" mode="Opaque" x="81" y="0" width="76" height="15"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{BORROW_AMOUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

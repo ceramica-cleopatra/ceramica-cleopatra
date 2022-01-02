@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./hr_profile_template.xhtml">
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-check-square-o"/>
+                    <h:outputText value="#{msg.Approves}" />
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="#{msg.ShowroomManNotesApprove}" />
+            </ui:define>
+            <ui:define name="body">
+                <h:form id="frm" dir="RTL">
+                    <p:growl id="growl" showDetail="true" life="2000"  />
+                    <p:panelGrid columns="2">
+                        <p:dataTable rendered="#{not empty showroomManNotesApprove1.hrManNotesHdNotApproved}" style="width: 250px" selection="#{showroomManNotesApprove1.hrManNotesHd}"
+                                     selectionMode="single" rowKey="#{dt.id}" rowIndexVar="indx" value="#{showroomManNotesApprove1.hrManNotesHdNotApproved}"  var="dt">
+                            <p:ajax event="rowSelect"  update=":frm:fs,:frm:pg,:frm:growl"/>
+                            <p:column style="text-align: center" width="80"  >
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.Date}" style="font-size: small;" />
+                                </f:facet>
+                                <h:outputText value="#{dt.trnsDate}" style="text-align: right;font-weight:bold;font-size:small;" converter="#{customConvertDateTime}"/>
+                            </p:column>
+
+
+                            <p:column  width="100" >
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.LocationName}" style="font-size: small;" />
+                                </f:facet>
+                                <h:outputText value="#{dt.empNo.location}" style="font-weight:bold;font-size:small;"/>
+                            </p:column>
+                        </p:dataTable>
+                        <p:fieldset style="position: absolute;top: 147px;width: 700px;margin-right: -10px" id="fs" rendered="#{showroomManNotesApprove1.hrManNotesHd.id != null}">
+                            <h:panelGroup id="pg">
+                                <p:panelGrid style="text-align: right;width: 100%" columns="1">
+                                    <p:panelGrid style="width: 100%" columns="4">
+                                        <h:outputText value="#{msg.Date} :"
+                                                      style="font-weight:bold;font-size:small;"/>
+                                        <h:outputText  value="#{showroomManNotesApprove1.hrManNotesHd.trnsDate}" converter="#{customConvertDateTime}"
+                                                       style="font-size:small;width:100.0%;font-weight:bold;" />
+
+                                        <h:outputText value="#{msg.ReportEntryName} :"
+                                                      style="font-weight:bold;font-size:small;"/>
+                                        <h:outputText value="#{showroomManNotesApprove1.hrManNotesHd.empNo.empName}" style="font-size:small;width:100.0%;font-weight:bold;" />
+                                    </p:panelGrid>
+                                </p:panelGrid>
+                                <p:spacer width="1" height="10"/>
+
+
+                                <p:dataScroller value="#{showroomManNotesApprove1.hrManNotesHd.hrManNotesDtList}" var="body" chunkSize="10" scrollHeight="500">
+                                    <h:panelGrid width="100%" columns="1">
+                                        <h:panelGrid columns="2" >
+                                            <i class="fa fa-fw fa-arrow-left" />
+                                            <h:outputText value="#{body.title}" style="font-weight: bold;text-decoration: underline"/>
+                                        </h:panelGrid>
+                                        <p:spacer height="10"/>
+                                        <h:outputText  value="#{body.details}" dir="RTL"  style="font-size:14px;width:100.0%;font-weight:bold;"/>
+                                        <p:spacer height="10"/>
+                                        <h:panelGrid style="text-align: center" columns="5">
+                                            <p:commandButton oncomplete="PF('redirect').show();" update=":frm:growl" image="ui-icon-transferthick-e-w" value="#{msg.Redirect}"  >
+                                                <f:setPropertyActionListener value="#{body}" target="#{showroomManNotesApprove1.hrManNotesDt}"/>
+                                            </p:commandButton>
+                                            <p:spacer width="20" height="1"/>
+                                            <p:commandButton id="summary" update="summary :frm:growl" action="#{showroomManNotesApprove1.summarize}" disabled="#{body.summaryFlag eq &quot;Y&quot;}" image="ui-icon-script" value="#{msg.Summary}"  >
+                                                <f:setPropertyActionListener value="#{body}" target="#{showroomManNotesApprove1.hrManNotesDt}"/>
+                                            </p:commandButton>
+                                            <p:spacer width="20" height="1"/>
+                                            <p:commandButton update=":frm:growl" oncomplete="PF('reply').show();" icon="ui-icon-volume-on" value="#{msg.Reply}"  >
+                                                <f:setPropertyActionListener value="#{body}" target="#{showroomManNotesApprove1.hrManNotesDt}"/>
+                                            </p:commandButton>
+                                        </h:panelGrid>
+                                        <p:dialog id="redirect" modal="true" header="#{msg.Redirect}" widgetVar="redirect" >
+                                            <p:ajax event="close" update="redirect" listener="#{showroomManNotes1.handleDlgClose}" />
+                                            <h:panelGroup>
+                                                <p:autoComplete value="#{showroomManNotesApprove1.txt}" completeMethod="#{showroomManNotesApprove1.complete}" size="30"  />
+                                                <p:commandButton oncomplete="PF('redirect').hide();" update=":frm:growl redirect" action="#{showroomManNotesApprove1.send_mail}" image="ui-icon-mail-closed" value="#{msg.Send}" />
+                                            </h:panelGroup>
+                                        </p:dialog>
+                                        <p:dialog width="500" height="200" id="reply" modal="true" header="#{msg.Reply}" widgetVar="reply" >
+                                            <p:ajax event="close" update="reply" listener="#{showroomManNotes1.handleDlgClose}" />
+                                            <h:panelGrid style="text-align: center" columns="1">
+                                                <p:inputTextarea cols="55" rows="7" value="#{showroomManNotesApprove1.replyTxt}"/>
+                                                <p:spacer height="5"/>
+                                                <p:commandButton oncomplete="PF('reply').hide();" update=":frm:growl reply" action="#{showroomManNotesApprove1.reply}" icon="ui-icon-volume-on" value="#{msg.Reply}"  />
+                                            </h:panelGrid>
+                                        </p:dialog>
+                                        <p:separator />
+                                    </h:panelGrid>
+                                </p:dataScroller>
+                            </h:panelGroup>
+                            <h:panelGrid style="position: relative;right: 100px;top: 5px" columns="7">
+                                <h:outputText value="#{msg.Value}" style="text-align: right;font-weight:bold;font-size:small;"/>
+                                <p:spacer height="1" width="10"/>
+                                <p:inputText value="#{showroomManNotesApprove1.hrManNotesHd.bonus}" style="font-size: medium;" size="3"/>
+                                <p:spacer height="1" width="10"/>
+                                <p:selectOneMenu value="#{showroomManNotesApprove1.hrManNotesHd.approved}" style="width: 50px;font-size: medium;">
+                                    <f:selectItem />
+                                    <f:selectItem itemValue="Y" itemLabel="#{msg.Approve}"/>
+                                    <f:selectItem itemValue="N" itemLabel="#{msg.Reject}"/>
+                                </p:selectOneMenu>
+                                <p:spacer height="1" width="10"/>
+                                <p:commandButton image="ui-icon-disk" update="growl frm" actionListener="#{showroomManNotesApprove1.save}" style="border-color: #326DA7;"  value="#{msg.Save}" />
+                            </h:panelGrid>
+                        </p:fieldset>
+                    </p:panelGrid>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

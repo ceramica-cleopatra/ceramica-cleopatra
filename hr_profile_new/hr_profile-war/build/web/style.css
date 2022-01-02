@@ -1,0 +1,38 @@
+a:link, a:active, a:visited {
+	font-family: Tahoma, Arial;
+	color: #FFFFFF;
+	text-decoration: none;
+	font-size: 10px;
+	font-weight: bold;
+}
+a:hover {
+	font-family: Tahoma, Arial;
+	color: #FFFFFF;
+	text-decoration: underline;
+	font-size: 10px;
+	font-weight: bold;
+}
+BODY {
+	font-weight: normal;
+	background-color: #373737;
+}
+TD {
+	font-family: Tahoma, Arial;
+	font-size: 10px;
+	color: #FFFFFF;
+}
+.underline {
+	text-decoration: underline;
+}
+.red {
+	color: #92010E;
+}
+.green {
+	color: #79C501;
+}
+.blue {
+	color: #0A79BE;
+}
+.px11 {
+	font-size: 11px;
+}

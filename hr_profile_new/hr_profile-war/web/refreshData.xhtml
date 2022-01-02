@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./hr_profile_template.xhtml">
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-cog"/>
+                    <h:outputText value="Administration" />
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="#{msg.RefreshData}" />
+            </ui:define>
+            <ui:define name="body">
+                <h:form id="frm">
+                    <p:growl id="growl" life="2000"  showDetail="true" showSummary="true" autoUpdate="false"/>
+                    <h:panelGrid columns="1" cellspacing="15" cellpadding="15">
+                        <p:commandButton style="width: 100%;height: 35px" update="growl" icon="ui-icon-refresh" value="#{msg.RefreshMenu}" actionListener="#{refreshData.refreshMenu}"/>
+                        <p:commandButton style="width: 100%;height: 35px" update="growl" icon="ui-icon-refresh" value="#{msg.RefreshMsg}" actionListener="#{refreshData.refreshMsg}"/>
+                        <p:commandButton style="width: 100%;height: 35px" update="growl" icon="ui-icon-refresh" value="#{msg.RefreshTamyozApprove}" actionListener="#{refreshData.refreshTamyozApprove}"/>
+                        <p:commandButton style="width: 100%;height: 35px" update="growl" icon="ui-icon-refresh" value="#{msg.RefreshMngHierarchy}" actionListener="#{refreshData.refreshHierarchy}"/>
+                        <p:commandButton style="width: 100%;height: 35px" update="growl" icon="ui-icon-refresh" value="#{msg.RefreshApprovePrivileges}" actionListener="#{refreshData.refreshApprove}"/>
+                        <p:commandButton style="width: 100%;height: 35px" update="growl" icon="ui-icon-refresh" value="#{msg.RefreshAll}" actionListener="#{refreshData.refreshAll}"/>
+                    </h:panelGrid>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

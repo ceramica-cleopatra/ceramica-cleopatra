@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./hr_profile_template.xhtml">
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-pencil-square-o"/>
+                    <h:outputText value="#{msg.Entries}" />
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="#{msg.DmsOrdrDiscount}" />
+
+            </ui:define>
+
+            <ui:define name="body">
+                
+                <script language="javascript" src="hr_profile_js.js" type="text/javascript"/>
+                <h:form id="frm">
+                    <p:growl id="growl" showDetail="true" life="3000" />
+                    <p:fieldset>
+                        <h:panelGrid columns="3">
+                            <h:panelGrid id="pg" columns="4">
+                                <h:outputText value="#{msg.DmsOrdrNo}" style="font-size: small;font-weight: bold"/>
+                                <h:outputText value=":" style="font-size: small;font-weight: bold"/>
+                                <p:inputText value="#{dmsOrdrDiscount.ordrNo}" onkeypress="return handleEnter(this, event)" style="font-size: small;font-weight: bold"/>
+                                <p:spacer height="35"/>
+                                <h:outputText value="#{msg.DmsClntName}" style="font-size: small;font-weight: bold"/>
+                                <h:outputText value=":" style="font-size: small;font-weight: bold"/>
+                                <p:inputText value="#{dmsOrdrDiscount.clntName}" onkeypress="return handleEnter(this, event)" style="font-size: small;font-weight: bold"/>
+                                <p:spacer height="35"/>
+                                <h:outputText value="#{msg.DmsAddress}" style="font-size: small;font-weight: bold"/>
+                                <h:outputText value=":" style="font-size: small;font-weight: bold"/>
+                                <p:inputText value="#{dmsOrdrDiscount.address}" onkeypress="return handleEnter(this, event)" style="font-size: small;font-weight: bold"/>
+                                <p:spacer height="35"/>
+                                <h:outputText value="#{msg.DmsMobile}" style="font-size: small;font-weight: bold"/>
+                                <h:outputText value=":" style="font-size: small;font-weight: bold"/>
+                                <p:inputText value="#{dmsOrdrDiscount.mobile}" onkeypress="return handleEnter(this, event)" style="font-size: small;font-weight: bold"/>
+                                <p:spacer height="35"/>
+                                <h:outputText value="#{msg.DmsTelephone}" style="font-size: small;font-weight: bold"/>
+                                <h:outputText value=":" style="font-size: small;font-weight: bold"/>
+                                <p:inputText value="#{dmsOrdrDiscount.tel1}" onkeypress="return handleEnter(this, event)" style="font-size: small;font-weight: bold"/>
+                                <p:spacer height="35"/>
+                                <h:outputText value="#{msg.DmsCity}" style="font-size: small;font-weight: bold"/>
+                                <h:outputText value=":" style="font-size: small;font-weight: bold"/>
+                                <p:autoComplete value="#{dmsOrdrDiscount.cityName}" onkeypress="return handleEnter(this, event)" completeMethod="#{dmsOrdrDiscount.completeCityName}" id="ac1" size="18"/>
+                                <p:spacer height="35"/>
+                                <h:outputText value="#{msg.DmsArea}" style="font-size: small;font-weight: bold"/>
+                                <h:outputText value=":" style="font-size: small;font-weight: bold"/>
+                                <p:autoComplete value="#{dmsOrdrDiscount.areaName}" onkeypress="return handleEnter(this, event)" completeMethod="#{dmsOrdrDiscount.completeAreaName}" id="ac2" size="18">
+                                    <p:ajax event="focus" immediate="true" listener="#{dmsOrdrDiscount.updateCityForArea}" update="ac1" process="ac1"/>
+                                </p:autoComplete>
+                            </h:panelGrid>
+                            <p:spacer width="200"/>
+                            <h:panelGrid columns="1">
+                                <p:commandButton style="width: 150px;font-weight: bold" actionListener="#{dmsOrdrDiscount.search}" value="#{msg.DmsShowOrdr}" update="growl pg fs"/>
+                                <p:spacer height="30"/>
+                                <p:commandButton style="width: 150px;font-weight: bold" actionListener="#{dmsOrdrDiscount.newSearch}" value="#{msg.DmsNewOrdrSearch}" update="pg growl fs"/>
+                                <p:spacer height="30"/>
+                                <p:commandButton style="width: 150px;font-weight: bold" actionListener="#{dmsOrdrDiscount.saveDiscount}" value="#{msg.Save}" update="growl pg fs"/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </p:fieldset>
+                    <p:spacer height="5"/>
+                    <p:fieldset id="fs">
+                        <h:panelGrid columns="3">
+                            <h:outputText value="#{msg.DmsListPrice}" style="font-size: small;font-weight: bold"/>
+                            <p:spacer height="30" width="10"/>
+                            <h:outputText value="#{dmsOrdrDiscount.dmsTrnsOrdrDt.listPrice}" style="font-size: small;font-weight: bold"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <h:outputText value="#{msg.DmsOrdrQty}" style="font-size: small;font-weight: bold"/>
+                            <h:panelGrid columns="12">
+                                <p:spacer height="30" width="50"/>
+                                <h:outputText value="#{dmsOrdrDiscount.dmsTrnsOrdrDt.mQty}" style="font-size: small;font-weight: bold"/>
+                                <p:spacer height="30" width="10"/>
+                                <h:outputText value="#{msg.DmsMeterSquare}" style="font-size: small;font-weight: bold"/>
+                                <p:spacer height="30" width="100"/>
+                                <h:outputText value="#{dmsOrdrDiscount.dmsTrnsOrdrDt.pQty}" style="font-size: small;font-weight: bold"/>
+                                <p:spacer height="30" width="10"/>
+                                <h:outputText value="#{msg.DmsPiece}" style="font-size: small;font-weight: bold"/>
+                                <p:spacer height="30" width="100"/>
+                                <h:outputText value="#{dmsOrdrDiscount.dmsTrnsOrdrDt.sQty}" style="font-size: small;font-weight: bold"/>
+                                <p:spacer height="30" width="10"/>
+                                <h:outputText value="#{msg.DmsSehy}" style="font-size: small;font-weight: bold"/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                        <h:panelGrid columns="12">
+                            <h:outputText value="#{msg.DmsDiscountValue}" style="font-size: small;font-weight: bold"/>
+                            <p:spacer height="30" width="10"/>
+                            <p:inputText size="4" value="#{dmsOrdrDiscount.discountValue}" onkeypress="return handleEnter(this, event)" style="font-size: small;font-weight: bold">
+                                <p:ajax event="change" listener="#{dmsOrdrDiscount.claculateFinalPrice}" update="discountPercent finalPrice growl" />
+                            </p:inputText>
+                            <p:spacer height="30" width="100"/>
+                            <h:outputText value="#{msg.DmsDiscountPercent}" style="font-size: small;font-weight: bold"/>
+                            <p:spacer height="30" width="10"/>
+                            <h:outputText id="discountPercent" value="#{dmsOrdrDiscount.discountPercent}" style="font-size: small;font-weight: bold"/>
+                            <h:outputText value="%" style="font-size: small;font-weight: bold"/>
+                            <p:spacer height="30" width="100"/>
+                            <h:outputText value="#{msg.DmsDiscountFinalValue}" style="font-size: small;font-weight: bold"/>
+                            <p:spacer height="30" width="10"/>
+                            <h:outputText id="finalPrice" value="#{dmsOrdrDiscount.finalPrice}" style="font-size: small;font-weight: bold"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="3">
+                            <h:outputText value="#{msg.Notes}" style="font-size: small;font-weight: bold"/>
+                            <p:spacer height="30" width="10"/>
+                            <p:inputTextarea value="#{dmsOrdrDiscount.notes}" style="font-size: small;font-weight: bold;width: 650px" />
+                        </h:panelGrid>
+                    </p:fieldset>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

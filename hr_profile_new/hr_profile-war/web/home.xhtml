@@ -1,0 +1,478 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body dir="rtl">
+        <ui:composition template="./hr_profile_template.xhtml">
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-home"/>
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="#{msg.Home}" />
+            </ui:define>
+
+            <ui:define name="body">
+                <link href="css/animation.css" rel="stylesheet"/>
+                <style type="text/css">
+                    .div1{
+                        height: 100px;
+                        margin-left: 20px;
+                        padding-top: 40px;
+                        text-align: center;
+                        width: 100px;
+                        position:relative;
+                        border-radius: 60px 60px 60px 60px;
+                        border-style: solid;
+                        border-width: 0px;
+                        color:white;
+                    }
+
+                    .div1:hover .textbox{
+                        -webkit-transform: scale(1); transform: scale(1);
+                    }
+
+
+                    .div1 .textbox {
+                        width:100px;height:100px;position:relative; top:0; left:0; -webkit-transform: scale(0); transform: scale(0);border-radius: 50% 50% 50% 50%; background-color: rgba(0,0,0,0.75); -webkit-box-shadow: 0px 0px 15px 2px rgba(255,255,255,.75); box-shadow: 0px 0px 15px 2px rgba(255,255,255,.75);margin-top:-67px;
+                    }
+
+
+                    .text {
+                        padding-top:30px;
+                        color:white;
+                        font-size:30px;
+                        font-weight:bold;
+                        text-align:center;
+                    }
+                    .textbox {
+                        -webkit-transition: all 0.7s ease; transition: all 0.7s ease;
+                    }
+
+
+
+                </style>
+
+                <style type="text/css">
+                    .transbox {
+                        width: 100%;
+                        z-index: 1000000;
+                        height: 100%;
+                        margin: 0px 0px;
+                        background:##{home.hrActiveAlert.bgColor};
+                        border: 1px solid black;
+                        opacity: 0.9;
+                        filter: alpha(opacity=60); /* For IE8 and earlier */
+                    }
+                </style>
+
+                <!--                               <h:panelGrid columns="4" >
+                                                    <p:spacer height="1" width="100px"/>
+                                                    <p:graphicImage value="/images/ramadan1.png" width="80%"/>
+                                                    <p:graphicImage value="/images/ramadan.gif" width="60%" />
+                                                    <p:graphicImage value="/images/ramadan1.png" width="80%" />
+                                                </h:panelGrid>-->
+
+                <div align="center" style="width:100%;overflow:hidden;height:400px;padding-top: 150px;">
+                    <table>
+                        <tr>
+                            <td>
+                                <div style="animation:bounceInRight 2s 1;background: none repeat scroll 0 0 #27AE60;" class="animated bounceInRight div1">
+                                    <i class="fa fa-envelope-o fa-4x" style="margin:-15px"></i>
+                                    <div class="textbox">
+                                        <p  class="text">#{userProfileHandler.msgCnt}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="animation:bounceInRight 2s 1;background: none repeat scroll 0 0 #E74C3C;" class="animated bounceInRight div1">
+                                    <i class="fa fa-bell fa-4x" style="margin:-15px"></i>
+                                    <div class="textbox">
+                                        <p class="text">#{userProfileHandler.alertCnt}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="animation:bounceInRight 2s 1;background: none repeat scroll 0 0 #2980B9;" class="animated bounceInRight div1">
+                                    <i class="fa fa-gears fa-4x" style="margin:-15px"></i>
+                                    <div class="textbox">
+                                        <p class="text">#{userProfileHandler.decCnt}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="animation:bounceInRight 2s 1;background: none repeat scroll 0 0 #E67E22;" class="animated bounceInRight div1">
+                                    <i class="fa fa-tasks fa-4x" style="margin:-15px"></i>
+                                    <div class="textbox">
+                                        <p class="text">0</p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <MARQUEE HSPACE="0" id="mymarquee" scrollamount="3"  BEHAVIOR="SCROLL" DIRECTION="right" WIDTH="100%">
+                    <ui:repeat value="#{home.publicMsgs}" var="z">
+                        <label style="text-align: center;color:#045491;font: Lucida Grande, Lucida Sans, Arial, sans-serif;font-size: large;font-weight: bold">${z.msgText}</label>
+                        <p:spacer height="1" width="10"/>
+
+                        <h:graphicImage style="position: relative;top: -5px;" height="28" width="22" value="images/cleo.png"/>
+
+                        <p:spacer height="1" width="10"/>
+                    </ui:repeat>
+                </MARQUEE>
+
+                <h:form id="frm">
+                    <p:notificationBar styleClass="transbox" rendered="#{home.displayAlert eq &quot;Y&quot;}"  autoDisplay="true" style="height: 200%" position="top" effect="slide" widgetVar="bar">
+                        <p:spacer height="50"/>
+                        <p:scrollPanel mode="native" styleClass="transbox"  style="width:100%;height:600px;border-width: 0px;">
+                            <h:outputText  escape="false" value="#{home.hrActiveAlert.alertTxt}"/>
+                            <!--                            <p:graphicImage value="/images/feast3.PNG" height="95%" width="100%"/>-->
+                            <!--                            <p:graphicImage value="/images/aid_adha_bg.jpg" height="100%" width="100%"/>-->
+                            <!-- <p:graphicImage value="/images/hjri.jpg" height="100%" width="100%"/>-->
+
+                            <p:commandButton value="#{msg.Hide}"  style="float:left;left:100px;top: 0px;"     oncomplete="PF('bar').hide();document.getElementById('frm:alert').click();"/>
+                            <p:spacer height="10"/>
+                        </p:scrollPanel>
+                    </p:notificationBar>
+                    <p:commandButton id="alert"  actionListener="#{home.readAlertDone}" style="visibility: hidden" />
+                </h:form>
+
+                <p:growl widgetVar="growl" id="growl" showDetail="true" showSummary="true" life="3000"/>
+                <p:dialog id="investDlg" dir="RTL" header="#{msg.VeryImportant}" modal="true"  closable="false" closeOnEscape="false" rendered="#{home.chkInvest eq 0}"
+                          height="500" width="750" resizable="false" widgetVar="investDlg">
+
+                    <h:form id="wizardFrm">
+                        <p:wizard id="wizard" nextLabel="#{msg.Next}" backLabel="#{msg.Back}" flowListener="#{home.onFlowProcess}">
+
+                            <p:tab titleStyle="width:170px;text-align:center" id="alert" title="#{msg.AlarmHeader}">
+                                <p:panel style="height:380px" >
+                                    <p:messages />
+                                    <h:outputText value="#{msg.InvestigationAlert}" style="font-weight: bolder;font-size: 30px;color: red;height: 100%;text-align: center"/>
+                                </p:panel>
+                            </p:tab>
+
+                            <p:tab id="address" titleStyle="width:170px;text-align:center" title="#{msg.Address}">
+                                <p:spacer height="20" width="100%"/>
+                                <p:panel style="height:380px" header="#{msg.AddressDetails}">
+                                    <p:messages />
+                                    <h:panelGrid columns="3" >
+                                        <h:outputText style="font-weight: bold;" value="#{msg.HomeNo}" />
+                                        <p:inputText requiredMessage="#{msg.HomeNoIsRequired}" required="true" value="#{home.hrEmpLocInvest.homeNo}" size="20" />
+                                        <p:spacer height="35" width="1"/>
+
+                                        <h:outputText style="font-weight: bold;" value="#{msg.Street}" />
+                                        <p:inputText requiredMessage="#{msg.StreetRequired}" required="true" value="#{home.hrEmpLocInvest.street}" size="50" />
+
+                                        <p:spacer height="35" width="1"/>
+
+                                        <h:outputText style="font-weight: bold;"  value="#{msg.SignInPlace}" />
+                                        <p:inputText requiredMessage="#{msg.HomeSignPlaceRequired}" required="true" value="#{home.hrEmpLocInvest.signInPlace}" size="50" />
+
+                                        <p:spacer height="35" width="1"/>
+
+                                        <h:outputText style="font-weight: bold;"  value="#{msg.Area}" />
+                                        <h:panelGrid id="areaPG" columns="9">
+                                            <p:commandButton oncomplete="PF('areaDlg').show()" update="areaDlg" icon="ui-icon-search"/>
+                                            <p:inputText readonly="true" style="width: 70%" value="#{home.selectedArea.name}" size="20" />
+                                            <p:dialog dir="RTL" header="#{msg.Area}" id="areaDlg" width="200" height="300" widgetVar="areaDlg">
+                                                <p:dataTable dir="RTL" rowKey="#{areaDT}" rowIndexVar="x" selection="#{home.selectedArea}" selectionMode="single" id="areaDT" var="areaDT" value="#{home.allArea}" widgetVar="areaDT">
+                                                    <p:ajax event="rowSelect" update="areaDT :wizardFrm:areaPG" listener="#{home.onAreaSelected}" oncomplete="PF('areaDlg').hide()"/>
+                                                    <p:column filterMatchMode="contains" filterBy="#{areaDT.name}" width="15" headerText="#{msg.Area}">
+                                                        <h:outputText value="#{areaDT.name}" />
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </p:dialog>
+                                            <p:spacer height="1" width="10"/>
+                                            <h:outputText style="font-weight: bold;"  value="#{msg.OtherArea}" />
+                                            <p:spacer height="1" width="5"/>
+                                            <p:selectBooleanCheckbox value="#{home.otherArea}" >
+                                                <p:ajax event="change" update=":wizardFrm:areaPG" listener="#{home.onSelectOtherArea}"/>
+                                            </p:selectBooleanCheckbox>
+                                            <p:spacer height="1" width="10"/>
+                                            <p:inputText id="otherArea" value="#{home.hrEmpLocInvest.otherRegion}" rendered="#{home.otherArea}" />
+                                        </h:panelGrid>
+                                        <p:spacer height="35" width="1"/>
+
+
+                                        <h:outputText style="font-weight: bold;"  value="#{msg.Region}" />
+                                        <h:panelGrid id="regionPG" columns="9">
+                                            <p:commandButton oncomplete="PF('regionDlg').show()" update="regionDlg" icon="ui-icon-search"/>
+                                            <p:inputText readonly="true" style="width: 70%" value="#{home.selectedRegion.name}" size="20" />
+                                            <p:dialog dir="RTL" header="#{msg.Region}" id="regionDlg" width="200" height="300" widgetVar="regionDlg">
+                                                <p:dataTable dir="RTL" rowKey="#{regionDT}" rowIndexVar="x" selection="#{home.selectedRegion}" selectionMode="single" id="regionDT" var="regionDT" value="#{home.allRegion}" widgetVar="regionDT">
+                                                    <p:ajax event="rowSelect" update="regionDT :wizardFrm:regionPG" listener="#{home.onRegionSelected}" oncomplete="PF('regionDlg').hide()"/>
+                                                    <p:column filterMatchMode="contains" filterBy="#{regionDT.name}" width="15" headerText="{msg.Region}">
+                                                        <h:outputText value="#{regionDT.name}" />
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </p:dialog>
+                                        </h:panelGrid>
+                                    </h:panelGrid>
+                                </p:panel>
+                            </p:tab>
+                            <!--<p:tab id="avg" titleStyle="width:170px;text-align:center" title="#{msg.AvgTime}">
+                                <p:panel style="height:380px" header="#{msg.AvgTime}">
+                                    <p:messages />
+                                    <h:panelGrid columns="4" >
+                                        <h:outputText style="font-weight: bold;" value="#{msg.ArrivalAvg}" />
+                                        <p:inputMask mask="99:99" required="true" requiredMessage="#{msg.ArrivalAvgRequired}" value="{home.hrEmpLocInvest.arrivalAvg}" size="5" />
+                                        <h:outputText value="#{msg.Example1}"/>
+                                        <p:spacer height="50" width="1"/>
+
+                                        <h:outputText style="font-weight: bold;" value="#{msg.LeaveAvg}" />
+                                        <p:inputMask mask="99:99" required="true" requiredMessage="#{msg.LeaveAvgRequired}" value="{home.hrEmpLocInvest.leaveAvg}" size="5" />
+                                        <h:outputText value="#{msg.Example2}"/>
+                                        <p:spacer height="50" width="1"/>
+                                    </h:panelGrid>
+                                </p:panel>
+                            </p:tab>-->
+                            <p:tab id="investigation" titleStyle="width:170px;text-align:center" title="#{msg.Investigation}">
+                                <p:panel id="pnl" style="height:380px;width: 100%" header="#{msg.NeedToChangeLocation}">
+                                    <p:messages />
+                                    <h:panelGrid width="700" columns="6">
+                                        <h:outputText style="font-weight: bold;"  value="#{msg.DoYouWantToChangeLocation}" />
+                                        <p:spacer width="10" height="1"/>
+                                        <p:selectOneRadio columns="2" id="changeLocation" required="true" requiredMessage="#{msg.YouMustChooseOneChoice}" value="#{home.hrEmpLocInvest.trnsFlag}">
+                                            <f:selectItem itemLabel="#{msg.Yes}" itemValue="Y"/>
+                                            <f:selectItem itemLabel="#{msg.No}" itemValue="N"/>
+                                            <p:ajax event="change" listener="#{home.onSelectRadioButton}" update="wizard"/>
+                                        </p:selectOneRadio>
+                                        <p:spacer width="20" height="1"/>
+                                        <h:outputText value="#{msg.Reason} :"   style="font-weight: bold;"/>
+                                        <p:inputText required="true" requiredMessage="#{msg.YouMustEnterReason}" style="width: 70%" value="#{home.hrEmpLocInvest.reason}" size="35" />
+                                    </h:panelGrid>
+                                </p:panel>
+                            </p:tab>
+                            <p:tab id="locations" titleStyle="width:170px;text-align:center" title="#{msg.InvestigationLocations}">
+                                <p:panel id="pnl1" style="height:300px;width: 100%" header="#{msg.ChangeLocation}">
+                                    <h:outputText style="font-weight: bold;" value="#{msg.YouMustChooseLocationWantToTransferTo}" />
+                                    <p:spacer height="20" width="500"/>
+
+                                    <h:panelGrid width="100%" id="choices" columns="2" >
+                                        <h:outputText value="#{msg.Loc1} :" style="font-weight: bold;"/>
+                                        <h:panelGrid width="100%" id="choose1" columns="9">
+                                            <p:commandButton oncomplete="PF('choose1Dlg').show()" update="choose1Dlg" icon="ui-icon-search"/>
+                                            <p:inputText readonly="true" style="width: 70%" value="#{home.choose1Loc.name}" size="20" />
+                                            <p:dialog dir="RTL" header="#{msg.LocationName}" id="choose1Dlg" width="300" height="300" widgetVar="choose1Dlg">
+                                                <p:dataTable dir="RTL" rowKey="#{choose1DT}" rowIndexVar="x" selection="#{home.choose1Loc}" selectionMode="single" id="choose1DT" var="choose1DT" value="#{home.allLocations}" widgetVar="choose1DT">
+                                                    <p:ajax event="rowSelect" update="choose1DT :wizardFrm:choices" listener="#{home.onLoc1Selected}" oncomplete="PF('choose1Dlg').hide()"/>
+                                                    <p:column filterMatchMode="contains" filterBy="#{choose1DT.name}" width="15" headerText="#{msg.LocationName}">
+                                                        <h:outputText value="#{choose1DT.name}" />
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </p:dialog>
+                                        </h:panelGrid>
+
+                                        <h:outputText value="#{msg.Loc2} :" style="font-weight: bold;"/>
+                                        <h:panelGrid width="100%" id="choose2" columns="9">
+                                            <p:commandButton oncomplete="PF('choose2Dlg').show()" update="choose2Dlg" icon="ui-icon-search"/>
+                                            <p:inputText readonly="true" style="width: 70%" value="#{home.choose2Loc.name}" size="20" />
+                                            <p:dialog dir="RTL" header="#{msg.LocationName}" id="choose2Dlg" width="300" height="300" widgetVar="choose2Dlg">
+                                                <p:dataTable dir="RTL" rowKey="#{choose2DT}" rowIndexVar="x" selection="#{home.choose2Loc}" selectionMode="single" id="choose2DT" var="choose2DT" value="#{home.allLocations}" widgetVar="choose2DT">
+                                                    <p:ajax event="rowSelect" update="choose2DT :wizardFrm:choices" listener="#{home.onLoc2Selected}" oncomplete="PF('choose2Dlg').hide()"/>
+                                                    <p:column filterMatchMode="contains" filterBy="#{choose2DT.name}" width="15" headerText="#{msg.LocationName}">
+                                                        <h:outputText value="#{choose2DT.name}" />
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </p:dialog>
+                                        </h:panelGrid>
+
+                                        <h:outputText value="#{msg.Loc3} :" style="font-weight: bold;"/>
+                                        <h:panelGrid width="100%" id="choose3" columns="9">
+                                            <p:commandButton oncomplete="PF('choose3Dlg').show()" update="choose3Dlg" icon="ui-icon-search"/>
+                                            <p:inputText readonly="true" style="width: 70%" value="#{home.choose3Loc.name}" size="20" />
+                                            <p:dialog dir="RTL" header="#{msg.LocationName}" id="choose3Dlg" width="300" height="300" widgetVar="choose3Dlg">
+                                                <p:dataTable dir="RTL" rowKey="#{choose3DT}" rowIndexVar="x" selection="#{home.choose3Loc}" selectionMode="single" id="choose3DT" var="choose3DT" value="#{home.allLocations}" widgetVar="choose3DT">
+                                                    <p:ajax event="rowSelect" update="choose3DT :wizardFrm:choices" listener="#{home.onLoc3Selected}" oncomplete="PF('choose3Dlg').hide()"/>
+                                                    <p:column filterMatchMode="contains" filterBy="#{choose3DT.name}" width="15" headerText="#{msg.LocationName}">
+                                                        <h:outputText value="#{choose3DT.name}" />
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </p:dialog>
+                                        </h:panelGrid>
+                                        <p:spacer height="10" width="200"/>
+                                    </h:panelGrid>
+                                    <p:commandButton style="float: right;" value="#{msg.Save}" update="investDlg" actionListener="#{home.saveWizard}" oncomplete="" />
+                                </p:panel>
+                                <p:messages />
+                            </p:tab>
+                        </p:wizard>
+                    </h:form>
+                </p:dialog>
+
+                <p:dialog id="dynAlertDlg" dir="RTL" header="#{home.hrDynAlertTemplateHd.title}" modal="true"  closable="false" closeOnEscape="false"
+                          height="#{home.hrDynAlertTemplateHd.height}" width="#{home.hrDynAlertTemplateHd.width}" resizable="false" widgetVar="dynAlertDlg">
+                    <h:form>
+                        <h:panelGrid columns="1">
+                            <c:forEach  var="comp" items="#{home.hrDynAlertTemplateHd.hrDynAlertTemplateDtList}">
+                                <c:if test="#{comp.compId == 1}">
+                                    <c:if test="#{comp.addComment}">
+                                        <h:panelGrid columns="3">
+                                            <h:panelGrid columns="3">
+                                                <h:outputText value="#{comp.txt}"/>
+                                                <p:spacer width="10" height="1"/>
+                                                <p:inputText requiredMessage="#{msg.RequiredValue} #{comp.txt}" required="#{comp.required}" size="#{comp.compWidth}" value="#{comp.value}"/>
+                                            </h:panelGrid>
+                                            <p:spacer height="1" width="20"/>
+                                            <h:panelGrid columns="3">
+                                                <h:outputText value="#{comp.commentLabel}"/>
+                                                <p:spacer width="10" height="1"/>
+                                                <p:inputText value="#{comp.commentValue}"/>
+                                            </h:panelGrid>
+                                        </h:panelGrid>
+                                    </c:if>
+
+                                    <c:if test="#{!comp.addComment}">
+                                        <h:panelGrid columns="3">
+                                            <h:outputText value="#{comp.txt}"/>
+                                            <p:spacer width="10" height="1"/>
+                                            <p:inputText required="#{comp.required}" requiredMessage="#{msg.RequiredValue} #{comp.txt}" size="#{comp.compWidth}" value="#{comp.value}"/>
+                                        </h:panelGrid>
+                                    </c:if>
+                                </c:if>
+                                <c:if test="#{comp.compId == 2}">
+                                    <c:if test="#{comp.addComment}">
+                                        <h:panelGrid columns="3">
+                                            <h:panelGrid columns="3">
+                                                <h:outputText value="#{comp.txt}"/>
+                                                <p:spacer width="10" height="1"/>
+                                                <p:selectOneMenu requiredMessage="#{msg.RequiredValue} #{comp.txt}" required="#{comp.required}" value="#{comp.value}" style="width:#{comp.compWidth}px">
+                                                    <f:selectItem itemLabel="Select One" itemValue="" />
+                                                    <c:forEach  var="item" items="#{comp.hrDynAlertTemplateCompDtList}">
+                                                        <f:selectItem itemLabel="#{item.itemLabel}" itemValue="#{item.itemValue}" />
+                                                    </c:forEach>
+                                                </p:selectOneMenu>
+                                            </h:panelGrid>
+                                            <p:spacer height="1" width="20"/>
+                                            <h:panelGrid columns="3">
+                                                <h:outputText value="#{comp.commentLabel}"/>
+                                                <p:spacer width="10" height="1"/>
+                                                <p:inputText value="#{comp.commentValue}"/>
+                                            </h:panelGrid>
+                                        </h:panelGrid>
+                                    </c:if>
+
+                                    <c:if test="#{!comp.addComment}">
+                                        <h:panelGrid columns="3">
+                                            <h:outputText value="#{comp.txt}"/>
+                                            <p:spacer width="10" height="1"/>
+                                            <p:selectOneMenu requiredMessage="#{msg.RequiredValue} #{comp.txt}" required="#{comp.required}" value="#{comp.value}" style="width:#{comp.compWidth}px">
+                                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                                <c:forEach  var="item" items="#{comp.hrDynAlertTemplateCompDtList}">
+                                                    <f:selectItem itemLabel="#{item.itemLabel}" itemValue="#{item.itemValue}" />
+                                                </c:forEach>
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>
+                                    </c:if>
+                                </c:if>
+                                <c:if test="#{comp.compId == 3}">
+                                    <c:if test="#{comp.addComment}">
+                                        <h:panelGrid columns="3">
+                                            <h:panelGrid columns="3">
+                                                <h:outputText value="#{comp.txt}"/>
+                                                <p:spacer width="10" height="1"/>
+                                                <p:selectOneRadio requiredMessage="#{msg.RequiredValue} #{comp.txt}" style="width:#{comp.compWidth}px" required="#{comp.required}" layout="grid" columns="1" value="#{comp.value}" >
+                                                    <c:forEach  var="item" items="#{comp.hrDynAlertTemplateCompDtList}">
+                                                        <f:selectItem itemLabel="#{item.itemLabel}" itemValue="#{item.itemValue}" />
+                                                    </c:forEach>
+                                                </p:selectOneRadio>
+                                            </h:panelGrid>
+                                            <p:spacer height="1" width="20"/>
+                                            <h:panelGrid columns="3">
+                                                <h:outputText value="#{comp.commentLabel}"/>
+                                                <p:spacer width="10" height="1"/>
+                                                <p:inputText value="#{comp.commentValue}"/>
+                                            </h:panelGrid>
+                                        </h:panelGrid>
+                                    </c:if>
+                                    <c:if test="#{!comp.addComment}">
+                                        <h:panelGrid columns="3">
+                                            <h:outputText value="#{comp.txt}"/>
+                                            <p:spacer width="10" height="1"/>
+                                            <p:selectOneRadio requiredMessage="#{msg.RequiredValue} #{comp.txt}" style="width:#{comp.compWidth}px" required="#{comp.required}" layout="grid" columns="2" value="#{comp.value}">
+                                                <c:forEach  var="item" items="#{comp.hrDynAlertTemplateCompDtList}">
+                                                    <f:selectItem itemLabel="#{item.itemLabel}" itemValue="#{item.itemValue}" />
+                                                </c:forEach>
+                                            </p:selectOneRadio>
+                                        </h:panelGrid>
+                                    </c:if>
+                                </c:if>
+                                <c:if test="#{comp.compId == 4}">
+                                    <c:if test="#{comp.addComment}">
+                                        <h:panelGrid columns="3">
+                                            <h:panelGrid columns="3">
+                                                <h:outputText value="#{comp.txt}"/>
+                                                <p:spacer width="10" height="1"/>
+                                                <p:inputTextarea requiredMessage="#{msg.RequiredValue} #{comp.txt}" required="#{comp.required}" value="#{comp.value}" rows="#{comp.compHeight}" cols="#{comp.compWidth}" />
+                                            </h:panelGrid>
+                                            <p:spacer height="1" width="20"/>
+                                            <h:panelGrid columns="3">
+                                                <h:outputText value="#{comp.commentLabel}"/>
+                                                <p:spacer width="10" height="1"/>
+                                                <p:inputText value="#{comp.commentValue}"/>
+                                            </h:panelGrid>
+                                        </h:panelGrid>
+                                    </c:if>
+                                    <c:if test="#{!comp.addComment}">
+                                        <h:panelGrid columns="3">
+                                            <h:outputText value="#{comp.txt}"/>
+                                            <p:spacer width="10" height="1"/>
+                                            <p:inputTextarea requiredMessage="#{msg.RequiredValue} #{comp.txt}" required="#{comp.required}" value="#{comp.value}" rows="#{comp.compHeight}" cols="#{comp.compWidth}" />
+                                        </h:panelGrid>
+                                    </c:if>
+                                </c:if>
+                                <c:if test="#{comp.compId == 5}">
+                                    <c:if test="#{comp.addComment}">
+                                        <h:panelGrid columns="3">
+                                            <h:panelGrid columns="3">
+                                                <h:outputText value="#{comp.txt}"/>
+                                                <p:spacer width="10" height="1"/>
+                                                <p:selectBooleanCheckbox requiredMessage="#{msg.RequiredValue} #{comp.txt}" required="#{comp.required}" value="#{comp.booleanValue}"/>
+                                            </h:panelGrid>
+                                            <p:spacer height="1" width="20"/>
+                                            <h:panelGrid columns="3">
+                                                <h:outputText value="#{comp.commentLabel}"/>
+                                                <p:spacer width="10" height="1"/>
+                                                <p:inputText value="#{comp.commentValue}"/>
+                                            </h:panelGrid>
+                                        </h:panelGrid>
+                                    </c:if>
+                                    <c:if test="#{!comp.addComment}">
+                                        <h:panelGrid columns="3">
+                                            <h:outputText value="#{comp.txt}"/>
+                                            <p:spacer width="10" height="1"/>
+                                            <p:selectBooleanCheckbox requiredMessage="#{msg.RequiredValue} #{comp.txt}" required="#{comp.required}" value="#{comp.booleanValue}"/>
+                                        </h:panelGrid>
+                                    </c:if>
+                                </c:if>
+                                <c:if test="#{comp.compId == 6}">
+                                    <p:spacer width="#{comp.compWidth}" height="#{comp.compHeight}"/>
+                                </c:if>
+                                <c:if test="#{comp.compId == 7}">
+                                    <h:outputText value="#{comp.txt}" escape="false" />
+                                </c:if>
+                                <p:spacer height="25" width="1"/>
+                            </c:forEach>
+                        </h:panelGrid>
+                        <p:messages id="msg" />
+                        <div align="center">
+                            <p:commandButton update="msg" icon="ui-icon-disk" action="#{home.saveDynAlert}" value="#{msg.Save}"/>
+                        </div>
+
+                    </h:form>
+                </p:dialog>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

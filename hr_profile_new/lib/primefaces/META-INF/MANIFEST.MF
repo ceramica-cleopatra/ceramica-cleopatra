@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Prime Technology
+Built-By: jagatai
+Build-Jdk: 1.6.0_22
+Bundle-ManifestVersion: 2
+Bundle-Name: primefaces
+Bundle-Description: Package PrimeFaces in an OSGi bundle
+Bundle-Version: 2.2.1
+Bundle-SymbolicName: org.primefaces
+

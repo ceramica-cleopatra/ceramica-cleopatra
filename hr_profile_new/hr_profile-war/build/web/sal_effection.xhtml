@@ -1,0 +1,272 @@
+<?xml version='1.0' encoding='windows-1256' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./hr_profile_template.xhtml">
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-history"/>
+                    <h:outputText value="متابعات" />
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="المؤثرات الشهرية" />
+            </ui:define>
+            <ui:define name="body">
+                <script language="javascript" src="hr_profile_js.js" type="text/javascript">
+                </script>
+                <style type="text/css">
+                    .dayoff{background-color: #fbec88;color: black}
+                    .minusColor{color:red;font-weight: bold}
+                    .plusColor{color:green;font-weight: bold}
+                </style>
+
+                <h:form id="frm">
+
+                    <div align="center">
+                        <h:panelGrid columns="5" cellpadding="5" dir="RTL">
+                            <h:panelGrid columns="3">
+                                <h:outputText value="من تاريخ" style="font-weight: bold;font-size: small" />
+                                <h:outputText value=":" style="font-weight: bold;font-size: small;"/>
+                                <p:inputMask mask="99/99/9999" id="frm_date" onkeypress="return handleEnter(this, event)" value="#{sal_effection.date_from}" converterMessage="يجب إدخال التاريخ على هيئة dd/mm/yyyy"  style="font-size: small;width: 90px" converter="#{customConvertDateTime}"/>
+                            </h:panelGrid>
+                            <p:spacer width="50" height="1"/>
+                            <h:panelGrid columns="3">
+                                <h:outputText value="الى تاريخ" style="font-weight: bold;font-size: small;"/>
+                                <h:outputText value=":" style="font-weight: bold;font-size: small;"/>
+                                <p:inputMask mask="99/99/9999" onkeypress="return handleEnter(this, event)" value="#{sal_effection.date_to}"  converterMessage="يجب إدخال التاريخ على هيئة dd/mm/yyyy" style="font-size: small;width:90px" converter="#{customConvertDateTime}" />
+                            </h:panelGrid>
+                            <p:spacer width="30" height="1"/>
+                            <p:commandButton value="بحث" image="ui-icon ui-icon-search"  action="#{sal_effection.search}" update=":frm:eff :frm:summary" />
+                        </h:panelGrid>
+                    </div>
+                    <p:spacer height="10" width="1"/>
+
+                    <p:contextMenu for="eff">
+                        <p:menuitem value="طلب إجازة" action="#{sal_effection.callHolidayRequest}" />
+                        <p:menuitem value="طلب إذن" action="#{sal_effection.callAuthorizeRequest}" />
+                        <p:menuitem value="تغيير شيفت" action="#{sal_effection.callShiftChangeRequest}"/>
+                    </p:contextMenu>
+                    <p:dataTable id="eff"  var="eff" value="#{sal_effection.emp_eff}" rowKey="#{eff[0]}" selection="#{sal_effection.selectedRow}" selectionMode="single"
+                                 paginator="true" rows="15"  paginatorPosition="bottom" emptyMessage="لا يوجد نتائج للبحث" >
+
+                        <p:columnGroup type="header">
+                            <p:row>
+                                <p:column style="text-align: center;font-size: small" rowspan="2" width="60" headerText="التاريخ" />
+                                <p:column style="text-align: center;font-size: small" rowspan="2" width="30" headerText="دخول" />
+                                <p:column style="text-align: center;font-size: small" rowspan="2" width="30" headerText="خروج" />
+                                <p:column style="text-align: center;font-size: small" colspan="2" width="60" headerText="خصم" />
+                                <p:column style="text-align: center;font-size: small" colspan="2" width="60" headerText="أضافى" />
+                                <p:column style="text-align: center;font-size: small" rowspan="2" width="30" headerText="أجازة" />
+                                <p:column style="text-align: center;font-size: small" rowspan="2" width="30" headerText="ع" />
+                                <p:column style="text-align: center;font-size: small" rowspan="2" width="30" headerText="ر" />
+                                <p:column style="text-align: center;font-size: small" rowspan="2" width="30" headerText="أذن" />
+                                <p:column style="text-align: center;font-size: small" rowspan="2" width="30" headerText="م" />
+                                <p:column style="text-align: center;font-size: small" rowspan="2" width="30" headerText="ت" />
+                                <p:column style="text-align: center;font-size: small" rowspan="2" width="30" headerText="غ بأذن" />
+                                <p:column style="text-align: center;font-size: small" rowspan="2" width="30" headerText="غ بدون" />
+                            </p:row>
+                            <p:row>
+                                <p:column width="30"  style="text-align: center" rowspan="1" headerText="دقائق" />
+                                <p:column width="30"  style="text-align: center" rowspan="1" headerText="أيام" />
+                                <p:column width="30"  style="text-align: center" rowspan="1" headerText="دقائق" />
+                                <p:column width="30"  style="text-align: center" rowspan="1" headerText="أيام" />
+                            </p:row>
+                        </p:columnGroup>
+                        <p:column style="text-align: center" styleClass="#{eff[9] eq &quot;Y&quot; ? 'dayoff' : null}" width="50">
+                            <h:outputText id="x" value="#{eff[0]}" style="font-size: small;" converter="#{customConvertDateTime}">
+                            </h:outputText>
+                            <p:tooltip value="#{eff[17]}" converter="#{customConvertTime}"  for="x"/>
+                        </p:column>
+                        <p:column style="text-align: center" styleClass="#{eff[9] eq &quot;Y&quot; ? 'dayoff' : null}"  width="30" >
+                            <h:outputText value="#{eff[1]}" id="xx" style="font-size: small;" converter="#{customConvertTime}">
+                            </h:outputText>
+                            <p:tooltip value="#{eff[18]}"  for="xx" converter="#{customConvertTime}"/>
+                        </p:column>
+
+                        <p:column style="text-align: center" styleClass="#{eff[9] eq &quot;Y&quot; ? 'dayoff' : null}" width="30" >
+                            <h:outputText value="#{eff[2]}" id="xxx" style="font-size: small;" converter="#{customConvertTime}">
+                            </h:outputText>
+                            <p:tooltip value="#{eff[19]}"  for="xxx" converter="#{customConvertTime}"/>
+                        </p:column>
+
+                        <p:column style="text-align: center" width="30" styleClass="#{eff[9] eq &quot;Y&quot; ? 'dayoff' : null}">
+                            <h:outputText value="#{eff[3]}" styleClass="#{eff[3] gt &quot;0&quot; ? 'minusColor' : null}" style="font-size: small;"/>
+                        </p:column>
+                        <p:column style="text-align: center" width="30" styleClass="#{eff[9] eq &quot;Y&quot; ? 'dayoff' : null}">
+                            <h:outputText value="#{eff[4]}" styleClass="#{eff[4] gt &quot;0&quot; ? 'minusColor' : null}" style="font-size: small;"/>
+                        </p:column>
+                        <p:column style="text-align: center" width="30" styleClass="#{eff[9] eq &quot;Y&quot; ? 'dayoff' : null}">
+                            <h:outputText value="#{eff[5]}" style="font-size: small;" styleClass="#{eff[5] gt &quot;0&quot; and (eff[29] eq &quot;Y&quot; or sal_effection.extraAsHours) ? 'plusColor' : 'minusColor'}"/>
+                        </p:column>
+                        <p:column style="text-align: center" width="30" styleClass="#{eff[9] eq &quot;Y&quot; ? 'dayoff' : null}">
+                            <h:outputText value="#{eff[6]}" style="font-size: small;" styleClass="#{eff[6] gt &quot;0&quot; ? 'plusColor' : null}"/>
+                        </p:column>
+                        <p:column style="text-align: center" width="30" styleClass="#{eff[9] eq &quot;Y&quot; ? 'dayoff' : null}">
+                            <h:graphicImage value="/images/check.png"  rendered="#{eff[7] eq &quot;Y&quot; }" id="x1"/>
+                            <p:tooltip value="#{eff[16]}" for="x1" />
+                        </p:column>
+                        <p:column style="text-align: center" width="30" styleClass="#{eff[9] eq &quot;Y&quot; ? 'dayoff' : null}">
+                            <h:graphicImage value="/images/check.png" rendered="#{eff[8] eq &quot;Y&quot; }" id="x2" />
+                            <p:tooltip value="#{eff[16]}" for="x2"/>
+                        </p:column>
+                        <p:column style="text-align: center" width="30" styleClass="#{eff[9] eq &quot;Y&quot; ? 'dayoff' : null}">
+                            <h:graphicImage value="/images/check.png" rendered="#{eff[9] eq &quot;Y&quot; }"  id="x3"/>
+                            <p:tooltip value="#{eff[16]}" for="x3"/>
+                        </p:column>
+                        <p:column style="text-align: center" width="30" styleClass="#{eff[9] eq &quot;Y&quot; ? 'dayoff' : null}">
+                            <h:graphicImage value="/images/check.png" rendered="#{eff[11] eq &quot;Y&quot; }" id="x4" />
+                        </p:column>
+                        <p:column style="text-align: center" width="30" styleClass="#{eff[9] eq &quot;Y&quot; ? 'dayoff' : null}">
+                            <h:graphicImage value="/images/check.png" rendered="#{eff[13] eq &quot;Y&quot; }" id="x5" />
+
+
+                            <p:overlayPanel id="op" for="x5" hideEffect="fade" style="width:400px">
+                                <p:panelGrid columns="2">
+                                    <h:outputText value="نوع المأمورية"/>
+                                    <h:outputText value="#{eff[20]}"/>
+                                    <h:outputText value="بداية المأمورية"/>
+                                    <h:outputText value="#{eff[21]}"/>
+                                    <h:outputText value="نهاية المأمورية"/>
+                                    <h:outputText value="#{eff[22]}"/>
+                                    <h:outputText value="موقع المأمورية"/>
+                                    <h:outputText value="#{eff[23]}"/>
+                                    <h:outputText value="دقائق خصم"/>
+                                    <h:outputText value="#{eff[25]}"/>
+                                    <h:outputText value="أيام خصم"/>
+                                    <h:outputText value="#{eff[26]}"/>
+                                    <h:outputText value="دقائق إضافى"/>
+                                    <h:outputText value="#{eff[27]}"/>
+                                    <h:outputText value="أيام إضافى"/>
+                                    <h:outputText value="#{eff[28]}"/>
+                                    <h:outputText value="ملاحظات"/>
+                                    <h:outputText value="#{eff[24]}"/>
+                                </p:panelGrid>
+                            </p:overlayPanel>
+
+                        </p:column>
+                        <p:column style="text-align: center" width="30" styleClass="#{eff[9] eq &quot;Y&quot; ? 'dayoff' : null}">
+                            <h:graphicImage value="/images/check.png" rendered="#{eff[12] eq &quot;Y&quot; }" id="x6" />
+                        </p:column>
+                        <p:column style="text-align: center" width="30" styleClass="#{eff[9] eq &quot;Y&quot; ? 'dayoff' : null}">
+                            <h:graphicImage value="/images/check.png" rendered="#{eff[14] eq &quot;Y&quot; }" id="x7" />
+                        </p:column>
+                        <p:column style="text-align: center" width="30" styleClass="#{eff[9] eq &quot;Y&quot; ? 'dayoff' : null}">
+                            <h:graphicImage value="/images/check.png"  rendered="#{eff[15] eq &quot;Y&quot; }" title="#{eff[17]}" id="x8"/>
+                        </p:column>
+                    </p:dataTable>
+
+
+                    <div align="center" >
+                        <p:dataTable id="summary" var="l"  value="#{sal_effection.l}" emptyMessage="لا يوجد نتائج للبحث">
+                            <p:column width="40" style="width: 100px;text-align: center" >
+                                <f:facet name="header">
+                                    <h:outputText value="قيمة التأخير" />
+                                </f:facet>
+                                <h:outputText value="#{l[1]}" style="font-weight: bold;font-size: small;">
+                                    <f:convertNumber type="number" pattern="0.0"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column width="40" style="width: 100px;text-align: center" >
+                                <f:facet name="header">
+                                    <h:outputText value="قيمة الجزى" />
+                                </f:facet>
+                                <h:outputText value="#{l[0]}" style="font-weight: bold;font-size: small;">
+                                    <f:convertNumber type="number" pattern="0.0"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column width="40" style="text-align: center;font-size: small" >
+                                <f:facet name="header">
+                                    <h:outputText value="أيام خصم" />
+                                </f:facet>
+                                <h:outputText value="#{l[3]}" style="font-weight: bold;font-size: small;">
+                                    <f:convertNumber type="number" pattern="0.0"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column width="40" style="text-align: center;font-size: small" >
+                                <f:facet name="header">
+                                    <h:outputText value="دقائق خصم" />
+                                </f:facet>
+                                <h:outputText value="#{l[2]}" style="font-weight: bold;font-size: small;">
+                                    <f:convertNumber type="number" pattern="0.0"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column width="40" style="text-align: center;font-size: small" >
+                                <f:facet name="header">
+                                    <h:outputText value="أيام أضافى" />
+                                </f:facet>
+                                <h:outputText value="#{l[5]}" style="font-weight: bold;font-size: small;">
+                                    <f:convertNumber type="number" pattern="0.0"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column width="40" style="text-align: center;font-size: small" >
+                                <f:facet name="header">
+                                    <h:outputText value="دقائق إضافى" />
+                                </f:facet>
+                                <h:outputText value="#{l[4]}" style="font-weight: bold;font-size: small;">
+                                    <f:convertNumber type="number" pattern="0.0"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column width="30" style="text-align: center;font-size: small" >
+                                <f:facet name="header">
+                                    <h:outputText value="أجازة" />
+                                </f:facet>
+                                <h:outputText value="#{l[6]}" style="font-weight: bold;font-size: small;"/>
+                            </p:column>
+                            <p:column width="30" style="text-align: center;font-size: small" >
+                                <f:facet name="header">
+                                    <h:outputText value="ع" />
+                                </f:facet>
+                                <h:outputText value="#{l[7]}" style="font-weight: bold;font-size: small;"/>
+                            </p:column>
+                            <p:column width="30" style="text-align: center;font-size: small" >
+                                <f:facet name="header">
+                                    <h:outputText value="ر" />
+                                </f:facet>
+                                <h:outputText value="#{l[8]}" style="font-weight: bold;font-size: small;"/>
+                            </p:column>
+                            <p:column width="30" style="text-align: center;font-size: small" >
+                                <f:facet name="header">
+                                    <h:outputText value="أذن" />
+                                </f:facet>
+                                <h:outputText value="#{l[9]}" style="font-weight: bold;font-size: small;"/>
+                            </p:column>
+                            <p:column width="30" style="text-align: center;font-size: small" >
+                                <f:facet name="header">
+                                    <h:outputText value="م" />
+                                </f:facet>
+                                <h:outputText value="#{l[13]}" style="font-weight: bold;font-size: small;"/>
+                            </p:column>
+                            <p:column width="30" style="text-align: center;font-size: small" >
+                                <f:facet name="header">
+                                    <h:outputText value="ت" />
+                                </f:facet>
+                                <h:outputText value="#{l[12]}" style="font-weight: bold;font-size: small;"/>
+                            </p:column>
+                            <p:column width="30" style="text-align: center;font-size: small" >
+                                <f:facet name="header">
+                                    <h:outputText value="غ بأذن" />
+                                </f:facet>
+                                <h:outputText value="#{l[10]}" style="font-weight: bold;font-size: small;"/>
+                            </p:column>
+                            <p:column width="30" style="text-align: center;font-size: small" >
+                                <f:facet name="header">
+                                    <h:outputText value="غ بدون" />
+                                </f:facet>
+                                <h:outputText value="#{l[11]}" style="font-weight: bold;font-size: small;"/>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

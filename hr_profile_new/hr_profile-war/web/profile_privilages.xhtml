@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body dir="rtl">
+        <ui:composition template="./hr_profile_template.xhtml">
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-cog"/>
+                    <h:outputText value="Administration" />
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="#{msg.ProfilePrivilages}" />
+            </ui:define>
+
+            <ui:define name="body">
+                <script language="javascript" src="hr_profile_js.js" type="text/javascript"/>
+                <h:form id="filterFrm">
+                    <p:growl id="growl" widgetVar="growl" showDetail="true" showSummary="true" life="3000"/>
+                    <h:panelGrid width="100%" columns="8">
+                        <h:outputText value="#{msg.JobGrpName}" style="font-weight: bold;font-size: small"/>
+                        <h:panelGrid columns="2">
+                            <p:commandButton icon="ui-icon-search"
+                                             oncomplete="PF('grpDlg').show()"
+                                             title="Please choose an item"
+                                             style="border:none;"/>
+                            <p:inputText id="grpName" readonly="true" value="#{profilePrivilages.filteredGrp.name}"/>
+                        </h:panelGrid>
+                        <p:spacer height="1" width="20"/>
+                        <h:outputText value="#{msg.JobName}" style="font-weight: bold;font-size: small"/>
+                        <h:panelGrid columns="2">
+                            <p:commandButton icon="ui-icon-search"
+                                             oncomplete="PF('jobDlg').show()"
+                                             title="Please choose an item"
+                                             style="border:none;"/>
+                            <p:inputText size="27" id="jobName" readonly="true" value="#{profilePrivilages.filteredJob.name}"/>
+                        </h:panelGrid>
+                        <p:spacer height="1" width="20"/>
+                        <h:outputText value="#{msg.DeptName}" style="font-weight: bold;font-size: small"/>
+                        <h:panelGrid columns="2">
+                            <p:commandButton icon="ui-icon-search"
+                                             oncomplete="PF('deptDlg').show()"
+                                             title="Please choose an item"
+                                             style="border:none;"/>
+                            <p:inputText id="deptName" readonly="true" value="#{profilePrivilages.filteredDept.name}"/>
+                        </h:panelGrid>
+
+
+                        <h:outputText value="#{msg.LocationName}" style="font-weight: bold;font-size: small"/>
+                        <h:panelGrid columns="2">
+                            <p:commandButton icon="ui-icon-search"
+                                             oncomplete="PF('locDlg').show()"
+                                             title="Please choose an item"
+                                             style="border:none;"/>
+                            <p:inputText id="locName" readonly="true" value="#{profilePrivilages.filteredLoc.name}"/>
+                        </h:panelGrid>
+                        <p:spacer height="30" width="20"/>
+                        <h:outputText value="#{msg.EmployeeName}" style="font-weight: bold;font-size: small"/>
+                        <h:panelGrid columns="2">
+                            <p:commandButton icon="ui-icon-search"
+                                             oncomplete="PF('empDlg').show()"
+                                             title="Please choose an item"
+                                             style="border:none;"/>
+                            <p:inputText id="empName" readonly="true" value="#{profilePrivilages.filteredEmp.empName}"/>
+                        </h:panelGrid>
+                        <p:spacer height="1" width="20"/>
+                        <h:outputText value="#{msg.MenuForm}" style="font-weight: bold;font-size: small"/>
+                        <h:panelGrid columns="2">
+                            <p:commandButton icon="ui-icon-search"
+                                             oncomplete="PF('menuDlg').show()"
+                                             title="Please choose an item"
+                                             style="border:none;"/>
+                            <p:inputText id="menuName" readonly="true" value="#{profilePrivilages.filteredMen.arabicName}"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid width="100%" columns="10">
+                        <p:spacer width="50" height="30"/>
+                        <p:selectCheckboxMenu value="#{profilePrivilages.selectedOrderList}" label="#{msg.OrderBy}"
+                                              filter="false" panelStyle="width:250px">
+                            <f:selectItems value="#{profilePrivilages.orderList}" />
+                        </p:selectCheckboxMenu>
+                        <p:spacer width="50" height="30"/>
+                        <p:commandButton value="#{msg.Search}" actionListener="#{profilePrivilages.serach}" update=":frm:dt" icon="ui-icon-search"/>
+                        <p:spacer width="50" height="30"/>
+                        <p:commandButton value="#{msg.NewSearch}" actionListener="#{profilePrivilages.newSearch}" update=":frm:dt :filterFrm"  icon="ui-icon-refresh"/>
+                        <p:spacer width="50" height="30"/>
+                        <p:commandButton actionListener="#{profilePrivilages.addNew}" update=":frm:dt growl" value="#{msg.Add}" icon="ui-icon-plus">
+                            <p:confirm header="Confirmation" message="#{msg.AreYouSureToInsertThisPrivilage}" icon="ui-icon-alert" />
+                        </p:commandButton>
+                        <p:spacer width="50" height="30"/>
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="#{msg.Yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="#{msg.No}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+                    </h:panelGrid>
+                    <p:dialog id="grpDlg" header="#{msg.JobGrpName}" width="300" height="400" widgetVar="grpDlg">
+                        <p:dataTable rowKey="#{grp}" value="#{profilePrivilages.jobGrpList}" rowIndexVar="x" scrollRows="100" scrollable="true" scrollHeight="400" var="grp" widgetVar="grp" id="grp" selection="#{profilePrivilages.selectedGrp}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{profilePrivilages.updateSelectedGrp}" oncomplete="PF('grpDlg').hide()" update=":filterFrm:grpName"/>
+                            <p:column filterMatchMode="contains" filterBy="#{grp.name}">
+                                <h:outputText value="#{grp.name}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+                    <p:dialog id="jobDlg" header="#{msg.JobName}" width="300" height="400" widgetVar="jobDlg">
+                        <p:dataTable rowKey="#{job}" value="#{profilePrivilages.jobList}" rowIndexVar="x" scrollRows="100" scrollable="true" scrollHeight="400" var="job" widgetVar="job" id="job" selection="#{profilePrivilages.selectedJob}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{profilePrivilages.updateSelectedJob}" oncomplete="PF('jobDlg').hide()" update=":filterFrm:jobName"/>
+                            <p:column filterMatchMode="contains" filterBy="#{job.name}">
+                                <h:outputText value="#{job.name}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+                    <p:dialog id="deptDlg" header="#{msg.DeptName}" width="300" height="400" widgetVar="deptDlg">
+                        <p:dataTable rowKey="#{dept}" value="#{profilePrivilages.deptList}" rowIndexVar="x" scrollRows="100" scrollable="true" scrollHeight="400" var="dept" widgetVar="dept" id="dept" selection="#{profilePrivilages.selectedDept}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{profilePrivilages.updateSelectedDept}" oncomplete="PF('deptDlg').hide()" update=":filterFrm:deptName"/>
+                            <p:column filterMatchMode="contains" filterBy="#{dept.name}">
+                                <h:outputText value="#{dept.name}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+                    <p:dialog id="locDlg" header="#{msg.LocationName}" width="300" height="400" widgetVar="locDlg">
+                        <p:dataTable rowKey="#{loc}" value="#{profilePrivilages.locList}" rowIndexVar="x" scrollRows="100" scrollable="true" scrollHeight="400" var="loc" widgetVar="loc" id="loc" selection="#{profilePrivilages.selectedLoc}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{profilePrivilages.updateSelectedLoc}" oncomplete="PF('locDlg').hide()" update=":filterFrm:locName"/>
+                            <p:column filterMatchMode="contains" filterBy="#{loc.name}">
+                                <h:outputText value="#{loc.name}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+                    <p:dialog id="empDlg" header="#{msg.EmployeeName}" width="300" height="400" widgetVar="empDlg">
+                        <p:dataTable rowKey="#{emp}" value="#{profilePrivilages.empList}" rowIndexVar="x" scrollRows="100" scrollable="true" scrollHeight="400" var="emp" widgetVar="emp" id="emp" selection="#{profilePrivilages.selectedEmp}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{profilePrivilages.updateSelectedEmp}" oncomplete="PF('empDlg').hide()" update=":filterFrm:empName"/>
+                            <p:column filterMatchMode="contains" filterBy="#{emp.empName}">
+                                <h:outputText value="#{emp.empName}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+                    <p:dialog id="menuDlg" header="#{msg.PageName}" width="300" height="400" widgetVar="menuDlg">
+                        <p:dataTable rowKey="#{menu}" value="#{profilePrivilages.menuList}" rowIndexVar="x" scrollRows="100" scrollable="true" scrollHeight="400" var="menu" widgetVar="menu" id="menu" selection="#{profilePrivilages.selectedMen}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{profilePrivilages.updateSelectedMenu}" oncomplete="PF('menuDlg').hide()" update=":filterFrm:menuName"/>
+                            <p:column filterMatchMode="contains" filterBy="#{menu.arabicName}">
+                                <h:outputText value="#{menu.arabicName}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+                </h:form>
+                <h:form id="frm">
+                    <p:dataTable  id="dt" widgetVar="priv"  var="priv" value="#{profilePrivilages.hrProfilePrifilageList}" rowKey="#{priv.id}" rowIndexVar="indx" paginatorPosition="bottom" rows="18" paginator="true" >
+                        <p:column width="40" headerText="#{msg.JobGrpName}">
+                            <h:outputText value="#{priv.grpId.name}" style="font-weight:bold;width: 200%" />
+                        </p:column>
+                        <p:column width="50" headerText="#{msg.DeptName}">
+                            <h:outputText value="#{priv.deptId.name}" style="font-weight:bold;width: 200%" />
+                        </p:column>
+                        <p:column width="55" headerText="#{msg.JobName}">
+                            <h:outputText value="#{priv.jobId.name}" style="font-weight:bold;width: 200%" />
+                        </p:column>
+                        <p:column width="60" headerText="#{msg.LocationName}">
+                            <h:outputText value="#{priv.locId.name}" style="font-weight:bold;width: 200%" />
+                        </p:column>
+                        <p:column width="30" headerText="#{msg.EmployeeCode}">
+                            <h:outputText value="#{priv.empId.empNo}" style="font-weight:bold;width: 200%" />
+                        </p:column>
+                        <p:column width="65" headerText="#{msg.EmployeeName}">
+                            <h:outputText value="#{priv.empId.empName}" style="font-weight:bold;width: 200%" />
+                        </p:column>
+                        <p:column width="60" headerText="#{msg.PageName}">
+                            <h:outputText value="#{priv.newMenuId.arabicName}" style="font-weight:bold;width: 200%" />
+                        </p:column>
+                        <p:column width="10" headerText="#{msg.Delete}">
+                            <p:commandButton  icon="ui-icon-closethick" actionListener="#{profilePrivilages.delete}" update=":frm:dt :filterFrm:growl">
+                                <f:param name="id" value="#{priv.id}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

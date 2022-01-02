@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='windows-1256' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+     <ui:composition template="./hr_profile_template.xhtml">
+     <ui:define name="header_menu">
+        <h:form style="position: relative;left: 0px;top: 10px" id="frm_header" >
+        <p:dock position="top" halign="left">
+     <p:menuitem style="color: black;font-size: small"  value="Home" icon="/images/home.png" url="/faces/home.xhtml"/>
+     <p:menuitem style="color: black;font-size: small" value="Mail" icon="/images/mail.png" url="http://mail.ccg.com.eg"/>
+     <p:menuitem style="color: black;font-size: small" value="Logout" icon="/images/logout.png" onclick="document.getElementById('frm_header:logout').click();"/>
+     </p:dock>
+        <h:commandButton style="visibility: hidden" id="logout" action="#{loginBean.logout}"/>
+    </h:form>
+        </ui:define>
+        <ui:define name="user_data">
+            <h:form>
+            <p:fieldset style="width: 244px;background: #326DA7;position: relative;left: 2px;">
+                <div align="right">
+                <h:panelGrid columns="2">
+                   <h:panelGrid columns="3" dir="RTL">
+                   <h:outputText value="الأسم" style="color: orange;font-weight:bold;font-size:xx-small"/>
+                   <h:outputText value="  :  " style="color: orange;font-weight:bold;font-size: xx-small" />
+                   <h:outputText value="#{emp_info.hrempinfo.empName}" style="color: lightgoldenrodyellow;font-size: xx-small; font-weight:bold;width: 150%"/>
+<!--                   <h:outputText value="الوظيفة" style="color: orange;font-weight:bold;font-size: xx-small"/>
+                   <h:outputText value="  :  " style="color: orange;font-weight:bold;font-size: xx-small" />
+                   <h:outputText value="#{emp_info.hrempinfo.jobName}" style="color: lightgoldenrodyellow;font-size: xx-small; font-weight:bold;width: 150%"/>
+                   <h:outputText value="القسم" style="color: orange;font-weight:bold;font-size: xx-small"/>
+                   <h:outputText value="  :  " style="color: orange;font-weight:bold;font-size: xx-small" />
+                   <h:outputText value="#{emp_info.hrempinfo.deptName}" style="color: lightgoldenrodyellow;font-size: xx-small; font-weight:bold;width: 150%"/>-->
+                   </h:panelGrid>
+                  <h:graphicImage value="#{emp_info.img}" width="60" height="70" />
+               </h:panelGrid>
+              </div>
+               </p:fieldset>
+              </h:form>
+        </ui:define>
+       <ui:define name="title">
+      <div align="center" style="float: right;background-image: url('images/arrow.png');width: 190px;height: 40px;">
+          <h:graphicImage value="/images/spacer.gif" width="0" height="25"/>
+          <table align="right">
+          <tr style="height: 2px">
+          </tr>
+          <tr style="position: relative;top: 0px;">
+          <td>
+          <h:outputText value="إعتماد طلب حضور راحة" style="color: gold;font: Lucida Grande, Lucida Sans, Arial, sans-serif;font-size: small;font-weight: bolder"/>
+          </td>
+          <td>
+          <h:graphicImage style="float: right;" value="/images/monitor.png" width="25" height="25"/>
+          </td>
+          </tr>
+          </table>
+      </div>
+      </ui:define>
+       <ui:define name="img">
+            <h:graphicImage value="/images/worker-26.gif" width="95" height="100" />
+     </ui:define>
+      <ui:define name="menu">
+        <div dir="rtl" align="center">
+      <h:panelGrid columns="1">
+          <p:menubar effect="fade" model="#{menuBean.menumodel}" autoSubmenuDisplay="true" />
+      </h:panelGrid>
+      </div>
+      </ui:define>
+      <ui:define name="body">
+       <h:form id="frm_list">
+       <p:growl id="growl" showDetail="true" life="3000"  />
+       <p:dataTable   id="req" widgetVar="req" var="req" value="#{w_holiday_attendance_confirm.hrWHolidayAttendanceReqDtList}"  height="10"  binding="#{w_holiday_attendance_confirm.dt}" dynamic="true"
+                      onRowEditUpdate="growl" paginator="true" rows="10"  paginatorPosition="bottom"  selectionMode="single" rowEditListener="#{w_holiday_attendance_confirm.update}">
+          <p:column headerText="تعديل" style="text-align: center;width:5%" >
+           <p:rowEditor />
+          </p:column>
+
+         <p:column  headerText="قبول/رفض" style="width:5%; text-align: center;">
+         <p:cellEditor>
+         <f:facet name="output">
+             <h:graphicImage value="/images/check.png" rendered="#{req.approved eq &quot;Y&quot;}" />
+           <h:graphicImage value="/images/cross.png" rendered="#{req.approved eq &quot;N&quot;}" />
+         </f:facet>
+         <f:facet name="input">
+          <h:selectOneMenu value="#{req.approved}" style="width:100%;text-align: center;font-size:small;color: darkblue;font-weight:bold;font-family:'Times New Roman', 'Arial Black', times, Serif;color: darkblue;font-weight:bold;">
+          <f:selectItem itemLabel="قبول" itemValue="Y"/>
+          <f:selectItem itemLabel="رفض" itemValue="N"/>
+          </h:selectOneMenu>
+         </f:facet>
+         </p:cellEditor>
+         </p:column>
+
+         <p:column  headerText="تاريخ الراحة الإسبوعية" style="width:5%; text-align: center;">
+             <h:outputText value="#{req.weeklyHolidayDate}" style="text-align: center;font-size:small;color: darkblue;font-weight:bold;font-family:'Times New Roman', 'Arial Black', times, Serif;color: darkblue;font-weight:bold;" converter="#{customConvertDateTime}"/>
+         </p:column>
+         
+         <p:column headerText="الموظف" style="width: 20%;text-align: center;">
+             <h:outputText value="#{req.empName}" style="width:10%;text-align: center;font-size:small;color: darkblue;font-weight:bold;font-family:'Times New Roman', 'Arial Black', times, Serif;color: darkblue;font-weight:bold;"/>
+         </p:column>
+       </p:dataTable>
+       <p:commandButton style="visibility: hidden" id="populate_list" actionListener="#{w_holiday_attendance_confirm.update_request_list}" update="growl,req"/>
+   </h:form>
+      </ui:define>
+    </ui:composition>
+    </h:body>
+</html>
+

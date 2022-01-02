@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='windows-1256' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./hr_profile_template.xhtml">
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-user"/>
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="بيانات المستخدم" />
+            </ui:define>
+            <ui:define name="body">
+                <h:form>
+                    <div align="right">
+                        <h:panelGrid columns="1" cellpadding="3">
+
+                            <p:panel  id="pnl" header="بيانات شخصية" toggleSpeed="500" toggleable="true" closable="false"  widgetVar="panel">
+                                <h:panelGrid columns="5" dir="RTL" cellspacing="1" cellpadding="1" width="100%">
+                                    <p:panelGrid columns="2" >
+                                        <h:outputText value="الكود"  style="font-weight:bold;font-size:small"/>
+                                        
+                                        <h:outputText value="#{emp_info.usercode}" style="font-weight:bold;font-size: small"/>
+                                        <h:outputText value="الأسم" style="font-weight:bold;font-size: small"/>
+                                        
+                                        <h:outputText value="#{emp_info.username}" style="font-weight:bold;font-size: small"/>
+                                        <h:outputText value="تاريخ الميلاد" style="font-weight:bold;font-size: small"/>
+                                        
+                                        <h:outputText value="#{emp_info.birthdate}" style="font-weight:bold;font-size: small"/>
+                                        <h:outputText value="النوع" style="font-weight:bold;font-size: small"/>
+                                        
+                                        <h:outputText value="#{emp_info.gender}" style="font-weight:bold;font-size: small"/>
+                                        <h:outputText value="الرقم القومى" style="font-weight:bold;font-size: small"/>
+                                        
+                                        <h:outputText value="#{emp_info.ident}" style="font-weight:bold;font-size: small"/>
+                                        <h:outputText value="مكان الصدور" style="font-weight:bold;font-size: small"/>
+                                       
+                                        <h:outputText value="#{emp_info.id_from}" style="font-weight:bold;font-size: small"/>
+
+                                    </p:panelGrid>
+                                    <p:spacer width="10"/>
+                                    <p:panelGrid columns="2" >
+
+                                        <h:outputText value="الجنسية" style="font-weight:bold;font-size: small"/>
+                                       
+                                        <h:outputText value="#{emp_info.nationality}" style="font-weight:bold;font-size: small"/>
+                                        <h:outputText value="تاريخ التعيين" style="font-weight:bold;font-size: small"/>
+                                        
+                                        <h:outputText value="#{emp_info.hiredate}" style="font-weight:bold;font-size: small"/>
+                                        <h:outputText value="الموقف من التجنيد" style="font-weight:bold;font-size: small"/>
+                                       
+                                        <h:outputText value="#{emp_info.military}" style="font-weight:bold;font-size: small"/>
+                                        <h:outputText value="رقم التليفون" style="font-weight:bold;font-size: small"/>
+                                        
+                                        <h:outputText value="#{emp_info.phone}" style="font-weight:bold;font-size: small"/>
+                                        <h:outputText value="رقم الموبايل" style="font-weight:bold;font-size: small"/>
+                                        
+                                        <h:outputText value="#{emp_info.mobile}" style="font-weight:bold;font-size: small"/>
+                                        <h:outputText value="العنوان" style="font-weight:bold;font-size: small"/>
+                                        
+                                        <h:outputText value="#{emp_info.address}" style="font-weight:bold;font-size: small"/>
+
+                                        <h:outputText value="البريد الإلكترونى" style="font-weight:bold;font-size: small"/>
+
+                                        <h:outputText value="#{emp_info.email}" style="font-weight:bold;font-size: small"/>
+                                    </p:panelGrid>
+                                    <p:spacer width="10"/>
+
+                                    <h:graphicImage value="#{emp_info.img}" width="80" height="100" />
+
+                                </h:panelGrid>
+                            </p:panel>
+
+
+                            <p:panel  id="panel2" header="التأمينات والفيزا" toggleSpeed="500" toggleable="true" closable="false"  widgetVar="panel2">
+                                <h:form>
+                                    <h:panelGrid columns="3" dir="RTL" cellspacing="2" cellpadding="1" width="100%">
+                                        <p:panelGrid columns="2" >
+                                            <h:outputText value="الرقم التأمينى" style="font-weight:bold;font-size: small"/>
+                                            <h:outputText value="#{emp_info.ins_no}" style="font-weight:bold;font-size: small"/>
+                                            <h:outputText value="تاريخ التأمين" style="font-weight:bold;font-size: small"/>
+                                            <h:outputText value="#{emp_info.ins_date}" style="font-weight:bold;font-size: small"/>
+                                        </p:panelGrid>
+                                        <p:panelGrid columns="2">
+                                            <h:outputText value="مكتب التأمينات" style="font-weight:bold;font-size: small"/>
+                                            <h:outputText value="#{emp_info.ins_office}" style="font-weight:bold;font-size: small"/>
+                                            <h:outputText value="الكود البنكى للموظف" style="font-weight:bold;font-size: small"/>
+                                            <h:outputText value="#{emp_info.bank_emp_id}" style="font-weight:bold;font-size: small"/>
+                                        </p:panelGrid>
+                                        <p:panelGrid columns="2" >
+                                            <h:outputText value="رقم الحساب" style="font-weight:bold;font-size: small"/>
+                                            <h:outputText value="#{emp_info.bank_account}" style="font-weight:bold;font-size: small"/>
+                                            <h:outputText value="الفرع التابع له" style="font-weight:bold;font-size: small"/>
+                                            <h:outputText value="#{emp_info.bank_branch}" style="font-weight:bold;font-size: small"/>
+                                        </p:panelGrid>
+
+                                    </h:panelGrid>
+                                </h:form>
+                            </p:panel>
+
+
+
+                            <p:panel  id="pnl1" header="المؤهلات العلمية" toggleSpeed="500" toggleable="true" closable="false"  widgetVar="panel1">
+                                <p:dataTable var="edu" value="#{emp_info.emp_education}" 
+                                             paginator="true" rows="1"  paginatorPosition="bottom" >
+                                    <p:column style="text-align: center" headerText="التخصص" >
+                                        <h:outputText value="#{edu[0]}" style="font-weight:bold;font-size: small"/>
+                                    </p:column>
+                                    <p:column headerText="سنة التخرج" style="text-align: center">
+                                        <h:outputText value="#{edu[1]}" style="font-weight:bold;font-size: small">
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column headerText="الشهادة العلمية" style="text-align: center">
+                                        <h:outputText value="#{edu[2]}" style="font-weight:bold;font-size: small"/>
+                                    </p:column>
+                                    <p:column headerText="الجهة المانحة" style="text-align: center">
+                                        <h:outputText value="#{edu[3]}" style="font-weight:bold;font-size: small"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </p:panel>
+
+
+
+
+                            <p:panel  id="panel3" header="التدرج الوظيفى" toggleSpeed="600" toggleable="true" closable="false"  widgetVar="panel3">
+                                <p:dataTable var="job" value="#{emp_info.emp_jobs}"
+                                             paginator="true" rows="1"  paginatorPosition="bottom" >
+                                    <p:column  headerText="الموقع" style="text-align: center">
+                                        <h:outputText value="#{job[0]}" style="font-weight:bold;font-size: small"/>
+                                    </p:column>
+                                    <p:column  headerText="الأدارة" style="text-align: center">
+                                        <h:outputText value="#{job[1]}" style="font-weight:bold;font-size: small">
+                                            <f:convertDateTime dateStyle="medium"/>
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column headerText="الوظيفة" style="text-align: center">
+                                        <h:outputText value="#{job[6] eq &quot;112&quot; ? &quot;مشرف مبيعات&quot; : job[2]}" style="font-weight:bold;font-size: small"/>
+                                    </p:column>
+                                    <p:column headerText="الشركة" style="text-align: center">
+                                        <h:outputText value="#{job[4]}" style="font-weight:bold;font-size: small"/>
+                                    </p:column>
+                                    <p:column headerText="المجموعة الوظيفية" style="text-align: center">
+                                        <h:outputText value="#{job[3]}" style="font-weight:bold;font-size: small"/>
+                                    </p:column>
+                                    <p:column headerText="التاريخ" style="text-align: center">
+                                        <h:outputText value="#{job[5]}" style="font-weight:bold;font-size: small">
+                                            <f:convertDateTime dateStyle="medium"/>
+                                        </h:outputText>
+                                    </p:column>
+                                </p:dataTable>
+                            </p:panel>
+
+                        </h:panelGrid>
+
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

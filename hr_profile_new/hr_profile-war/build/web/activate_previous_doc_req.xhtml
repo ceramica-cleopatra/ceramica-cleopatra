@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body dir="rtl">
+        <ui:composition template="./hr_profile_template.xhtml">
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-pencil-square-o"/>
+                    <h:outputText value="#{msg.Requests}" />
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="#{msg.ActivatePreviousDocReq}" />
+
+            </ui:define>
+
+            <ui:define name="body">
+                <h:form id="frm">
+                    <p:growl id="growl" showDetail="true" life="4000"  />
+                    <p:fieldset style="text-align: center" id="fs">
+                        <h:panelGrid columns="1">
+                            <h:panelGrid columns="23" dir="RTL" cellspacing="8" cellpadding="5">
+                                <h:outputText value="#{msg.DocumentType}"/>
+                                <p:spacer height="1" width="3"/>
+                                <p:selectOneMenu valueChangeListener="#{activatePreviousDocReq.onListChanged}" value="#{activatePreviousDocReq.crmkActivatePreviousDocVu.docType}" >
+                                    <f:selectItem itemLabel="#{msg.Talabya}" itemValue="11"/>
+                                    <f:selectItem itemLabel="#{msg.Rmn}" itemValue="5"/>
+                                    <f:ajax event="valueChange" render=":frm" execute=":frm" />
+                                </p:selectOneMenu>
+                                <p:spacer height="1" width="15"/>
+                                <h:outputText value="#{msg.RmnWithoutSrfShowroomStore}"/>
+                                <p:spacer height="1" width="3"/>
+                                <p:selectOneMenu disabled="#{activatePreviousDocReq.crmkActivatePreviousDocVu.docType eq 11}" value="#{activatePreviousDocReq.crmkActivatePreviousDocVu.docBrnId.id}" >
+                                    <f:selectItems value="#{activatePreviousDocReq.branchList}" />
+                                </p:selectOneMenu>
+                                <p:spacer height="1" width="15"/>
+                                <h:outputText value="#{msg.Type}"/>
+                                <p:spacer height="1" width="3"/>
+                                <p:selectOneMenu value="#{activatePreviousDocReq.crmkActivatePreviousDocVu.crmkSehy}" >
+                                    <f:selectItem itemLabel="#{msg.Crmk}" itemValue="C"/>
+                                    <f:selectItem itemLabel="#{msg.Dcre}" itemValue="D"/>
+                                    <f:selectItem itemLabel="#{msg.Sehy}" itemValue="S"/>
+                                </p:selectOneMenu>
+                                <p:spacer height="1" width="15"/>
+                                <h:outputText value="#{msg.OrdrNo}"/>
+                                <p:spacer height="1" width="3"/>
+                                <p:inputText size="8" value="#{activatePreviousDocReq.crmkActivatePreviousDocVu.docNo}"/>
+                                <p:spacer height="1" width="20"/>
+                                <h:outputText value="#{msg.HandNo}"/>
+                                <p:spacer height="1" width="3"/>
+                                <p:inputText size="8" value="#{activatePreviousDocReq.crmkActivatePreviousDocVu.docHandNo}"/>
+
+                                <p:spacer height="1" width="15"/>
+                                <h:outputText value="#{msg.PeriodYear}"/>
+                                <p:spacer height="1" width="3"/>
+                                <p:inputText size="6" value="#{activatePreviousDocReq.crmkActivatePreviousDocVu.docPrdId}"/>
+                            </h:panelGrid>
+                            <p:spacer height="30"/>
+                        </h:panelGrid>
+                        <p:commandButton update="growl activateDlg requestList fs" actionListener="#{activatePreviousDocReq.saveRequest}" value="#{msg.Save}"/>
+                    </p:fieldset>
+
+                    <p:dialog width="50%" id="activateDlg" widgetVar="activateDlg">
+                        <p:dataTable selectionMode="single" rowKey="#{activateList}" rowIndexVar="x" selection="#{activatePreviousDocReq.selectedRow}" value="#{activatePreviousDocReq.crmkActivatePreviousDocVus}" var="activateList" id="activateList">
+                            <p:ajax event="rowSelect" update="activateList :frm:fs" listener="#{activatePreviousDocReq.updateDocActivateRequest}" oncomplete="PF('activateDlg').hide()"/>
+                            <p:column headerText="#{msg.DocumentType}">
+                                <h:outputText value="#{activateList.docType}"/>
+                            </p:column>
+
+                            <p:column headerText="#{msg.Crmk} / #{msg.Dcre}">
+                                <h:outputText value="#{activateList.crmkSehy eq &quot;C&quot; ? msg.Crmk : (activateList.crmkSehy eq &quot;D&quot;? msg.Dcre : msg.Sehy)}"/>
+                            </p:column>
+
+                            <p:column headerText="#{msg.OrdrNo}">
+                                <h:outputText value="#{activateList.docNo}"/>
+                            </p:column>
+
+                            <p:column headerText="#{msg.HandNo}">
+                                <h:outputText value="#{activateList.docHandNo}"/>
+                            </p:column>
+
+                            <p:column headerText="#{msg.LocationName}">
+                                <h:outputText value="#{activateList.docBrnId.name}"/>
+                            </p:column>
+
+                            <p:column headerText="#{msg.PeriodYear}">
+                                <h:outputText value="#{activateList.docPrdId}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+
+                    <p:dataTable value="#{activatePreviousDocReq.crmkActivatePreviousDocReqList}" var="requestList" id="requestList">
+                        <p:column headerText="#{msg.DocumentType}">
+                            <h:outputText value="#{requestList.docType eq &quot;11&quot; ? msg.Talabya : msg.Rmn}"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg.Crmk} / #{msg.Dcre}">
+                            <h:outputText value="#{requestList.crmkSehy eq &quot;C&quot; ? msg.Crmk : (requestList.crmkSehy eq &quot;D&quot; ? msg.Dcre : msg.Sehy)}"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg.OrdrNo}">
+                            <h:outputText value="#{requestList.docNo}"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg.HandNo}">
+                            <h:outputText value="#{requestList.docHandNo}"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg.LocationName}">
+                            <h:outputText value="#{requestList.brnId.name}"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg.PeriodYear}">
+                            <h:outputText value="#{requestList.docPrdId}"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg.EntryDate}">
+                            <h:outputText value="#{requestList.trnsDate}" converter="#{customConvertDateTime}" />
+                        </p:column>
+
+                        <p:column style="text-align: center" headerText="#{msg.Approve}">
+                            <h:graphicImage value="/images/check.png" rendered="#{requestList.activate eq &quot;Y&quot; }" />
+                            <h:graphicImage value="/images/cross.png" rendered="#{requestList.activate eq &quot;N&quot; }" />
+                        </p:column>
+
+                        <p:column headerText="#{msg.ApproveDate}">
+                            <h:outputText value="#{requestList.activateDate}" converter="#{customConvertDateTime}" />
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

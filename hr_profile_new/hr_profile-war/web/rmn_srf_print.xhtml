@@ -1,0 +1,317 @@
+<?xml version='1.0' encoding='windows-1256' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="./hr_profile_template.xhtml">
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-history"/>
+                    <h:outputText value="#{msg.FollowUp}" />
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="#{msg.RmnWithoutSrfResultHead}" />
+            </ui:define>
+            <ui:define name="body">
+                <link type="text/css" rel="stylesheet" href="resources/primefaces-sunny/theme.css" />
+                <script language="javascript" src="hr_profile_js.js" type="text/javascript"/>
+                <style type="text/css">
+                    .actQty {
+                        background-color: #E1E463!important;
+                        color: black!important;
+                    }
+                    .reqId {
+                        background-color: #2c4762!important;
+                        color: white!important;
+                    }
+                    .font{
+                        font-size: 15px!important;
+                        font-weight: bold!important;
+                        font-family: sans-serif!important;
+                    }
+                </style>
+                <h:form id="form">
+                    <p:growl id="growl" widgetVar="growl" showDetail="true" showSummary="true" life="3000"/>
+
+                    <iframe name="ifram" style="visibility: hidden" id="ifram" src="rmn_report.xhtml"  width="0" height="0">
+                        <p>Your browser does not support iframes.</p>
+                    </iframe>
+
+                    <h:panelGrid width="100%" styleClass="font" id="pg1" columns="1" style="width: 100%;font-size: small">
+<!--                        <h:panelGroup >
+                            <p:poll  interval="50" listener="{rmnSrfPrint.refreshBrnReqCnt}" update="brn" />
+                            <p:carousel headerText="" circular="true" vertical="false" easing="easeOutCirc" effect="easeInStrong" effectDuration="2000" autoPlayInterval="8000"  numVisible="1"  value="{rmnSrfPrint.reqCntPerBrn}" id="brn" var="brn" itemStyle="text-align:center;height:100%">
+                                <h:panelGrid columns="1" style="width:100%;margin:5px -2px 5px 5px" >
+                                    <f:facet name="header">
+                                        <p:selectBooleanButton value="{brn[4]}" id="value" onLabel="{brn[1]}" offLabel="{brn[1]}" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:100%;">
+                                            <p:ajax update="brn :form:result" listener="{rmnSrfPrint.chooseBranch}" />
+                                            <f:param name="brnId" value="{brn[0]}"/>
+                                        </p:selectBooleanButton>
+                                    </f:facet>
+                                    <p:spacer width="150" height="5"/>
+                                    <span style="background-color: orange;color: white;font-size: 15px" class="badge">{brn[2]}</span>
+                                    <h:outputText value="{brn[3]}" style="font-size: small" >
+                                    </h:outputText>
+                                </h:panelGrid>
+                            </p:carousel>
+                        </h:panelGroup>-->
+                        <h:panelGrid id="pg" style="width: 100%" columns="5">
+                            <h:outputText value="#{msg.RmnWithoutSrfRecipientClnt} :" style="font-weight: bold;font-size: small"/>
+                            <h:panelGrid columns="2">
+                                <p:commandButton icon="ui-icon-search"
+                                                 oncomplete="PF('clntDlg').show()"
+                                                 title="Please choose an item"
+                                                 style="border:none;"/>
+                                <p:inputText id="clntName" value="#{rmnSrfPrint.clntName}"/>
+                            </h:panelGrid>
+                            <p:spacer width="1" height="20"/>
+                            <h:outputText value="#{msg.RmnWithoutSrfRmnClntPhone} :" style="font-weight: bold;font-size: small"/>
+                            <p:inputText onkeypress="return handleEnter(this, event)" value="#{rmnSrfPrint.clntPhone}"/>
+
+                            <h:outputText value="#{msg.RmnWithoutSrfEmpSender} :" style="font-weight: bold;font-size: small"/>
+                            <h:panelGrid columns="2">
+                                <p:commandButton icon="ui-icon-search"
+                                                 oncomplete="PF('empDlg').show()"
+                                                 title="Please choose an item"
+                                                 style="border:none;"/>
+                                <p:inputText id="empName" value="#{rmnSrfPrint.empName}"/>
+                            </h:panelGrid>
+                            <p:spacer width="1" height="20"/>
+                            <h:outputText value="#{msg.RmnWithoutSrfRmnHandNo} :" style="font-weight: bold;font-size: small"/>
+                            <p:inputText onkeypress="return handleEnter(this, event)" value="#{rmnSrfPrint.rmnNo}"/>
+
+                            <h:outputText value="#{msg.RmnWithoutSrfRecipientDriver} :" style="font-weight: bold;font-size: small"/>
+                            <h:panelGrid columns="2">
+                                <p:commandButton icon="ui-icon-search"
+                                                 oncomplete="PF('drvDlg').show()"
+                                                 title="Please choose an item"
+                                                 style="border:none;"/>
+                                <p:inputText id="drvName" value="#{rmnSrfPrint.driverName}"/>
+                            </h:panelGrid>
+                            <p:spacer width="1" height="20"/>
+                            <h:outputText value="#{msg.RmnWithoutSrfDriverPhone} :" style="font-weight: bold;font-size: small"/>
+                            <p:inputText onkeypress="return handleEnter(this, event)" value="#{rmnSrfPrint.driverPhone}"/>
+
+
+                            <h:outputText value="#{msg.Showroom} :" style="font-weight: bold;font-size: small"/>
+                            <h:panelGrid columns="2">
+                                <p:commandButton icon="ui-icon-search"
+                                                 oncomplete="PF('showroomDlg').show()"
+                                                 title="Please choose an item"
+                                                 style="border:none;"/>
+                                <p:inputText id="showroomName" value="#{rmnSrfPrint.showroomName}"/>
+                            </h:panelGrid>
+                            
+
+                            <p:spacer width="1" height="20"/>
+                            <h:outputText value="#{msg.RmnWithoutSrfOrdrNo11} :" style="font-weight: bold;font-size: small"/>
+                            <p:inputText onkeypress="return handleEnter(this, event)" value="#{rmnSrfPrint.ordrNo}"/>
+
+                            <h:outputText value="#{msg.RmnWithoutSrfOrdrType} :" style="font-weight: bold;font-size: small"/>
+                            <p:selectOneMenu value="#{rmnSrfPrint.crmkSehy}">
+                                <f:selectItem/>
+                                <f:selectItem itemLabel="#{msg.Crmk}" itemValue="C"/>
+                                <f:selectItem itemLabel="#{msg.Dcre}" itemValue="D"/>
+                            </p:selectOneMenu>
+
+                            
+                        </h:panelGrid>
+
+                    </h:panelGrid>
+                    <div align="center" style="width: 100%">
+                        <p:commandButton action="#{rmnSrfPrint.search}" update="pg result growl" value="#{msg.Search}" icon="ui-icon-search"/>
+                        <p:spacer width="10" height="0"/>
+                        <p:commandButton action="#{rmnSrfPrint.newSearch}" update="pg result" value="#{msg.NewSearch}" icon="ui-icon-search"/>
+                    </div>
+                    <p:spacer height="10"/>
+                    <p:dataTable style="width: 100%;" styleClass="font" emptyMessage="#{msg.NoResultsFound}" id="result" dir="RTL" lazy="true" paginator="true" widgetVar="result" value="#{rmnSrfPrint.model}" var="result"
+                                 rows="100">
+                        <p:columnGroup type="header">
+                            <p:row>
+                                <p:column colspan="1" headerText="#{msg.RmnWithoutSrfResultHead}" />
+                            </p:row>
+                        </p:columnGroup>
+                        <p:column>
+                            <p:dataTable styleClass="font" id="ordrs" expandedRow="true" paginator="false" rowIndexVar="indx" dir="RTL" var="ordrs" rows="20" value="#{result.ordrHdDTOList}">
+                                <f:facet name="header">
+                                    <p:column >
+                                        <p:spacer height="30"/>
+                                        <h:panelGroup style="text-align: right;"  layout="block" >
+                                            <h:outputText value="#{msg.RmnWithoutSrfCustomerName} :"/>
+                                            <p:spacer width="10" height="1"/>
+                                            <h:outputText value="#{result.clntName}" />
+                                            <p:spacer width="200" height="1"/>
+                                            <h:outputText value="#{msg.RmnWithoutSrfPhone} :"/>
+                                            <p:spacer width="10" height="1"/>
+                                            <h:outputText value="#{result.phone}" />
+                                        </h:panelGroup>
+                                    </p:column>
+                                </f:facet>
+
+                                <p:columnGroup type="header">
+                                    <p:row>
+                                        <p:column style="background-color: skyblue;"  headerText="#{msg.RmnWithoutSrfOrdrType}" />
+                                        <p:column style="background-color: skyblue;"  headerText="#{msg.RmnWithoutSrfOrdrNo}" />
+                                        <p:column style="background-color: skyblue;"  headerText="#{msg.RmnWithoutSrfHandNo}" />
+                                        <p:column style="background-color: skyblue;"  headerText="#{msg.RmnWithoutSrfStore}" />
+                                        <p:column style="background-color: skyblue;"  headerText="#{msg.RmnWithoutSrfTrnsDate}" />
+                                        <p:column style="background-color: skyblue;"  headerText="#{msg.RmnWithoutSrfPeriod}" />
+                                        <p:column style="background-color: skyblue"  headerText="#{msg.RmnWithoutSrfTrnsNo}" />
+                                        <p:column style="background-color: skyblue;"  headerText="#{msg.RmnWithoutSrfEmpSender}" />
+                                        <p:column style="background-color: skyblue"  headerText="#{msg.RmnWithoutSrfShowSender}" />
+                                        <p:column style="background-color: skyblue;"  headerText="#{msg.RmnWithoutSrfDelivaryName}" />
+                                        <p:column style="background-color: skyblue;"  headerText="#{msg.RmnWithoutSrfPhone}" />
+                                        <p:column width="50" style="background-color: skyblue"  headerText="" />
+                                        <p:column width="50" style="background-color: skyblue"  headerText="" />
+
+                                    </p:row>
+
+                                </p:columnGroup>
+
+                                <p:column style="background-color: cornflowerblue;">
+                                    <h:outputText value="#{ordrs.CRMK_SEHY eq &quot;C&quot; ? msg.Crmk : (ordrs.CRMK_SEHY eq &quot;D&quot;? msg.Dcre : msg.Sehy)}" style="color: white"/>
+                                </p:column>
+                                <p:column style="background-color: cornflowerblue;">
+                                    <h:outputText value="#{ordrs.rmnNo}" style="color: white"/>
+                                </p:column>
+                                <p:column style="background-color: cornflowerblue;">
+                                    <h:outputText value="#{ordrs.rmnHandNo}" style="color: white"/>
+                                </p:column>
+                                <p:column style="background-color: cornflowerblue;">
+                                    <h:outputText value="#{ordrs.storeName}" style="color: white"/>
+                                </p:column >
+                                <p:column style="background-color: cornflowerblue;">
+                                    <h:outputText value="#{ordrs.rmnTrnsDate}" converter="#{customConvertDateTime}" style="color: white"/>
+                                </p:column>
+                                <p:column style="background-color: cornflowerblue;">
+                                    <h:outputText value="#{ordrs.rmnPrdId}" style="color: white"/>
+                                </p:column>
+
+                                <p:column style="background-color: cornflowerblue;">
+                                    <h:outputText value="#{ordrs.trnsNo}" style="color: white"/>
+                                </p:column>
+                                <p:column style="background-color: cornflowerblue;">
+                                    <h:outputText value="#{ordrs.empRequestedName}" style="color: white"/>
+                                </p:column>
+
+                                <p:column style="background-color: cornflowerblue;">
+                                    <h:outputText value="#{ordrs.brnRequestedName}" style="color: white"/>
+                                </p:column>
+
+                                <p:column style="background-color: cornflowerblue;">
+                                    <h:outputText value="#{ordrs.trgtDriverName}" style="color: white"/>
+                                </p:column>
+                                <p:column style="background-color: cornflowerblue;">
+                                    <h:outputText value="#{ordrs.trgtDriverPhone}" style="color: white"/>
+                                </p:column>
+                                <p:column width="10" style="background-color: cornflowerblue;">
+                                    <p:commandButton ajax="false" disabled="#{ordrs.reqId.printed eq &quot;Y&quot; or empty ordrs.reqId.targetBrnId}" update="result" style="background-color: cornflowerblue;text-align: right" actionListener="#{rmnSrfPrint.print}" icon="ui-icon-print" title="#{msg.Print}">
+                                        <f:param name="reqId" value="#{ordrs.reqId.id}"/>
+                                    </p:commandButton>
+                                </p:column>
+                                <p:column width="10" style="background-color: cornflowerblue;">
+                                    <p:commandButton disabled="#{empty ordrs.reqId.printed or ordrs.reqId.printed eq &quot;N&quot;}" update=":form:result :form:pg1" style="background-color: cornflowerblue;text-align: right" action="#{rmnSrfPrint.cancelPrint}" icon="ui-icon-cancel" title="#{msg.Cancel}">
+                                        <f:param name="reqId" value="#{ordrs.reqId.id}"/>
+                                        <p:ajax update=":form:result" event="click"/>
+                                    </p:commandButton>
+                                </p:column>
+                                <p:rowExpansion>
+                                    <p:spacer height="5"/>
+                                    <p:dataTable styleClass="font" paginator="false" rows="20" id="dt" rowIndexVar="indx" dir="RTL" lazy="true" widgetVar="dt" value="#{ordrs.ordrDtDTOList}" var="dt">
+                                        <p:columnGroup type="header">
+                                            <p:row>
+                                                <p:column style="background-color: #007bb6" headerText="#{msg.RmnWithoutSrfItems}" />
+                                                <p:column style="background-color: #007bb6"  headerText="#{msg.RmnWithoutSrfOrdrQty}" />
+                                                <p:column style="background-color: #007bb6"  headerText="#{msg.RmnWithoutSrfRmnQty}" />
+                                                <p:column style="background-color: #007bb6"  headerText="#{msg.RmnWithoutSrfTotalActualQty}" />
+                                                <p:column width="60" style="background-color: #007bb6"  headerText="" />
+                                            </p:row>
+                                        </p:columnGroup>
+                                        <p:column styleClass="#{dt.actQty le dt.rmnQty or empty dt.actQty ? 'actQty' : null}" style="background-color: #2c4762">
+                                            <h:outputText styleClass="#{dt.actQty le dt.rmnQty or empty dt.actQty ? 'actQty' : null}" style="color: white" value="#{dt.noCTone}" />
+                                        </p:column>
+                                        <p:column styleClass="#{dt.actQty le dt.rmnQty or empty dt.actQty ? 'actQty' : null}" style="background-color: #2c4762">
+                                            <h:outputText styleClass="#{dt.actQty le dt.rmnQty or empty dt.actQty ? 'actQty' : null}" style="color: white" value="#{dt.qty}" />
+                                        </p:column>
+                                        <p:column styleClass="#{dt.actQty le dt.rmnQty or empty dt.actQty ? 'actQty' : null}" style="background-color: #2c4762">
+                                            <h:outputText styleClass="#{dt.actQty le dt.rmnQty or empty dt.actQty ? 'actQty' : null}" style="color: white" value="#{dt.rmnQty}" />
+                                        </p:column>
+                                        <p:column styleClass="#{dt.actQty le dt.rmnQty or empty dt.actQty ? 'actQty' : null}" style="background-color: #2c4762">
+                                            <h:outputText styleClass="#{dt.actQty le dt.rmnQty or empty dt.actQty ? 'actQty' : null}" style="color: white" value="#{dt.actQty}" />
+                                        </p:column>
+                                        <p:column styleClass="#{dt.actQty le dt.rmnQty or empty dt.actQty ? 'actQty' : null}" style="background-color: #2c4762">
+                                            <p:commandButton update=":form:qtyDtDlg" icon="ui-icon-search" oncomplete="PF('qtyDtDlg').show()" action="#{rmnSrfPrint.findQtyDetailsPerGovern}">
+                                                <f:setPropertyActionListener target="#{rmnSrfPrint.selectedItem}" value="#{dt}" />
+                                            </p:commandButton>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:rowExpansion>
+
+                                <f:facet name="footer">
+                                    <p:spacer height="50"/>
+                                </f:facet>
+
+                            </p:dataTable>
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:dialog id="empDlg" header="#{msg.RmnWithoutSrfEmps}" width="300" height="400" widgetVar="empDlg">
+                        <p:dataTable rowKey="#{empDT}" value="#{rmnSrfPrint.empList}" rowIndexVar="x" scrollRows="100" scrollable="true" scrollHeight="400" var="empDT" widgetVar="empDT" id="empDT" selection="#{rmnSrfPrint.empNameSelected}" selectionMode="single">
+                            <p:ajax event="rowSelect" oncomplete="PF('empDlg').hide()" listener="#{rmnSrfPrint.updateEmpName}" update=":form:empName"/>
+                            <p:column filterMatchMode="contains" filterBy="#{empDT}">
+                                <h:outputText value="#{empDT}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+
+                    <p:dialog id="clntDlg" header="#{msg.RmnWithoutSrfRecipientClnt}" width="300" height="400" widgetVar="clntDlg">
+                        <p:dataTable liveScroll="true" rowKey="#{clntDT}" value="#{rmnSrfPrint.clntList}" rowIndexVar="y" scrollRows="100" scrollable="true" scrollHeight="400" var="clntDT" widgetVar="clntDT" id="clntDT" selection="#{rmnSrfPrint.clntNameSelected}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{rmnSrfPrint.updateClntName}" oncomplete="PF('clntDlg').hide()" update=":form:clntName"/>
+                            <p:column filterMatchMode="contains" filterBy="#{clntDT}">
+                                <h:outputText value="#{clntDT}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+
+                    <p:dialog id="drvDlg" header="#{msg.RmnWithoutSrfDrivers}" width="300" height="400" widgetVar="drvDlg">
+                        <p:dataTable rowKey="#{drvDT}" value="#{rmnSrfPrint.drvList}" rowIndexVar="z" scrollRows="100" scrollable="true" scrollHeight="400" var="drvDT" widgetVar="drvDT" id="drvDT" selection="#{rmnSrfPrint.driverNameSelected}" selectionMode="single">
+                            <p:ajax event="rowSelect" oncomplete="PF('drvDlg').hide()" listener="#{rmnSrfPrint.updateDrvName}" update=":form:drvName"/>
+                            <p:column filterMatchMode="contains" filterBy="#{drvDT}">
+                                <h:outputText value="#{drvDT}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+
+                    <p:dialog dir="RTL" header="#{msg.RmnWithoutSrfQtyDtDlgHeader}" id="qtyDtDlg" width="600" height="400" widgetVar="qtyDtDlg">
+                        <p:dataTable emptyMessage="#{msg.NoAvailableQty}"  id="qtyDT" var="qtyDT" value="#{rmnSrfPrint.qtyDetailResult}" widgetVar="qtyDT">
+                            <p:columns value="#{rmnSrfPrint.columns}" var="column" columnIndexVar="colIndex">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center" value="#{column.header}" />
+                                </f:facet>
+                                <h:outputText value="#{qtyDT[column.property]}" />
+                            </p:columns>
+                        </p:dataTable>
+                    </p:dialog>
+
+                    <p:dialog id="showroomDlg" header="#{msg.Showroom}" width="300" height="400" widgetVar="showroomDlg">
+                        <p:dataTable rowKey="#{showroomDT}" value="#{rmnSrfPrint.showRoomList}" rowIndexVar="z" scrollRows="100" scrollable="true" scrollHeight="400" var="showroomDT" widgetVar="showroomDT" id="showroomDT" selection="#{rmnSrfPrint.showroomSelected}" selectionMode="single">
+                            <p:ajax event="rowSelect" oncomplete="PF('showroomDlg').hide()" listener="#{rmnSrfPrint.updateShowroomName}" update=":form:showroomName"/>
+                            <p:column filterMatchMode="contains" filterBy="#{showroomDT}">
+                                <h:outputText value="#{showroomDT}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

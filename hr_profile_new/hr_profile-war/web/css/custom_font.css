@@ -1,0 +1,21 @@
+/* 
+    Document   : custom_font
+    Created on : 06/02/2015, 07:17:40 ã
+    Author     : Administrator
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+@font-face{
+font-family: ArabicKufi;
+src: url('/fonts/kufi.ttf');
+}
+
+body{
+    font-family: ArabicKufi;
+}

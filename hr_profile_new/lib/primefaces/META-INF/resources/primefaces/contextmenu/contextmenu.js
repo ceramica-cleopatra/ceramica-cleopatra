@@ -1,0 +1,1 @@
+PrimeFaces.widget.ContextMenu=function(b,a){PrimeFaces.widget.ContextMenu.superclass.constructor.call(this,b,a)};YAHOO.lang.extend(PrimeFaces.widget.ContextMenu,YAHOO.widget.ContextMenu,{});

@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="2.0"
+    xmlns="http://java.sun.com/xml/ns/javaee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+
+    <converter>
+        <converter-id>DateTimeConverter</converter-id>
+        <converter-class>
+            customConvertDateTime
+        </converter-class>
+    </converter>
+    <converter>
+        <converter-id>YearMonthConverter</converter-id>
+        <converter-class>
+            CustomConvertYearMonth
+        </converter-class>
+    </converter>
+    <converter>
+        <converter-id>LocationConvertor</converter-id>
+        <converter-class>LocationConvertor</converter-class>
+    </converter>
+    <converter>
+        <converter-id>EmpConverter</converter-id>
+        <converter-class>EmpConverter</converter-class>
+    </converter>
+    <converter>
+        <converter-id>TimeConverter</converter-id>
+        <converter-class>
+            CustomConvertTime
+        </converter-class>
+    </converter>
+    <converter>
+        <converter-id>tamyoz_approve</converter-id>
+        <converter-class>
+            tamyoz_approve_convert1
+        </converter-class>
+    </converter>
+    <application>
+        <resource-bundle>
+            <base-name>messages_ar</base-name>
+            <var>msg</var>
+        </resource-bundle>
+    </application>
+    
+</faces-config>

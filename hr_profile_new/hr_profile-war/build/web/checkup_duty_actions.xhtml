@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='windows-1256' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./hr_profile_template.xhtml">
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-history"/>
+                    <h:outputText value="#{msg.Entries}" />
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="#{msg.CheckupDutyActions}" />
+            </ui:define>
+            <ui:define name="body">
+                <script language="javascript" src="hr_profile_js.js" type="text/javascript"/>
+                <h:form id="filterFrm" dir="RTL">
+                    <p:growl id="growl" widgetVar="growl" showDetail="true" showSummary="true" life="3000"/>
+                    <h:panelGrid width="100%" columns="7">
+                        <h:outputText value="#{msg.DeptName}" style="font-weight: bold;font-size: small"/>
+                        <h:panelGrid columns="2">
+                            <p:commandButton icon="ui-icon-search"
+                                             oncomplete="PF('deptDlg').show()"
+                                             title="Please choose an item"
+                                             style="border:none;"/>
+                            <p:inputText id="deptName" readonly="true" value="#{checkupDutyActions.filteredDept.name}"/>
+                        </h:panelGrid>
+
+
+                        <h:outputText value="#{msg.LocationName}" style="font-weight: bold;font-size: small"/>
+                        <h:panelGrid columns="2">
+                            <p:commandButton icon="ui-icon-search"
+                                             oncomplete="PF('locDlg').show()"
+                                             title="Please choose an item"
+                                             style="border:none;"/>
+                            <p:inputText id="locName" readonly="true" value="#{checkupDutyActions.filteredLoc.name}"/>
+                        </h:panelGrid>
+                        <p:spacer height="30" width="20"/>
+                        <h:outputText value="#{msg.EmployeeName}" style="font-weight: bold;font-size: small"/>
+                        <h:panelGrid columns="3">
+                            <p:commandButton icon="ui-icon-search"
+                                             oncomplete="PF('empDlg').show()"
+                                             title="Please choose an item"
+                                             style="border:none;"/>
+                            <p:inputText size="6" onkeypress="return handleEnter(this, event)" id="empNo" value="#{checkupDutyActions.filteredEmp}">
+                                <f:converter converterId="EmpConverter"/>
+                                <p:ajax event="change" oncomplete="PF('empDlg').hide()" update="empName"/>
+                            </p:inputText>
+                            <p:inputText id="empName" readonly="true" value="#{checkupDutyActions.filteredEmp.empName}"/>
+                        </h:panelGrid>
+
+                        <h:outputText value="#{msg.FromDate}" style="font-weight: bold;font-size: small"/>
+                        <p:calendar id="fromDate" value="#{checkupDutyActions.fromDate}" showOn="button" />
+
+                        <h:outputText value="#{msg.ToDate}" style="font-weight: bold;font-size: small"/>
+                        <p:calendar id="toDate" value="#{checkupDutyActions.toDate}" showOn="button" />
+                        <p:spacer height="30" width="20"/>
+                        <p:outputLabel for="approved" value="#{msg.Approved_NotApproved}" />
+                        <p:selectOneMenu id="approved" value="#{checkupDutyActions.approvedFlag}" style="width:125px">
+                            <f:selectItem itemLabel="#{msg.All}" itemValue="3" />
+                            <f:selectItem itemLabel="#{msg.Approved}" itemValue="1" />
+                            <f:selectItem itemLabel="#{msg.NotApproved}" itemValue="2" />
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                    <p:spacer height="30"/>
+                    <div align="center">
+                        <p:commandButton update=":frm" action="#{checkupDutyActions.search}" value="#{msg.Search}" />
+                        <p:spacer width="20"/>
+                        <p:commandButton update=":frm :filterFrm" action="#{checkupDutyActions.resetValues}" value="#{msg.NewSearch}" />
+                    </div>
+
+                    <p:dialog id="deptDlg" header="#{msg.DeptName}" width="300" height="400" widgetVar="deptDlg">
+                        <p:dataTable rowKey="#{dept}" value="#{checkupDutyActions.deptList}" rowIndexVar="x" scrollRows="100" scrollable="true" scrollHeight="400" var="dept" widgetVar="dept" id="dept" selection="#{checkupDutyActions.selectedDept}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{checkupDutyActions.updateSelectedDept}" oncomplete="PF('deptDlg').hide()" update=":filterFrm:deptName"/>
+                            <p:column filterMatchMode="contains" filterBy="#{dept.name}">
+                                <h:outputText value="#{dept.name}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+                    <p:dialog id="locDlg" header="#{msg.LocationName}" width="300" height="400" widgetVar="locDlg">
+                        <p:dataTable rowKey="#{loc}" value="#{checkupDutyActions.locList}" rowIndexVar="x" scrollRows="100" scrollable="true" scrollHeight="400" var="loc" widgetVar="loc" id="loc" selection="#{checkupDutyActions.selectedLoc}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{checkupDutyActions.updateSelectedLoc}" oncomplete="PF('locDlg').hide()" update=":filterFrm:locName"/>
+                            <p:column filterMatchMode="contains" filterBy="#{loc.name}">
+                                <h:outputText value="#{loc.name}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+                    <p:dialog id="empDlg" header="#{msg.EmployeeName}" width="300" height="400" widgetVar="empDlg">
+                        <p:dataTable rowKey="#{emp}" value="#{checkupDutyActions.empList}" rowIndexVar="x" scrollRows="100" scrollable="true" scrollHeight="400" var="emp" widgetVar="emp" id="emp" selection="#{checkupDutyActions.selectedEmp}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{checkupDutyActions.updateSelectedEmp}" oncomplete="PF('empDlg').hide()" update=":filterFrm:empName :filterFrm:empNo"/>
+                            <p:column filterMatchMode="contains" filterBy="#{emp.empName}">
+                                <h:outputText value="#{emp.empName}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+                </h:form>
+                <h:form id="frm">
+                    <p:dataTable id="dt" rendered="#{not empty checkupDutyActions.checkupDutyList}" selection="#{checkupDutyActions.selectedDuty}"
+                                 selectionMode="single" rowKey="#{dt.id}" rowIndexVar="indx" value="#{checkupDutyActions.checkupDutyList}"  var="dt">
+                        <p:ajax event="rowSelect"  />
+                        <p:column style="text-align: center" width="60"  >
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.Date}" style="font-size: smaller;" />
+                            </f:facet>
+                            <h:outputText value="#{dt.entryDate}" style="text-align: right;font-weight:bold;font-size:small;" converter="#{customConvertDateTime}"/>
+                        </p:column>
+
+                        <p:column  width="100" >
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.ReportEntryName}" style="font-size: smaller;" />
+                            </f:facet>
+                            <h:outputText value="#{dt.entryNo.empName}" style="font-weight:bold;font-size:small;"/>
+                        </p:column>
+
+                        <p:column  width="100" >
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.DeptName}" style="font-size: smaller;" />
+                            </f:facet>
+                            <h:outputText value="#{dt.entryNo.deptName}" style="font-weight:bold;font-size:small;"/>
+                        </p:column>
+
+                        <p:column  width="100" >
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.LocationName}" style="font-size: smaller;" />
+                            </f:facet>
+                            <h:outputText value="#{dt.locId.name}" style="font-weight:bold;font-size:small;"/>
+                        </p:column>
+
+                        <p:column width="45"  headerText="#{msg.Approve}" style="text-align: center;">
+                            <h:graphicImage value="/images/check.png" rendered="#{dt.approved eq &quot;Y&quot;}" />
+                            <h:graphicImage value="/images/cross.png" rendered="#{dt.approved eq &quot;N&quot;}" />
+                        </p:column>
+
+                        <p:column style="text-align: center" width="60"  >
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.ApproveDate}" style="font-size: smaller;" />
+                            </f:facet>
+                            <h:outputText value="#{dt.approveDate}" style="text-align: right;font-weight:bold;font-size:small;" converter="#{customConvertDateTime}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

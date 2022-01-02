@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='windows-1256' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/><!-- Force IE to use the latest rendering engine -->
+        <meta name="viewport" content="width=device-width, initial-scale=1"/><!-- Optimize mobile viewport -->
+        <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon"/>
+        <link rel="icon" href="images/favicon.ico" type="image/x-icon"/>
+        <link rel="stylesheet" href="css/animate.min.css"/>
+        <link rel="stylesheet" href="css/style1.css"/>
+        <title>#{msg.EmployeeProfile}</title>
+
+        <!-- Bootstrap Core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet"/>
+
+        <!-- MetisMenu CSS -->
+        <link href="css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet"/>
+
+        <!-- Custom CSS -->
+        <link href="css/sb-admin-2.css" rel="stylesheet"/>
+
+        <!-- Custom Fonts -->
+        <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <style type="text/css">
+            @font-face {
+                font-family: "kufi";src: url(ArabicKufiSSK.ttf) format("truetype") !important;
+            }
+            .customfont1{
+                font-family: "kufi" !important;
+            }</style>
+
+        <style type="text/css">
+            @font-face {
+                font-family: "Amperzand";
+                src: url(Amperzand.ttf);
+            }
+            .customfont{ 
+                font-family: "Amperzand";
+            }
+        </style>
+
+
+    </h:head>
+
+    <h:body id="body" style="background:url(images/0.jpg);">
+        <script language="javascript" src="hr_profile_js.js" type="text/javascript"/>
+
+        <div class="container" >
+
+            <div id="header" class="row text-center">
+                <div id="logo">
+                    <span id="danger">
+                        <span class="zz animated bounceInDown customfont">e</span>
+                        <span class="zz animated bounceInDown customfont">l</span>
+                        <span class="dd animated bounceInDown customfont">i</span>
+                        <span class="da animated bounceInDown customfont">f</span>
+                        <span class="dn animated bounceInDown customfont">o</span>
+                        <span class="dg animated bounceInDown customfont">r</span>
+                        <span class="de animated bounceInDown customfont">P</span>
+                        <span class="de animated bounceInDown customfont"> </span>
+
+                    </span>
+                    <span id="zone">
+                        <span class="de animated bounceInDown customfont"> </span>
+                        <span class="zz animated bounceInDown customfont">e</span>
+                        <span class="zz animated bounceInDown customfont">e</span>
+                        <span class="zz animated bounceInDown customfont">y</span>
+                        <span class="zz animated bounceInDown customfont">o</span>
+                        <span class="zo animated bounceInDown customfont">l</span>
+                        <span class="zn animated bounceInDown customfont">p</span>
+                        <span class="ze animated bounceInDown customfont">m</span>
+                        <span class="dr animated bounceInDown customfont">E</span>
+
+                    </span>
+                </div>
+
+
+            </div>
+
+            <div id="main" class="row">
+                <h:form id="frm">
+                    <div id="sidebar" class="col-sm-4">
+                        <nav id="sidebar-nav">
+                            <a onclick="document.getElementById('frm:phone').click();" id="side-home" class="animated bounceInLeft" href="#">أرقام تهمك</a>
+                            <a id="side-about" onclick="document.getElementById('frm:medical').click();" class="animated bounceInLeft" href="#">دليل الهيئة الطبية</a>
+                            <a id="side-work" style="visibility: hidden" class="animated bounceInLeft" href="headHierarchy.jsp">الهيكل الإدارى للتوكيلات</a>
+                            <!--                        <a id="side-contact" class="animated bounceInLeft" href="headHierarchy.jsp">Nothing</a>-->
+                        </nav>
+                    </div>
+                    <h:commandButton style="visibility: hidden" id="medical" action="#{downloadFiles.downloadMedicalFile}"/>
+                    <h:commandButton style="visibility: hidden" id="phone" action="#{downloadFiles.downloadPhoneListFile}"/>
+                </h:form>
+                <div class="customfont animated bounceInUp text-center col-sm-6" id="content" >
+
+
+                    <div class="login-panel panel panel-default">
+
+                        <div class="panel-heading">
+                            <h3 style="font-weight: bold" class="panel-title">تسجيل الدخول</h3>
+                        </div>
+                        <div class="panel-body">
+<!--                            <div class="col-sm-4">
+                                <img class="img-responsive animated bounceInUp" src="images/0.jpg"/>
+                            </div>-->
+                            <h:form id="logInFRM">
+
+                                <p:growl showDetail="true" showSummary="true" widgetVar="growl" id="growl" life="2000" />
+                                <fieldset>
+                                    <div class="form-group">
+                                        <h:panelGrid cellspacing="5" cellpadding="5" columns="3">
+                                            <h:outputLabel for="empNo" value="كود الموظف"/>
+                                            <p:spacer height="50" width="10"/>
+                                            <p:inputText styleClass="form-control" size="40" id="empNo" value="#{loginBean.username}" onkeypress="return handleEnter(this, event)"/>
+                                            <h:outputLabel for="password" value="كلمة المرور"/>
+                                            <p:spacer height="1" width="10"/>
+                                            <p:password styleClass="form-control" size="40" id="password" value="#{loginBean.password}" />
+                                        </h:panelGrid>
+                                    </div>
+
+                                    <a href="#" id="log" onclick="document.getElementById('logInFRM:logIn').click()" style="color: #FFF" class="btn btn-lg btn-block btn-warning ">دخول</a>
+                                    <p:commandButton ajax="false"  style="visibility: hidden" id="logIn" onclick="PF('statusDialog').show()" update="growl" action="#{loginBean.login}" />
+
+                                </fieldset>
+                            </h:form>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+        <p:dialog position="center" widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+            <div align="center">
+                #{msg.pleaseWait}<br />
+                <img height="20" width="20" src="images/loading.gif"/>
+            </div>
+        </p:dialog>
+
+
+
+        <!-- jQuery Version 1.11.0 -->
+        <script src="js/jquery-1.11.0.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="js/bootstrap.min.js"></script>
+
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="js/plugins/metisMenu/metisMenu.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="js/sb-admin-2.js"></script>
+
+
+    </h:body>
+
+</html>
+

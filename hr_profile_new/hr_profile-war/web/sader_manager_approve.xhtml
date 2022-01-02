@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./hr_profile_template.xhtml">
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-check-square-o"/>
+                    <h:outputText value="#{msg.Approves}" />
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="#{msg.SaderOrderApprove}" />
+            </ui:define>
+            <ui:define name="body">
+
+                <h:form id="frm">
+                    <p:growl id="growl" showDetail="true" life="2000" />
+                    <p:dataTable rowIndexVar="sader_indx"   id="dt1" var="sader" value="#{sader_manager_approve.crmkOrdrSaderNotApproved}"
+                                 paginator="true" rows="6"  paginatorPosition="bottom"  >
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.SaderOrdersNotApproved}" style="font-size: large"/>
+                        </f:facet>
+                        <p:column width="50" headerText="#{msg.Date}" style="text-align: center" >
+                            <h:outputText value="#{sader.trnsDate}" converter="#{customConvertDateTime}" style="font-weight:bold;font-size:small;" />
+                        </p:column>
+                        <p:column width="30" headerText="#{msg.Time}" style="text-align: center" >
+                            <h:outputText value="#{sader.trnsDate}" converter="#{customConvertTime}" style="font-weight:bold;font-size:small;" />
+                        </p:column>
+                        <p:column width="40" headerText="#{msg.OrderType}" style="text-align: center" >
+                            <h:outputText value="#{sader.ordrId.crmkSehy == &quot;C&quot; ? msg.Crmk : (sader.ordrId.crmkSehy == &quot;D&quot; ? msg.Dcre : msg.Sehy)}" style="font-weight:bold;font-size:small;" />
+                        </p:column>
+                        <p:column width="30" headerText="#{msg.OrdrNo}" style="text-align: center" >
+                            <h:outputText value="#{sader.ordrId.no}" style="font-weight:bold;font-size:small;" />
+                        </p:column>
+                        <p:column width="80" headerText="#{msg.Showroom}" style="text-align: center" >
+                            <h:outputText value="#{sader.brnId.name}" style="font-weight:bold;font-size:small;" />
+                        </p:column>
+                        <p:column width="50" headerText="#{msg.Value}" style="text-align: center" >
+                            <h:outputText value="#{sader.amount}" style="font-weight:bold;font-size:small;" />
+                        </p:column>
+                        <p:column width="80" headerText="#{msg.Store}" style="text-align: center" >
+                            <p:selectOneMenu id="som" value="#{sader_manager_approve.store}" style="font-weight:bold;font-size:small;" >
+                                <f:selectItem/>
+                                <f:selectItems value="#{sader_manager_approve.storeList}" />
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column width="30" headerText="#{msg.Approve}" style="text-align: center" >
+                            <p:commandButton icon="ui-icon-check" update=":frm:growl,:frm:dt1,:frm1:dt2" actionListener="#{sader_manager_approve.approve}" style="height: 20px;width: 20px" >
+                                <f:param value="#{sader_indx}" name="ordr"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <h:form id="frm1">
+                    <p:growl id="growl" showDetail="true" life="2000" />
+                    <p:dataTable style="position: relative;top: 110px" rowIndexVar="sader_indx"   id="dt2" var="sader" value="#{sader_manager_approve.crmkOrdrSaderApproved}" 
+                                 paginator="true" rows="5"  paginatorPosition="bottom"  >
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.ApprovedOrders}" style="font-size: large"/>
+                        </f:facet>
+                        <p:column width="50" headerText="#{msg.Date}" style="text-align: center" >
+                            <h:outputText value="#{sader.trnsDate}" converter="#{customConvertDateTime}" style="font-weight:bold;font-size:small;" />
+                        </p:column>
+                        <p:column width="30" headerText="#{msg.Time}" style="text-align: center" >
+                            <h:outputText value="#{sader.trnsDate}" converter="#{customConvertTime}" style="font-weight:bold;font-size:small;" />
+                        </p:column>
+                        <p:column width="40" headerText="#{msg.OrderType}" style="text-align: center" >
+                            <h:outputText value="#{sader.ordrId.crmkSehy == &quot;C&quot; ? msg.Crmk : (sader.ordrId.crmkSehy == &quot;D&quot; ? msg.Dcre : msg.Sehy)}" style="font-weight:bold;font-size:small;" />
+                        </p:column>
+                        <p:column width="30" headerText="#{msg.OrdrNo}" style="text-align: center" >
+                            <h:outputText value="#{sader.ordrId.no}" style="font-weight:bold;font-size:small;" />
+                        </p:column>
+                        <p:column width="80" headerText="#{msg.Showroom}" style="text-align: center" >
+                            <h:outputText value="#{sader.brnId.name}" style="font-weight:bold;font-size:small;" />
+                        </p:column>
+                        <p:column width="50" headerText="#{msg.Value}" style="text-align: center" >
+                            <h:outputText value="#{sader.amount}" style="font-weight:bold;font-size:small;" />
+                        </p:column>
+                        <p:column width="80" headerText="#{msg.Store}" style="text-align: center" >
+                            <h:outputText value="#{sader.storeId.name}" style="font-weight:bold;font-size:small;" />
+                        </p:column>
+                        <p:column width="50" headerText="#{msg.CancelApprove}" style="text-align: center" >
+                            <p:commandButton update=":frm:growl,:frm1:dt2,:frm:dt1" actionListener="#{sader_manager_approve.refuse}" icon="ui-icon-closethick" style="height: 20px;width: 20px" >
+                                <f:param value="#{sader_indx}" name="ordr"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

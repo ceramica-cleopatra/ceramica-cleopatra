@@ -1,0 +1,8 @@
+/*
+ * Galleria Classic Theme
+ * http://galleria.aino.se
+ *
+ * Copyright (c) 2010, Aino
+ * Licensed under the MIT license.
+ */
+(function(a){Galleria.addTheme({name:"classic",author:"Galleria",version:"1.2",css:"galleria.classic.css",defaults:{transition:"slide",show_caption:false,thumb_crop:"height"},init:function(b){this.addElement("info-link","info-close");this.append({info:["info-link","info-close"]});a(this.dom["info-link"]).addClass("ui-icon ui-icon-info");a(this.dom["info-close"]).addClass("ui-icon ui-icon-close").hide();this.$("loader").show().fadeTo(200,0.4);this.$("counter").show().fadeTo(200,0.4);this.$("thumbnails").children().hover(function(){a(this).not(".active").children().stop().fadeTo(100,1)},function(){a(this).not(".active").children().stop().fadeTo(400,0.4)}).not(".active").children().css("opacity",0.4);this.$("container").hover(this.proxy(function(){this.$("image-nav-left,image-nav-right,counter").fadeIn(200)}),this.proxy(function(){this.$("image-nav-left,image-nav-right,counter").fadeOut(500)}));this.$("image-nav-left,image-nav-right,counter").hide();var c=this.$("info-link,info-close,info-text").click(function(){c.toggle()});if(b.show_caption){c.trigger("click")}this.bind(Galleria.LOADSTART,function(d){if(!d.cached){this.$("loader").show().fadeTo(200,0.4)}if(this.hasInfo()){this.$("info").show()}else{this.$("info").hide()}});this.bind(Galleria.LOADFINISH,function(d){this.$("loader").fadeOut(200)});this.bind(Galleria.LOADSTART,function(d){a(d.thumbTarget).css("opacity",1).parent().addClass("active").siblings(".active").removeClass("active").children().css("opacity",0.4)})}})})(jQuery);

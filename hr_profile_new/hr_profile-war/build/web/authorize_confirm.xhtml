@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./hr_profile_template.xhtml">
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-check-square-o"/>
+                    <h:outputText value="#{msg.Approves}" />
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="#{msg.AuthorizeApprove}" />
+            </ui:define>
+            <ui:define name="body">
+                <h:form id="frm_list">
+                    <p:growl id="growl" showDetail="true" life="2000"  />
+                    <p:dataTable   id="req" widgetVar="req" var="auth" value="#{authorize_confirm.hrAuthorizeRequestList}"
+                                   editable="true" paginator="true" rows="10"  paginatorPosition="bottom"  >
+                        <p:ajax event="rowEdit" listener="#{authorize_confirm.update}" update="req :frm_list:growl" />
+                        <p:column width="100" headerText="#{msg.EmpName}" style="text-align: center;">
+                            <h:outputText value="#{auth.empName}" style="font-weight:bold;font-size:small;"/>
+                        </p:column>
+                        <p:column width="60"  headerText="#{msg.AuthorizeType}" style="text-align: center;">
+                            <h:outputText value="#{auth.type eq &quot;1&quot; ? msg.Delay : (auth.type eq &quot;2&quot; ? msg.PartingEarly : (auth.type eq &quot;3&quot; ? msg.PartingAtWork : msg.Others))}" style="font-weight:bold;font-size:small;" />
+                        </p:column>
+                        <p:column width="50"  headerText="#{msg.MinutesCount}" style="text-align: center;">
+                            <h:outputText value="#{auth.minutesNo}" style="font-weight:bold;font-size:small;"/>
+                        </p:column>
+                        <p:column width="80"  headerText="#{msg.AuthorizeDate}" style="text-align: center;">
+                            <h:outputText value="#{auth.authorizeDate}" style="font-weight:bold;font-size:small;" converter="#{customConvertDateTime}"/>
+                        </p:column>
+                        <p:column width="50"  headerText="#{msg.ApproveStatus}" style="text-align: center;">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:graphicImage value="/images/check.png" rendered="#{auth.accepted eq &quot;Y&quot;}" />
+                                    <h:graphicImage value="/images/cross.png" rendered="#{auth.accepted eq &quot;N&quot;}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:selectOneMenu value="#{auth.accepted}" style="width: 100%;font-weight:bold;font-size:small;">
+                                        <f:selectItem itemLabel="#{msg.Approve}" itemValue="Y"/>
+                                        <f:selectItem itemLabel="#{msg.Reject}" itemValue="N"/>
+                                        <f:selectItem/>
+                                    </p:selectOneMenu>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column width="30" headerText="#{msg.Edit}" style="text-align: center;" >
+                            <p:rowEditor />
+                        </p:column>
+                    </p:dataTable>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

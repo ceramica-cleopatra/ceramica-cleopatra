@@ -1,0 +1,243 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./hr_profile_template.xhtml">
+
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-history"/>
+                    <h:outputText value="#{msg.FollowUp}" />
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="#{msg.Target}" />
+            </ui:define>
+            <ui:define name="body">
+                <p:growl id="msgs" showDetail="true" showSummary="true" widgetVar="msgs"/>
+                <div align="right">
+<!--                    <p:notificationBar autoDisplay="true"  position="bottom" effect="fade" widgetVar="bottomBar">
+                        <f:facet name="close">
+                            <p:graphicImage value="/images/Close.png" />
+                        </f:facet>
+                        <div align="center">
+                            <h:outputText value="{msg.TargetUndeterminedTillNow}"  style="font-weight: bold;font-size: medium;"/>
+                        </div>
+                    </p:notificationBar>-->
+
+                    <h:form id="barFrm">
+                        <p:growl life="2000" showDetail="true" id="growl"/>
+                        <h:panelGrid columns="9">
+                            <h:outputText value="#{msg.Year}" style="font-weight:bold;font-size:medium;"/>
+                            <p:spacer height="1" width="5"/>
+                            <p:selectOneMenu valueChangeListener="#{target.onListChanged}" value="#{target.selectedYear}" style="font-weight:bold;font-size:small;" >
+                                <f:ajax event="valueChange" render=":barFrm" execute=":barFrm" />
+                                <f:selectItems value="#{target.yearList}" />
+                            </p:selectOneMenu>
+                            <p:spacer height="1" width="15"/>
+                            <h:outputText value="#{msg.Month}" style="font-weight:bold;font-size:medium;"/>
+                            <p:spacer height="1" width="5"/>
+                            <p:selectOneMenu value="#{target.selectedMonth}" style="font-weight:bold;font-size:small;" >
+                                <f:selectItems value="#{target.monthsList}" />
+                            </p:selectOneMenu>
+                            <p:spacer width="30" height="1"/>
+                            <p:commandButton value="#{msg.Search}" image="ui-icon ui-icon-search"  actionListener="#{target.search}" update=":frm:tv" />
+                        </h:panelGrid>
+                    </h:form>
+                    <h:form id="frm">
+                        <p:tabView id="tv" dir="rtl"  style="height: 100%;" >
+                            <p:ajax event="tabChange" listener="#{target.onTabChange}" update=":frm:tv" />
+                            <p:tab id="trgt" title="#{msg.Target}" >
+                                <p:panelGrid style="text-align:  right;width: 100%" >
+                                    <p:row>
+                                        <p:column>
+                                            <h:outputText value="#{msg.MonthlyTarget}"
+                                                          style=" font-size:medium; font-weight:bold;"/>
+                                        </p:column>
+                                        <p:column colspan="2">
+                                            <h:outputText value="#{target.hrTrgtVu.trgt}"
+                                                          style="font-size:medium; font-weight:bold;">
+                                                <f:convertNumber pattern="###,###,###"/>
+                                            </h:outputText>
+                                        </p:column>
+
+                                        <p:column >
+                                            <h:outputText value="#{msg.TargetPercentage}" style="font-size:medium; font-weight:bold;"/>
+                                        </p:column>
+                                        <p:column >
+                                            <h:panelGrid columns="3">
+                                                <h:outputText value="%#{target.hrTrgtVu.trgtPercent}" style="font-size:medium; font-weight:bold;"/>
+                                                <p:spacer width="20" height="1"/>
+                                                <p:rating value="#{target.rate}"  readonly="true" stars="10">
+                                                    <f:convertNumber maxFractionDigits="1" />
+                                                </p:rating>
+                                            </h:panelGrid>
+                                        </p:column>
+
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="5" styleClass="ui-widget-header">
+                                            <p:spacer height="0"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column styleClass="ui-widget-header">
+                                            <h:outputText value="#{msg.Type}"
+                                                          style="font-size:medium; font-weight:bold;"/>
+                                        </p:column>
+                                        <p:column styleClass="ui-widget-header">
+                                            <h:outputText value="#{msg.QtyDelivered}"
+                                                          style="font-size:medium; font-weight:bold;"/>
+                                        </p:column>
+                                        <p:column styleClass="ui-widget-header">
+                                            <h:outputText value="#{msg.ValueDelivered}"
+                                                          style="font-size:medium; font-weight:bold;"/>
+                                        </p:column>
+                                        <p:column colspan="2" styleClass="ui-widget-header">
+                                            <p:spacer height="0"/>
+                                        </p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column style="font-size:medium; font-weight:bold;">#{msg.Crmk}</p:column>
+
+                                        <p:column style="font-size:medium; font-weight:bold;">
+                                            <h:outputText value="#{target.hrTrgtVu.qtyC}" style="font-size:medium; font-weight:bold;">
+                                                <f:convertNumber pattern="###,###,###"/>
+                                            </h:outputText>
+                                        </p:column>
+
+                                        <p:column style="font-size:medium; font-weight:bold;">
+                                            <h:outputText value="#{target.hrTrgtVu.netC}" style="font-size:medium; font-weight:bold;">
+                                                <f:convertNumber pattern="###,###,###"/>
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column colspan="2" styleClass="ui-widget-header">
+                                            <p:spacer height="0"/>
+                                        </p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column style="font-size:medium; font-weight:bold;">#{msg.Dcre}</p:column>
+                                        <p:column style="font-size:medium; font-weight:bold;">
+                                            <h:outputText value="#{target.hrTrgtVu.qtyD}" style="font-size:medium; font-weight:bold;">
+                                                <f:convertNumber pattern="###,###,###"/>
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column style="font-size:medium; font-weight:bold;">
+                                            <h:outputText value="#{target.hrTrgtVu.netD}" style="font-size:medium; font-weight:bold;">
+                                                <f:convertNumber pattern="###,###,###"/>
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column colspan="2" styleClass="ui-widget-header">
+                                            <p:spacer height="0"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column style="font-size:medium; font-weight:bold;">#{msg.Sehy}</p:column>
+                                        <p:column style="font-size:medium; font-weight:bold;">
+                                            <h:outputText value="#{target.hrTrgtVu.qtyS}" style="font-size:medium; font-weight:bold;">
+                                                <f:convertNumber pattern="###,###,###"/>
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column style="font-size:medium; font-weight:bold;">
+                                            <h:outputText value="#{target.hrTrgtVu.netS}" style="font-size:medium; font-weight:bold;">
+                                                <f:convertNumber pattern="###,###,###"/>
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column colspan="2" styleClass="ui-widget-header">
+                                            <p:spacer height="0"/>
+                                        </p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column styleClass="ui-widget-header" style="font-size:medium; font-weight:bold;">#{msg.TotalDelivered}</p:column>
+                                        <p:column styleClass="ui-widget-header" style="font-size:medium; font-weight:bold;">
+                                            <h:outputText value="#{target.hrTrgtVu.qty}" style="font-size:medium; font-weight:bold;">
+                                                <f:convertNumber pattern="###,###,###"/>
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column styleClass="ui-widget-header" style="font-size:medium; font-weight:bold;">
+                                            <h:outputText value="#{target.hrTrgtVu.net}" style="font-size:medium; font-weight:bold;">
+                                                <f:convertNumber pattern="###,###,###"/>
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column colspan="2" styleClass="ui-widget-header">
+                                            <p:spacer height="0"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="5" styleClass="ui-widget-header">
+                                            <p:spacer height="0"/>
+                                        </p:column>
+                                    </p:row>
+                                    <f:facet name="footer">
+                                        <p:row>
+                                            <p:column style="font-size:medium;text-align: right; font-weight:bold;">#{msg.ShowroomLevel}</p:column>
+                                            <p:column style="font-size:medium;text-align: right; font-weight:bold;">#{target.ORDR_PER_BRANCH}</p:column>
+                                            <p:column style="font-size:medium;text-align: right; font-weight:bold;">#{msg.CompanyLevel}</p:column>
+                                            <p:column colspan="2" style="font-size:medium;text-align: right; font-weight:bold;">#{target.ORDR_PER_COMPANY}</p:column>
+                                        </p:row>
+
+                                    </f:facet>
+                                </p:panelGrid>
+                                <h:panelGrid columns="3" columnClasses="left,right" style="width:100%">
+                                    <p:chart type="pie" model="#{target.pie2}" style="width:100%;" />
+                                    <p:chart type="pie" model="#{target.pie1}" style="width:100%" />
+                                    <p:chart type="pie" model="#{target.pie3}" style="width:100%" />
+                                </h:panelGrid>
+                            </p:tab>
+                            <p:tab id="sales" title="#{msg.HeighestSalesmen}">
+                                <p:dataGrid var="sales" rowIndexVar="ordr" columns="2" value="#{target.heighestSalesPersons}">
+                                    <h:panelGrid dir="RTL" style="width: 330px;font-size: small" columns="2">
+                                        <p:panelGrid style="width: 260px" columns="2">
+
+                                            <h:outputText value="#{msg.EmpName}" />
+                                            <h:panelGrid>
+                                                <p:spacer height="1" width="200"/>
+                                                <h:outputText value="#{sales[2]}" />
+                                            </h:panelGrid>
+
+                                            <h:outputText value="#{msg.LocationName}" />
+                                            <h:outputText value="#{sales[3]}" />
+
+                                            <h:outputText value="#{msg.Order}"/>
+                                            <span style="background: mediumseagreen" class="badge">#{sales[0]}</span>
+
+                                        </p:panelGrid>
+                                        <h:graphicImage width="50" height="65" value="/images/dynamic/?param=#{sales[1]}"/>
+                                    </h:panelGrid>
+                                </p:dataGrid>
+                            </p:tab>
+                            <p:tab id="tmyoz" title="#{msg.SingleTamyoz}">
+                                <p:panel style="height: 480px">
+
+                                    <p:dataTable rows="10"  paginatorPosition="bottom" emptyMessage="#{msg.NoSingleTamyoz}" paginator="true" value="#{target.hrTamyozDtList}" var="tamyoz">
+                                        <p:column style="text-align: center" headerText="#{msg.Date}">
+                                            <h:outputText value="#{tamyoz.hrTamyozHd.trnsDate}" style="font-weight: bold;font-size: small;" converter="#{customConvertDateTime}"/>
+                                        </p:column>
+                                        <p:column style="text-align: center" headerText="#{msg.Value}">
+                                            <h:outputText value="#{tamyoz.amount}" style="font-weight: bold;font-size: small;"/>
+                                        </p:column>
+                                    </p:dataTable>
+
+
+                                </p:panel>
+
+                            </p:tab>
+                        </p:tabView>
+                    </h:form>
+                </div>
+
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
