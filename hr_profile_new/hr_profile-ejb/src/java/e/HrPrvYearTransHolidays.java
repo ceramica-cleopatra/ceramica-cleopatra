@@ -21,7 +21,7 @@ import javax.persistence.Table;
  * @author data
  */
 @Entity
-@Table(name = "HR_PRV_YEAR_TRANS_HOLIDAYS")
+@Table(name = "HR_PRV_YEAR_HOLIDAYS_VU")
 @NamedQueries({
     @NamedQuery(name = "HrPrvYearTransHolidays.findAll", query = "SELECT h FROM HrPrvYearTransHolidays h"),
     @NamedQuery(name = "HrPrvYearTransHolidays.findByEmpNo", query = "SELECT h FROM HrPrvYearTransHolidays h WHERE h.empNo = :empNo"),
@@ -37,6 +37,10 @@ public class HrPrvYearTransHolidays implements Serializable {
     private Long rahatDays;
     @Column(name = "HOL_DAYS")
     private Long holDays;
+    @Column(name = "HOL_CONSUMED_DAYS")
+    private Long holConsumedDays;
+    @Column(name = "RAHAT_CONSUMED_DAYS")
+    private Long rahatConsumedDays;
 
     public HrPrvYearTransHolidays() {
     }
@@ -65,5 +69,20 @@ public class HrPrvYearTransHolidays implements Serializable {
         this.holDays = holDays;
     }
 
+    public Long getHolConsumedDays() {
+        return holConsumedDays;
+    }
+
+    public void setHolConsumedDays(Long holConsumedDays) {
+        this.holConsumedDays = holConsumedDays;
+    }
+
+    public Long getRahatConsumedDays() {
+        return rahatConsumedDays;
+    }
+
+    public void setRahatConsumedDays(Long rahatConsumedDays) {
+        this.rahatConsumedDays = rahatConsumedDays;
+    }
 
 }
