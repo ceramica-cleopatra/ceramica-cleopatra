@@ -163,6 +163,8 @@ public class DmsTransportOrdrHd implements Serializable {
     private String profileConfirm;
     @Column(name="DISCOUNT_TIMES")
     private Long discountTimes;
+    @Column(name="ADD_FEES")
+    private Double addFees;
     @ManyToOne
     @JoinColumn(name="USER_ID",referencedColumnName="ID")
     private DmsUsers userId;
@@ -521,8 +523,13 @@ public class DmsTransportOrdrHd implements Serializable {
         this.discountTimes = discountTimes;
     }
 
+    public Double getAddFees() {
+        return addFees;
+    }
 
-    
+    public void setAddFees(Double addFees) {
+        this.addFees = addFees;
+    }
 
 
 

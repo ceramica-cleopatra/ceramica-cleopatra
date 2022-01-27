@@ -135,7 +135,7 @@
                             <p:spacer height="30" width="100"/>
                             <h:outputText value="#{msg.DmsDiscountFinalValue}" style="font-size: small;font-weight: bold"/>
                             <p:spacer height="30" width="10"/>
-                            <h:outputText id="finalPrice" value="#{dmsOrdrDiscount1.finalPrice}" style="font-size: small;font-weight: bold"/>
+                            <h:outputText id="finalPrice" value="#{dmsOrdrDiscount1.finalPrice+dmsOrdrDiscount1.addFees}" style="font-size: small;font-weight: bold"/>
                         </h:panelGrid>
                         <h:panelGrid columns="3">
                             <h:outputText value="#{msg.Notes}" style="font-size: small;font-weight: bold"/>

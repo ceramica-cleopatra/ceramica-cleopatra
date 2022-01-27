@@ -34,6 +34,7 @@ import sb.SessionBeanLocal;
  *
  * @author Administrator
  */
+
 @ManagedBean
 @ViewScoped
 public class DmsOrdrDiscount1 {
@@ -66,6 +67,7 @@ public class DmsOrdrDiscount1 {
     private List<SelectItem> showList;
     private Long locId;
     private boolean activeSave=false;
+    private Double addFees;
 
     @PostConstruct
     public void init() {
@@ -246,6 +248,7 @@ public class DmsOrdrDiscount1 {
             fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Œÿ√", "ÌÃ»  ÕœÌœ √„— «·‰ﬁ·"));
             discountPercent = null;
             finalPrice = null;
+            addFees=0d;
             return;
         }
         if (discountValue > dmsTrnsOrdrDt.getListPrice()) {
@@ -253,6 +256,7 @@ public class DmsOrdrDiscount1 {
             fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Œÿ√", " „  Ã«Ê“ ‰”»… «·Œ’„"));
             discountPercent = null;
             finalPrice = null;
+            addFees=0d;
             return;
         }
         if (discountValue % 5 > 0) {
@@ -260,12 +264,22 @@ public class DmsOrdrDiscount1 {
             fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Œÿ√", "ÌÕ» ≈œŒ«· „»·€ ’ÕÌÕ „ﬁ—» ·√ﬁ—» Œ„” Ã‰ÌÂ« "));
             discountPercent = null;
             finalPrice = null;
+            addFees=0d;
             return;
         }
 //        discountPercent = Double.valueOf(Math.round(discountValue / dmsTrnsOrdrDt.getListPrice() * 100));
         discountPercent = Double.valueOf(Math.round((discountValue + (dmsTrnsOrdrDt.getRmnDiscount() != null ? dmsTrnsOrdrDt.getRmnDiscount() : 0)) / dmsTrnsOrdrDt.getListPrice() * 100));
 //        finalPrice = Double.valueOf(Math.round(dmsTrnsOrdrDt.getListPrice() - discountValue));
         finalPrice = Double.valueOf(Math.round(dmsTrnsOrdrDt.getListPrice() - discountValue - (dmsTrnsOrdrDt.getRmnDiscount() != null ? dmsTrnsOrdrDt.getRmnDiscount() : 0)));
+
+        if (finalPrice>=dmsTrnsOrdrDt.getAddFees()){
+                finalPrice=finalPrice-dmsTrnsOrdrDt.getAddFees();
+                addFees=dmsTrnsOrdrDt.getAddFees();
+        }
+        else{
+            addFees=0d;
+        }
+
     }
 
     public void saveDiscount(ActionEvent ae) {
@@ -275,6 +289,7 @@ public class DmsOrdrDiscount1 {
                 fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Œÿ√", "ÌÃ»  ÕœÌœ √„— «·‰ﬁ·"));
                 discountPercent = null;
                 finalPrice = null;
+                addFees=0d;
                 return;
             }
 
@@ -283,6 +298,7 @@ public class DmsOrdrDiscount1 {
                 fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Œÿ√", "·« Ì„ﬂ‰ﬂ ⁄„· Œ’„ ·√„— ‰ﬁ· ”«»ﬁ √Ê „·Õﬁ"));
                 discountPercent = null;
                 finalPrice = null;
+                addFees=0d;
                 return;
             }
 
@@ -291,6 +307,7 @@ public class DmsOrdrDiscount1 {
                 fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Œÿ√", "ÌÃ»  ÕœÌœ ﬁÌ„… «·Œ’„"));
                 discountPercent = null;
                 finalPrice = null;
+                addFees=0d;
                 return;
             }
 
@@ -299,6 +316,7 @@ public class DmsOrdrDiscount1 {
                 fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Œÿ√", " „  Ã«Ê“ ‰”»… «·Œ’„"));
                 discountPercent = null;
                 finalPrice = null;
+                addFees=0d;
                 return;
             }
 
@@ -310,6 +328,7 @@ public class DmsOrdrDiscount1 {
                 fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Œÿ√", "·« Ì„ﬂ‰ﬂ ≈œŒ«· Œ’„ ·√ﬂÀ— „‰ „—…"));
                 discountPercent = null;
                 finalPrice = null;
+                addFees=0d;
                 return;
             }
 
@@ -318,6 +337,7 @@ public class DmsOrdrDiscount1 {
                 fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Œÿ√", "ÌÕ» ≈œŒ«· „»·€ ’ÕÌÕ „ﬁ—» ·√ﬁ—» Œ„” Ã‰ÌÂ« "));
                 discountPercent = null;
                 finalPrice = null;
+                addFees=0d;
                 return;
             }
 
@@ -329,6 +349,7 @@ public class DmsOrdrDiscount1 {
             dmsTransportOrdrHd.setDiscountTimes(dmsTransportOrdrHd.getDiscountTimes() == null ? 1 : dmsTransportOrdrHd.getDiscountTimes() + 1);
             dmsTransportOrdrHd.setPrice(finalPrice);
             dmsTransportOrdrHd.setPricePayed(finalPrice);
+            dmsTransportOrdrHd.setAddFees(addFees);
             dmsTransportOrdrHd.setDiscountEmp(hrEmpInfo);
             dmsTransportOrdrHd.setPriceRmn(0D);
             dmsTransportOrdrHd.setDiscount(dmsTrnsOrdrDt.getListPrice() - finalPrice);
@@ -378,6 +399,7 @@ public class DmsOrdrDiscount1 {
                 dmsTransportOrdrHdAttached.setDiscountEmp(hrEmpInfo);
                 dmsTransportOrdrHdAttached.setPriceRmn(0D);
                 dmsTransportOrdrHdAttached.setPricePayed(0D);
+                dmsTransportOrdrHdAttached.setAddFees(0D);
                 dmsTransportOrdrHdAttached.setDiscount(Double.parseDouble(dmsTransportOrdrHdAttached.getListPrice().toString()));
                 sessionBean.mergeDmsTranOrdrHd(dmsTransportOrdrHdAttached);
                 FacesContext fc = FacesContext.getCurrentInstance();
@@ -390,6 +412,7 @@ public class DmsOrdrDiscount1 {
                 dmsTransportOrdrHdAttached.setDiscountEmp(hrEmpInfo);
                 dmsTransportOrdrHdAttached.setPriceRmn(0D);
                 dmsTransportOrdrHdAttached.setPricePayed(0D);
+                dmsTransportOrdrHdAttached.setAddFees(0D);
                 dmsTransportOrdrHdAttached.setDiscount(Double.parseDouble(dmsTransportOrdrHdAttached.getListPrice().toString()));
                 sessionBean.mergeDmsTranOrdrHd(dmsTransportOrdrHdAttached);
                 FacesContext fc = FacesContext.getCurrentInstance();
@@ -408,6 +431,7 @@ public class DmsOrdrDiscount1 {
             DmsTransportOrdrHd dmsTransportOrdrHd = sessionBean.findDmsOrdrHdById(dmsTrnsOrdrDt.getId());
             dmsTransportOrdrHd.setPrice(finalPrice);
             dmsTransportOrdrHd.setPricePayed(finalPrice);
+            dmsTransportOrdrHd.setAddFees(addFees);
             dmsTransportOrdrHd.setDiscountEmp(hrEmpInfo);
             dmsTransportOrdrHd.setPriceRmn(0D);
             dmsTransportOrdrHd.setDiscount(dmsTrnsOrdrDt.getListPrice() - finalPrice);
@@ -443,6 +467,7 @@ public class DmsOrdrDiscount1 {
         attachedOrdrNo = null;
         locId=0L;
         activeSave=false;
+        addFees=0d;
     }
 
     /** Creates a new instance of DmsOrdrDiscount */
@@ -664,6 +689,14 @@ public class DmsOrdrDiscount1 {
 
     public void setActiveSave(boolean activeSave) {
         this.activeSave = activeSave;
+    }
+
+    public Double getAddFees() {
+        return addFees;
+    }
+
+    public void setAddFees(Double addFees) {
+        this.addFees = addFees;
     }
 
     

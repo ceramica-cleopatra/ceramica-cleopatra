@@ -89,50 +89,6 @@
                         </p:row>
 
                         <p:row>
-                            <p:column >
-                                <h:outputText value="ÅÓÊËäÇÆíÉ"/>
-                            </p:column>
-                             <p:column >
-                                 <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.totalExceptionalHol}"/>
-                            </p:column>
-                            <p:column >
-                                <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.exceptionalHolUsed}"/>
-                            </p:column>
-                            <p:column >
-                                <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.totalExceptionalHol-holidays_and_authorizes.hrAuthAndHolBalance.exceptionalHolUsed}"/>
-                            </p:column>
-                        </p:row>
-
-
-                         <p:row>
-                            <p:column >
-                                <h:outputText value="ÃÚÊíÇÏì ãÑÍá ãä 2020"/>
-                            </p:column>
-                            <p:column >
-                                <h:outputText value="#{holidays_and_authorizes.previousEmpHolidays.holDays}"/>
-                            </p:column>
-                              <p:column >
-                                <h:outputText value="-"/>
-                            </p:column>
-                            <p:column >
-                                <h:outputText value="-"/>
-                            </p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column >
-                                <h:outputText value="ÈÏá ÑÇÍÉ ãÑÍá ãä 2020"/>
-                            </p:column>
-                            <p:column >
-                                <h:outputText value="#{holidays_and_authorizes.previousEmpHolidays.rahatDays}"/>
-                            </p:column>
-                             <p:column >
-                                <h:outputText value="-"/>
-                            </p:column>
-                            <p:column >
-                                <h:outputText value="-"/>
-                            </p:column>
-                        </p:row>
-                        <p:row>
                             <p:column>
                                 <h:outputText value="ÅÚÊíÇÏì"/>
                             </p:column>
@@ -152,10 +108,10 @@
                                 <h:outputText value="ÇáÅÌãÇáì"/>
                             </p:column>
                              <p:column >
-                                 <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.totalNormalHol+holidays_and_authorizes.hrAuthAndHolBalance.totalExceptionalHol}"/>
+                                 <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.totalNormalHol}"/>
                             </p:column>
                             <p:column >
-                                <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.totalNormalHol-holidays_and_authorizes.hrAuthAndHolBalance.normalHolRemind+holidays_and_authorizes.hrAuthAndHolBalance.totalExceptionalHol}"/>
+                                <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.totalNormalHol-holidays_and_authorizes.hrAuthAndHolBalance.normalHolRemind}"/>
                             </p:column>
                             <p:column >
                                 <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.normalHolRemind}"/>
@@ -199,6 +155,81 @@
                             </p:column>
                             <p:column >
                                 <h:outputText value="#{holidays_and_authorizes.hrAuthAndHolBalance.insteadHolRemind}"/>
+                            </p:column>
+
+                        </p:row>
+                    </p:panelGrid>
+
+                    <p:spacer height="20"/>
+
+                    <p:panelGrid style="text-align: center;width: 100%">
+                        <f:facet name="header">
+                            <p:row>
+                                <p:column >
+                                </p:column>
+                                <p:column style="width: 170px">
+                                    <h:outputText value="ÇáÑÕíÏ"/>
+                                </p:column>
+                                <p:column style="width: 170px">
+                                    <h:outputText value="ÇáãÓÊåáß"/>
+                                </p:column>
+                                <p:column style="width: 170px">
+                                    <h:outputText value="ÇáãÊÈÞì"/>
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+
+                        <p:row>
+                            <p:column rowspan="2">
+                                <h:outputText style="font-weight: bolder" value="ÃÌÇÒÉ ÅÚÊíÇÏíÉ ãÑÍáÉ"/>
+                            </p:column>
+
+                            <p:column >
+                                <h:outputText value="#{holidays_and_authorizes.previousEmpHolidays.holDays}"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="#{holidays_and_authorizes.previousEmpHolidays.holConsumedDays}"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="#{holidays_and_authorizes.previousEmpHolidays.holDays-holidays_and_authorizes.previousEmpHolidays.holConsumedDays}"/>
+                            </p:column>
+
+                        </p:row>
+
+                    </p:panelGrid>
+
+                    <p:spacer height="20"/>
+
+                    <p:panelGrid style="text-align: center;width: 100%">
+                        <f:facet name="header">
+                            <p:row>
+                                <p:column >
+                                </p:column>
+                                <p:column style="width: 170px">
+                                    <h:outputText value="ÇáÑÕíÏ"/>
+                                </p:column>
+                                <p:column style="width: 170px">
+                                    <h:outputText value="ÇáãÓÊåáß"/>
+                                </p:column>
+                                <p:column style="width: 170px">
+                                    <h:outputText value="ÇáãÊÈÞì"/>
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+
+                        <p:row>
+                            <p:column rowspan="2">
+                                <h:outputText style="font-weight: bolder" value="ÈÏá ÑÇÍÉ ãÑÍáÉ"/>
+                            </p:column>
+
+                            <p:column >
+                                <h:outputText value="#{holidays_and_authorizes.previousEmpHolidays.rahatDays}"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="#{holidays_and_authorizes.previousEmpHolidays.rahatConsumedDays}"/>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="#{holidays_and_authorizes.previousEmpHolidays.rahatDays-holidays_and_authorizes.previousEmpHolidays.rahatConsumedDays}"/>
                             </p:column>
 
                         </p:row>

@@ -91,8 +91,12 @@ public class DmsTrnsOrdrDt implements Serializable {
     private Long minPrice;
     @Column(name = "PRICE_PAYED")
     private Double pricePayed;
+    @Column(name = "ADD_FEES")
+    private Double addFees;
     @Column(name = "DISCOUNT")
     private Double discount;
+    @Column(name = "MIN_PRICE_VALUE")
+    private Double minPriceValue;
     @Column(name = "TRNS_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date trnsDate;
@@ -275,6 +279,22 @@ public class DmsTrnsOrdrDt implements Serializable {
 
     public void setTrnsDate(Date trnsDate) {
         this.trnsDate = trnsDate;
+    }
+
+    public Double getAddFees() {
+        return addFees;
+    }
+
+    public void setAddFees(Double addFees) {
+        this.addFees = addFees;
+    }
+
+    public Double getMinPriceValue() {
+        return minPriceValue;
+    }
+
+    public void setMinPriceValue(Double minPriceValue) {
+        this.minPriceValue = minPriceValue;
     }
 
 }
