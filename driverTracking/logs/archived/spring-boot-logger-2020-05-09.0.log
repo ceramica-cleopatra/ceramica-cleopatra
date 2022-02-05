@@ -1,0 +1,2 @@
+2020-05-09 15:44:55,729 TRACE com.dms.driverTracking.log.LoggingAspect [http-nio-8090-exec-1] 09-05-2020 16:44:55:::/driverBalance:::Parameter:driverId value:11340e1$$Parameter:access_token value:3adb4e80-6b08-481a-80e6-355cb957d742$$:::127.0.0.1:::0:::null:::0
+2020-05-09 15:44:55,746 TRACE com.dms.driverTracking.log.LoggingAspect [http-nio-8090-exec-1] 09-05-2020 16:44:55:::/driverBalance:::Parameter:driverId value:11340e1$$Parameter:access_token value:3adb4e80-6b08-481a-80e6-355cb957d742$$:::127.0.0.1:::101:::Invalid Number:::0

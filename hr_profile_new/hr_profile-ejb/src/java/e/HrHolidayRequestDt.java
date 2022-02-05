@@ -212,9 +212,7 @@ public class HrHolidayRequestDt implements Serializable {
     public void setReqId(Long reqId) {
         this.reqId = reqId;
     }
-
-   
-
+    
     public Character getMngConfirm() {
         return mngConfirm;
     }
