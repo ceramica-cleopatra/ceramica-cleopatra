@@ -1,1 +1,0 @@
-PrimeFaces.widget.Subscriber=function(b,a){this.id=b;this.cfg=a;document.getElementById(b).setAttribute("src",this.cfg.channel)};PrimeFaces.widget.Subscriber.prototype.handlePublish=function(a){this.cfg.onpublish(a)};
