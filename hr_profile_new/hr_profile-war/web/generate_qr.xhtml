@@ -1,0 +1,295 @@
+<?xml version='1.0' encoding='windows-1256' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./hr_profile_template.xhtml">
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-list-alt"/>
+                    <h:outputText value="#{msg.Entries}" />
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="#{msg.QRGeneration}" />
+            </ui:define>
+            <ui:define name="body">
+                <h:form id="frm">
+                    <p:growl id="growl" showDetail="true" life="2000" />
+                    <p:fieldset style="text-align: center" id="fs">
+                        <h:panelGrid columns="1">
+                            <h:panelGrid columns="14" dir="RTL" cellspacing="8" cellpadding="5">
+                                <h:outputText value="#{msg.Crmk}/#{msg.Sehy}" style="font-weight: bold;font-size: small"/>
+                                <p:selectOneMenu value="#{qRGeneration.crmkSehy}" valueChangeListener="#{qRGeneration.onCrmkSehyListChanged}" >
+                                    <f:selectItem itemLabel="#{msg.Crmk}" itemValue="C"/>
+                                    <f:selectItem itemLabel="#{msg.Dcre}" itemValue="D"/>
+                                    <f:selectItem itemLabel="#{msg.Sehy}" itemValue="S"/>
+                                    <f:ajax event="valueChange" render=":frm" execute=":frm" />
+                                </p:selectOneMenu>
+                                <p:spacer height="1" width="20"/>
+
+                                <h:outputText value="#{msg.Type}" style="font-weight: bold;font-size: small"/>
+                                <p:selectOneMenu value="#{qRGeneration.typeId}" >
+                                    <f:selectItems value="#{qRGeneration.typeList}" /> 
+                                </p:selectOneMenu>
+                                <p:spacer height="1" width="20"/>
+
+                                <h:outputText value="#{msg.Size}" style="font-weight: bold;font-size: small"/>
+                                <h:panelGrid columns="2">
+                                    <p:commandButton icon="ui-icon-search"
+                                                     oncomplete="PF('sizeDlg').show()"
+                                                     title="Please choose an item"
+                                                     style="border:none;"/>
+                                    <p:inputText size="20" id="sizeName" readonly="true" value="#{qRGeneration.filteredSize[1]}"/>
+                                </h:panelGrid>
+                                <p:spacer height="1" width="20"/>
+
+                                <h:outputText value="#{msg.FactoryNo}" style="font-weight: bold;font-size: small"/>
+                                <p:inputText size="15" id="factoryNo" value="#{qRGeneration.factoryNo}"/>
+                                <p:spacer height="1" width="20"/>
+
+                                <h:outputText value="#{msg.Dekala}" style="font-weight: bold;font-size: small"/>
+                                <h:panelGrid columns="2">
+                                    <p:commandButton icon="ui-icon-search"
+                                                     oncomplete="PF('dekalaDlg').show()"
+                                                     title="Please choose an item"
+                                                     style="border:none;"/>
+                                    <p:inputText size="20" id="dekalaName" readonly="true" value="#{qRGeneration.filteredDekala[1]}"/>
+                                </h:panelGrid>
+
+                                <h:outputText value="#{msg.Color}" style="font-weight: bold;font-size: small"/>
+                                <h:panelGrid columns="2">
+                                    <p:commandButton icon="ui-icon-search"
+                                                     oncomplete="PF('colorDlg').show()"
+                                                     title="Please choose an item"
+                                                     style="border:none;"/>
+                                    <p:inputText size="20" id="colorName" readonly="true" value="#{qRGeneration.filteredColor[1]}"/>
+                                </h:panelGrid>
+                                <p:spacer height="1" width="20"/>
+
+                                <h:outputText value="#{msg.ShowType}" style="font-weight: bold;font-size: small"/>
+                                <p:selectOneMenu value="#{qRGeneration.showType}" >
+                                    <f:selectItem/>
+                                    <f:selectItem itemLabel="#{msg.Single}" itemValue="SINGLE" />
+                                    <f:selectItem itemLabel="#{msg.Group}" itemValue="GROUP" />
+                                </p:selectOneMenu>
+                                <p:spacer height="1" width="20"/>
+
+                                <h:outputText value="#{msg.ShowGroup}" style="font-weight: bold;font-size: small"/>
+                                <h:panelGrid columns="2">
+                                    <p:commandButton icon="ui-icon-search"
+                                                     oncomplete="PF('bathDlg').show()"
+                                                     title="Please choose an item"
+                                                     style="border:none;"/>
+                                    <p:inputText size="20" id="bathName" readonly="true" value="#{qRGeneration.filteredBath.name}"/>
+                                </h:panelGrid>
+<!--                                <p:selectOneMenu value="{qRGeneration.grpId}" >
+                                    <f:selectItem/>
+                                    <f:selectItems value="{qRGeneration.bathList}" />
+                                </p:selectOneMenu>-->
+<!--                                <p:spacer height="1" width="20"/>-->
+
+                                <h:outputText value="#{msg.Floor}" style="font-weight: bold;font-size: small"/>
+                                <p:selectOneMenu value="#{qRGeneration.floor}" >
+                                    <f:selectItem/>
+                                    <f:selectItem itemLabel="#{msg.Floor1}" itemValue="1" />
+                                    <f:selectItem itemLabel="#{msg.Floor2}" itemValue="2" />
+                                    <f:selectItem itemLabel="#{msg.Floor3}" itemValue="3" />
+                                </p:selectOneMenu>
+
+                                <p:spacer height="40" width="20"/>
+                                <h:outputText value="#{msg.Showroom}" style="font-weight: bold;font-size: small"/>
+                                <h:panelGrid columns="2">
+                                    <p:commandButton icon="ui-icon-search"
+                                                     oncomplete="PF('showroomDlg').show()"
+                                                     title="Please choose an item"
+                                                     style="border:none;"/>
+                                    <p:inputText size="20" id="showroomName" readonly="true" value="#{qRGeneration.showroomSelected.name}"/>
+                                </h:panelGrid>
+
+                                <h:outputText value="#{msg.StandNo}" style="font-weight: bold;font-size: small"/>
+                                <p:inputText size="20" id="standNo" value="#{qRGeneration.standNo}"/>
+                                <p:spacer height="40" width="20"/>
+
+                                <h:outputText value="#{msg.How2Show}" style="font-weight: bold;font-size: small"/>
+                                <p:selectOneMenu  id="how2show" value="#{qRGeneration.how2show}">
+                                     <f:selectItem/>
+                                     <f:selectItem itemLabel="#{msg.Bathroom}" itemValue="1" />
+                                     <f:selectItem itemLabel="#{msg.Stand}" itemValue="2" />
+                                     <f:selectItem itemLabel="#{msg.Kitchen}" itemValue="3" />
+                                     <f:selectItem itemLabel="#{msg.Single}" itemValue="4" />
+                                     <f:selectItem itemLabel="#{msg.Tablow}" itemValue="5" />
+                                </p:selectOneMenu>
+                                <p:spacer height="40" width="20"/>
+
+                                <h:outputText value="#{msg.QrLength}" style="font-weight: bold;font-size: small"/>
+                                <p:inputText size="20" id="qrHeight" value="#{qRGeneration.qrHeight}"/>
+                                <p:spacer height="40" width="20"/>
+
+                                <h:outputText value="#{msg.QrWidth}" style="font-weight: bold;font-size: small"/>
+                                <p:inputText size="20" id="qrWidth" value="#{qRGeneration.qrWidth}"/>
+                                <p:spacer height="40" width="20"/>
+
+                                <h:outputText value="#{msg.ImageLength}" style="font-weight: bold;font-size: small"/>
+                                <p:inputText size="20" id="imageHeight" value="#{qRGeneration.imageHeight}"/>
+                                
+
+                                <h:outputText value="#{msg.ImageWidth}" style="font-weight: bold;font-size: small"/>
+                                <p:inputText size="20" id="imageWidth" value="#{qRGeneration.imageWidth}"/>
+                                <p:spacer height="40" width="20"/>
+
+                                <h:outputText value="#{msg.ProductFarFromTop}" style="font-weight: bold;font-size: small"/>
+                                <p:inputText size="20" id="productFarFromTop" value="#{qRGeneration.productFarFromTop}"/>
+                                <p:spacer height="40" width="20"/>
+
+                                <h:outputText value="#{msg.PriceFarFromBottom}" style="font-weight: bold;font-size: small"/>
+                                <p:inputText size="20" id="priceFarFromBottom" value="#{qRGeneration.priceFarFromBottom}"/>
+                                <p:spacer height="40" width="20"/>
+
+                                <h:outputText value="#{msg.ProductFontSize}" style="font-weight: bold;font-size: small"/>
+                                <p:inputText size="20" id="productFontSize" value="#{qRGeneration.productFontSize}"/>
+                                <p:spacer height="40" width="20"/>
+
+                                <h:outputText value="#{msg.PriceFontSize}" style="font-weight: bold;font-size: small"/>
+                                <p:inputText size="20" id="priceFontSize" value="#{qRGeneration.priceFontSize}"/>
+
+                                 <h:outputText value="#{msg.SehyGrp}" style="font-weight: bold;font-size: small"/>
+                                <h:panelGrid columns="2">
+                                    <p:commandButton icon="ui-icon-search"
+                                                     oncomplete="PF('grpDlg').show()"
+                                                     title="Please choose an item"
+                                                     style="border:none;"/>
+                                    <p:inputText size="20" id="grpName" readonly="true" value="#{qRGeneration.filteredGrp.name}"/>
+                                </h:panelGrid>
+                                <p:spacer height="40" width="20"/>
+                                
+                                <h:outputText value="#{msg.SehyName}" style="font-weight: bold;font-size: small"/>
+                                <h:panelGrid columns="2">
+                                    <p:commandButton icon="ui-icon-search"
+                                                     oncomplete="PF('sehyNameDlg').show()"
+                                                     title="Please choose an item"
+                                                     style="border:none;"/>
+                                    <p:inputText size="20" id="sehyName" readonly="true" value="#{qRGeneration.filteredSehyName.name}"/>
+                                </h:panelGrid>
+                                <p:spacer height="40" width="20"/>
+
+                                <h:outputText value="#{msg.SehyType}" style="font-weight: bold;font-size: small"/>
+                                <h:panelGrid columns="2">
+                                    <p:commandButton icon="ui-icon-search"
+                                                     oncomplete="PF('sehyTypeDlg').show()"
+                                                     title="Please choose an item"
+                                                     style="border:none;"/>
+                                    <p:inputText size="20" id="sehyType" readonly="true" value="#{qRGeneration.filteredSehyType.name}"/>
+                                </h:panelGrid>
+                                <p:spacer height="40" width="20"/>
+                                
+
+
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </p:fieldset>
+                    <div align="center">
+                        <p:commandButton action="#{qRGeneration.generateQRcode}" update="qrList" value="Generate QR"/>
+                    </div>
+
+                    <p:dataTable rowIndexVar="indx" dir="LTR" id="qrList" rowKey="#{qr[0]}" paginator="true" rows="30" paginatorPosition="bottom" paginatorAlwaysVisible="true"
+                                 value="#{qRGeneration.qRList}" var="qr" >
+
+                        <p:column width="70" style="text-align: center" headerText="#{msg.FileName}">
+                            <h:outputText style="font-weight:bold;font-size:small;" value="#{qr[0]}"/>
+                        </p:column>
+                        <p:column rendered="false" width="0" style="text-align: center" headerText="#{msg.EmpName}">
+                            <h:outputText style="font-weight:bold;font-size:small;" value="#{qr[1]}"/>
+                        </p:column>
+                        <p:column width="30" style="width:3rem;text-align: center">
+                            <h:commandButton actionListener="#{qRGeneration.downloadQrFile}" value="Download">
+                                <f:param name="indx" value="#{indx}"/>
+                            </h:commandButton>
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:dialog id="sizeDlg" header="#{msg.Size}" width="300" height="400" widgetVar="sizeDlg">
+                        <p:dataTable rowKey="#{size}" value="#{qRGeneration.sizeList}" rowIndexVar="x" scrollRows="100" scrollable="true" scrollHeight="400" var="size" widgetVar="size" id="size" selection="#{qRGeneration.selectedSize}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{qRGeneration.updateSelectedSize}" oncomplete="PF('sizeDlg').hide()" update=":frm:sizeName"/>
+                            <p:column filterMatchMode="contains" filterBy="#{size[1]}">
+                                <h:outputText value="#{size[1]}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+
+                    <p:dialog id="dekalaDlg" header="#{msg.Dekala}" width="300" height="400" widgetVar="dekalaDlg">
+                        <p:dataTable rowKey="#{dekala}" value="#{qRGeneration.dekalaList}" rowIndexVar="x" scrollRows="100" scrollable="true" scrollHeight="400" var="dekala" widgetVar="dekala" id="dekala" selection="#{qRGeneration.selectedDekala}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{qRGeneration.updateSelectedDekala}" oncomplete="PF('dekalaDlg').hide()" update=":frm:dekalaName"/>
+                            <p:column filterMatchMode="contains" filterBy="#{dekala[1]}">
+                                <h:outputText value="#{dekala[1]}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+
+                    <p:dialog id="colorDlg" header="#{msg.Color}" width="300" height="400" widgetVar="colorDlg">
+                        <p:dataTable rowKey="#{color}" value="#{qRGeneration.colorList}" rowIndexVar="x" scrollRows="100" scrollable="true" scrollHeight="400" var="color" widgetVar="color" id="color" selection="#{qRGeneration.selectedColor}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{qRGeneration.updateSelectedColor}" oncomplete="PF('colorDlg').hide()" update=":frm:colorName"/>
+                            <p:column filterMatchMode="contains" filterBy="#{color[1]}">
+                                <h:outputText value="#{color[1]}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+
+                    <p:dialog id="showroomDlg" header="#{msg.Showroom}" width="300" height="400" widgetVar="showroomDlg">
+                        <p:dataTable rowKey="#{showroomDT}" value="#{qRGeneration.showRoomList}" rowIndexVar="z" scrollRows="100" scrollable="true" scrollHeight="400" var="showroomDT" widgetVar="showroomDT" id="showroomDT" selection="#{qRGeneration.showroomSelected}" selectionMode="single">
+                            <p:ajax event="rowSelect" oncomplete="PF('showroomDlg').hide()" listener="#{qRGeneration.updateShowroomName}" update=":frm:showroomName"/>
+                            <p:column filterMatchMode="contains" filterBy="#{showroomDT.name}">
+                                <h:outputText value="#{showroomDT.name}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+
+                    <p:dialog id="grpDlg" header="#{msg.SehyGrp}" width="300" height="400" widgetVar="grpDlg">
+                        <p:dataTable rowKey="#{grpDT}" value="#{qRGeneration.sehyGrpList}" rowIndexVar="z" scrollRows="100" scrollable="true" scrollHeight="400" var="grpDT" widgetVar="grpDT" id="grpDT" selection="#{qRGeneration.grpSelected}" selectionMode="single">
+                            <p:ajax event="rowSelect" oncomplete="PF('grpDlg').hide()" listener="#{qRGeneration.updateGrpName}" update=":frm:grpName"/>
+                            <p:column filterMatchMode="contains" filterBy="#{grpDT.name}">
+                                <h:outputText value="#{grpDT.name}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+
+                    <p:dialog id="sehyNameDlg" header="#{msg.SehyName}" width="300" height="400" widgetVar="sehyNameDlg">
+                        <p:dataTable rowKey="#{sehyNameDT}" value="#{qRGeneration.crmkSehyNameList}" rowIndexVar="z" scrollRows="100" scrollable="true" scrollHeight="400" var="sehyNameDT" widgetVar="sehyNameDT" id="sehyNameDT" selection="#{qRGeneration.sehyNameSelected}" selectionMode="single">
+                            <p:ajax event="rowSelect" oncomplete="PF('sehyNameDlg').hide()" listener="#{qRGeneration.updateSehyName}" update=":frm:sehyName"/>
+                            <p:column filterMatchMode="contains" filterBy="#{sehyNameDT.name}">
+                                <h:outputText value="#{sehyNameDT.name}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+
+                    <p:dialog id="sehyTypeDlg" header="#{msg.SehyType}" width="300" height="400" widgetVar="sehyTypeDlg">
+                        <p:dataTable rowKey="#{sehyTypeDT}" value="#{qRGeneration.crmkSehyTypeList}" rowIndexVar="z" scrollRows="100" scrollable="true" scrollHeight="400" var="sehyTypeDT" widgetVar="sehyTypeDT" id="sehyTypeDT" selection="#{qRGeneration.sehyTypeSelected}" selectionMode="single">
+                            <p:ajax event="rowSelect" oncomplete="PF('sehyTypeDlg').hide()" listener="#{qRGeneration.updateSehyType}" update=":frm:sehyType"/>
+                            <p:column filterMatchMode="contains" filterBy="#{sehyTypeDT.name}">
+                                <h:outputText value="#{sehyTypeDT.name}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+
+                    <p:dialog id="bathDlg" header="#{msg.Bathroom}" width="300" height="400" widgetVar="bathDlg">
+                        <p:dataTable rowKey="#{bathDT}" value="#{qRGeneration.showBathdList}" rowIndexVar="z" scrollRows="100" scrollable="true" scrollHeight="400" var="bathDT" widgetVar="bathDT" id="bathDT" selection="#{qRGeneration.bathSelected}" selectionMode="single">
+                            <p:ajax event="rowSelect" oncomplete="PF('bathDlg').hide()" listener="#{qRGeneration.updateBathName}" update=":frm:bathName"/>
+                            <p:column filterMatchMode="contains" filterBy="#{bathDT.name}">
+                                <h:outputText value="#{bathDT.name}"/>
+                            </p:column>
+                             <p:column >
+                                 <h:outputText value="#{bathDT.color.name}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

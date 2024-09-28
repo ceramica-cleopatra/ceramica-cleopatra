@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./hr_profile_template.xhtml">
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-list-alt"/>
+                    <h:outputText value="#{msg.Entries}" />
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="#{msg.CheckUpDutyEntry}" />
+            </ui:define>
+
+            <ui:define name="body">
+                <script language="javascript" src="hr_profile_js.js" type="text/javascript">
+                </script>
+                <h:form  id="frm" dir="RTL">
+                    <p:growl id="messages" showDetail="true" />
+                    <p:commandButton value="#{msg.AddNewReport}" icon="ui-icon-plus" actionListener="#{checkupDutyEntry.addNewDutyReport}" update=":dlgFrm:dlg" oncomplete="PF('dlg').show();"/>
+                    <p:dataTable id="dt" style="width: 100%" selection="#{checkupDutyEntry.hrCheckupDutyHd}" selectionMode="single" rowKey="#{dt.id}" rows="10" paginator="true" paginatorPosition="bottom" rowIndexVar="indx" value="#{checkupDutyEntry.previousCheckpDutyList}"  var="dt">
+                        <p:ajax listener="#{checkupDutyEntry.onRowSelect}" event="rowSelect" oncomplete="PF('dlg').show();"  update=":frm:messages,:dlgFrm:dlg"/>
+                        <p:column headerText="#{msg.Date}" style="text-align: center" width="80"  >
+                            <h:outputText value="#{dt.trnsDate}" style="text-align: right;font-weight:bold;font-size:small;" converter="#{customConvertDateTime}"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg.EntryDate}" style="text-align: center" width="70"  >
+                            <h:outputText value="#{dt.entryDate}" style="text-align: right;font-weight:bold;font-size:small;" converter="#{customConvertDateTime}"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg.LocationName}" style="text-align: center" width="70"  >
+                            <h:outputText value="#{dt.locId.name}" style="text-align: right;font-weight:bold;font-size:small;" />
+                        </p:column>
+
+                        <p:column headerText="#{msg.Approve}" style="text-align: center"  width="40" >
+                            <h:graphicImage value="/images/check.png" rendered="#{dt.approved eq &quot;Y&quot;}" />
+                            <h:graphicImage value="/images/cross.png" rendered="#{dt.approved eq &quot;N&quot;}" />
+                        </p:column>
+                        <p:column headerText="#{msg.RefuseReason}" style="text-align: center" width="120"  >
+                            <h:outputText value="#{dt.rejectReason}" style="text-align: right;font-weight:bold;font-size:small;" converter="#{customConvertDateTime}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+                <h:form id="dlgFrm">
+                    <p:dialog width="800" id="dlg" widgetVar="dlg" closable="true" dir="rtl"  modal="true" header="#{msg.CheckUpDutyEntry}"  >
+                        <p:ajax event="close" update=":dlgFrm:emp :frm:dt" listener="#{checkupDutyEntry.handleDlgClose}" />
+                        <p:scrollPanel id="sp" mode="native" style="height: 550px">
+                            <h:panelGrid width="100%" columns="7" dir="RTL" cellspacing="5" cellpadding="5">
+                                <h:outputText value="#{msg.LocationName}:"
+                                              style="font-weight:bold;text-align:center;"/>
+
+                                <p:selectOneMenu disabled="#{checkupDutyEntry.hrCheckupDutyHd.approved eq &quot;Y&quot; || checkupDutyEntry.hrCheckupDutyHd.done eq &quot;Y&quot;}"  value="#{checkupDutyEntry.brnId}" style="font-size:small;width:120px;font-weight:bold;">
+                                    <f:selectItem/>
+                                    <f:selectItems value="#{checkupDutyEntry.dutyLocationsList}" />
+                                </p:selectOneMenu>
+                                <p:spacer height="1" width="20"/>
+                                <h:panelGrid width="320px" columns="6" dir="RTL" cellspacing="5" cellpadding="5">
+                                    <h:outputText value="#{msg.InTime}:"
+                                                  style="font-weight:bold;text-align:center;"/>
+                                    <p:inputMask onkeypress="return handleEnter(this, event);" mask="99:99" readonly="#{checkupDutyEntry.hrCheckupDutyHd.approved eq &quot;Y&quot; || checkupDutyEntry.hrCheckupDutyHd.done eq &quot;Y&quot;}" value="#{checkupDutyEntry.hrCheckupDutyHd.inTrns}"   converterMessage="#{msg.TimeConverter}"
+                                                 style="width: 50px;font-weight:bold;text-align:center;" >
+                                        <f:converter converterId="TimeFormater"/>
+                                    </p:inputMask>
+                                    <p:spacer height="1" width="20"/>
+                                    <h:outputText value="#{msg.OutTime}:"
+                                                  style="font-weight:bold;text-align:center;"/>
+                                    <p:inputMask onkeypress="return handleEnter(this, event);" mask="99:99" readonly="#{checkupDutyEntry.hrCheckupDutyHd.approved eq &quot;Y&quot; || checkupDutyEntry.hrCheckupDutyHd.done eq &quot;Y&quot;}" value="#{checkupDutyEntry.hrCheckupDutyHd.outTrns}" converterMessage="#{msg.TimeConverter}"
+                                                 style="width: 50px;font-weight:bold;text-align:center;" >
+                                        <f:converter converterId="TimeFormater"/>
+                                    </p:inputMask>
+                                </h:panelGrid>
+                                <p:spacer height="1" width="20"/>
+                                <h:outputText value="#{msg.Date}:"
+                                              style="font-weight:bold;text-align:center;"/>
+                                <p:inputMask onkeypress="return handleEnter(this, event);" readonly="#{checkupDutyEntry.hrCheckupDutyHd.approved eq &quot;Y&quot; || checkupDutyEntry.hrCheckupDutyHd.done eq &quot;Y&quot;}" mask="99/99/9999" id="frm_date" value="#{checkupDutyEntry.hrCheckupDutyHd.trnsDate}"  converterMessage="#{msg.DateConverter}" converter="#{customConvertDateTime}"
+                                             style="font-size:small;width:60%;font-weight:bold;">
+                                </p:inputMask>
+                            </h:panelGrid>
+
+                            <p:dataScroller value="#{checkupDutyEntry.hrCheckupDutyHd.hrCheckupDutyDt2List}" var="body" chunkSize="10" scrollHeight="500">
+
+                                <h:panelGrid columns="5" >
+                                    <h:graphicImage value="/images/arrow1.png"/>
+                                    <h:outputText value="#{body.title}" style="font-weight: bold"/>
+                                    <p:spacer width="20"/>
+                                    <p:commandButton title="#{msg.ReportReply}" value="#{msg.ReportReply}" rendered="#{not empty body.reply}" update="replyDlg" oncomplete="PF('replyDlg').show();" icon="ui-icon-lightbulb" style="border-left: 0px;display:block;height: 40px;width: 140px;border-radius: 50%;border: 1px;" />
+                                    <p:dialog header="#{msg.ReportReply}" width="400" height="300" id="replyDlg" widgetVar="replyDlg">
+                                        <h:outputText style="font-size:small;width:100.0%;font-weight:bold;" value="#{body.reply}"/>
+                                    </p:dialog>
+                                </h:panelGrid>
+                                <p:inputTextarea readonly="#{checkupDutyEntry.hrCheckupDutyHd.approved eq &quot;Y&quot; || checkupDutyEntry.hrCheckupDutyHd.done eq &quot;Y&quot;}" autoResize="true" value="#{body.details}" dir="RTL"  style="font-size:small;width:100.0%;font-weight:bold;" cols="100"/>
+                            </p:dataScroller>
+
+
+                            <h:panelGrid cellspacing="5" cellpadding="5">
+                                <h:panelGroup>
+                                    <h:graphicImage value="/images/arrow1.png"/>
+                                    <h:outputText value="#{msg.TransportWay}"
+                                                  style="font-size:110%; font-weight:bold; text-align:right;"/>
+                                </h:panelGroup>
+                                <p:spacer height="20"/>
+                                <h:panelGrid columns="3">
+                                    <h:outputText value="#{msg.TransportWay}"/>
+                                    <p:spacer width="20"/>
+                                    <p:selectOneRadio disabled="#{checkupDutyEntry.hrCheckupDutyHd.approved eq &quot;Y&quot; || checkupDutyEntry.hrCheckupDutyHd.done eq &quot;Y&quot;}" id="transportWay" value="#{checkupDutyEntry.hrCheckupDutyHd.trnsType}">
+                                        <f:selectItem itemLabel="#{msg.CompanyCar}" itemValue="1" />
+                                        <f:selectItem itemLabel="#{msg.Other}" itemValue="2" />
+                                    </p:selectOneRadio>
+                                </h:panelGrid>
+                                <p:spacer width="20"/>
+                                <h:panelGrid columns="2">
+                                    <h:outputText value="#{msg.DriverName}" />
+                                    <h:panelGrid columns="2" >
+                                        <p:commandButton icon="ui-icon-search"
+                                                         oncomplete="PF('drvDlg').show()"
+                                                         title="Please choose an item"
+                                                         style="border:none;"
+                                                         disabled="#{checkupDutyEntry.hrCheckupDutyHd.approved eq &quot;Y&quot; || checkupDutyEntry.hrCheckupDutyHd.done eq &quot;Y&quot;}"/>
+                                        <p:inputText disabled="#{checkupDutyEntry.hrCheckupDutyHd.approved eq &quot;Y&quot; || checkupDutyEntry.hrCheckupDutyHd.done eq &quot;Y&quot;}" id="drvName" readonly="true" value="#{checkupDutyEntry.filteredDriver.empName}"/>
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                                <p:spacer width="20"/>
+                                <h:panelGrid columns="2">
+                                    <h:outputText value="#{msg.DriverRate}"/>
+                                    <p:rating disabled="#{checkupDutyEntry.hrCheckupDutyHd.approved eq &quot;Y&quot; || checkupDutyEntry.hrCheckupDutyHd.done eq &quot;Y&quot;}" value="#{checkupDutyEntry.driverRate}" stars="5" cancel="false" />
+                                </h:panelGrid>
+                            </h:panelGrid>
+
+                            <p:spacer width="30"/>
+                            <p:dataTable editable="true" id="emp" editMode="cell" value="#{checkupDutyEntry.hrCheckupDutyHd.hrCheckupDutyEmp2List}" var="dt">
+                                <f:facet name="header">
+                                    #{msg.DeptReportEntryEmp}
+                                    <p:spacer width="20"/>
+                                    <p:commandLink disabled="#{checkupDutyEntry.hrCheckupDutyHd.approved eq &quot;Y&quot; || checkupDutyEntry.hrCheckupDutyHd.done eq &quot;Y&quot;}"  update=":dlgFrm:sp" action="#{checkupDutyEntry.add}" style="width: 6%;text-align: center;position: relative;bottom: 0px">
+                                        <h:graphicImage value="/images/add.png"/>
+                                    </p:commandLink>
+                                </f:facet>
+                                <p:ajax event="cellEdit" immediate="true" update=":dlgFrm:emp"/>
+                                <p:column width="30">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{dt.empId.empNo}" /></f:facet>
+                                        <f:facet name="input">
+                                            <p:inputText readonly="#{checkupDutyEntry.hrCheckupDutyHd.approved eq &quot;Y&quot; || checkupDutyEntry.hrCheckupDutyHd.done eq &quot;Y&quot;}" value="#{dt.empId}" style="width:96%">
+                                                <f:converter converterId="EmpConverter"/>
+                                                <f:ajax event="valueChange" render="emp"/>
+                                            </p:inputText>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column width="100">
+                                    <h:outputText  value="#{dt.empId.empName}"/>
+                                </p:column>
+                                <p:column width="20" rendered="#{checkupDutyEntry.hrCheckupDutyHd.approved eq &quot;Y&quot;}">
+                                    <h:outputText value="#{dt.value}"/>
+                                </p:column>
+                            </p:dataTable>
+
+                        </p:scrollPanel>
+                        <p:messages id="msg" showDetail="true" />
+                        <h:panelGrid width="100%" columns="4">
+                                <p:spacer height="50"/>
+                                <p:commandButton icon="ui-icon-disk" disabled="#{checkupDutyEntry.hrCheckupDutyHd.approved eq &quot;Y&quot; || checkupDutyEntry.hrCheckupDutyHd.done eq &quot;Y&quot;}" oncomplete="PF('dlg').hide()" update=":frm :frm:messages msg" actionListener="#{checkupDutyEntry.save}" value="#{msg.Save}" style="font-size:large;font-weight:bold;height: 30px;"/>
+                                <p:commandButton icon="ui-icon-mail-closed" disabled="#{checkupDutyEntry.hrCheckupDutyHd.approved eq &quot;Y&quot; || checkupDutyEntry.hrCheckupDutyHd.done eq &quot;Y&quot;}" oncomplete="PF('dlg').hide()" update=":frm :frm:messages msg" action="#{checkupDutyEntry.sendToApprove}" value="#{msg.SendToApprove}" style="font-size:large;font-weight:bold;height: 30px;"/>
+                                <p:spacer height="50"/>
+                            </h:panelGrid>
+                    </p:dialog>
+                    <p:dialog id="drvDlg" header="#{msg.DriverName}" modal="true" width="300" height="400" widgetVar="drvDlg">
+                        <p:dataTable rowKey="#{drv}" value="#{checkupDutyEntry.driversList}" rowIndexVar="x" scrollRows="100" scrollable="true" scrollHeight="400" var="drv" widgetVar="drv" id="drv" selection="#{checkupDutyEntry.selectedDriver}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{checkupDutyEntry.updateSelectedDrv}" oncomplete="PF('drvDlg').hide()" update=":dlgFrm:drvName"/>
+                            <p:column filterMatchMode="contains" filterBy="#{drv.empName}">
+                                <h:outputText value="#{drv.empName}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -1,0 +1,8 @@
+security\service\UserService.class
+security\model\User.class
+security\controller\UserController.class
+security\SecurityApplication.class
+security\config\SecurityConfig.class
+security\config\AuthorizationServerConfig.class
+security\service\serviceImpl\UserServiceImpl.class
+security\dao\UserDao.class

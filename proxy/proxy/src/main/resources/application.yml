@@ -1,0 +1,119 @@
+server:
+    port: 8080
+
+zuul:
+  routes:
+    ordrPlan:
+      path: /driverTracking/ordrPlan/**
+      url: http://localhost:8090/ordrPlan
+    driverTrns:
+      path: /driverTracking/driverTrns/**
+      url: http://localhost:8090/driverTrns  
+    driverBalance:
+      path: /driverTracking/driverBalance/**
+      url: http://localhost:8090/driverBalance 
+    oauth:
+      path: /oauth/**
+      url: http://localhost:8091/oauth
+    deliveryStatus:
+      path: /deliveryStatus/updateOrdrStatus/**
+      url: http://localhost:8092/updateOrdrStatus 
+    dispenseStatus:
+      path: /dispenseStatus/ordrDispenseStatus/**
+      url: http://localhost:8093/ordrDispenseStatus
+    checkBalance:
+      path: /order/checkBalance/**
+      url: http://localhost:7071/checkOrderBalance
+    updatedProducts:
+      path: /balance/updatedProducts/**
+      url: http://localhost:7072/updatedProducts 
+    crmkTypes:
+      path: /query/getCrmkTypes/**
+      url: http://localhost:8088/getCrmkTypes
+    crmkSizes:
+      path: /query/getCrmkSizes/**
+      url: http://localhost:8088/getCrmkSizes
+    crmkDekala:
+      path: /query/getCrmkDekala/**
+      url: http://localhost:8088/getCrmkDekala
+    crmkColors:
+      path: /query/getCrmkColors/**
+      url: http://localhost:8088/getCrmkColor
+    crmkSearch:
+      path: /query/getCrmkSearch/**
+      url: http://localhost:8088/getCrmkSearch
+    crmkSearchDetails:
+      path: /query/crmkSearchDetails/**
+      url: http://localhost:8088/getCrmkDetails
+    crmkPriceList:
+      path: /query/getCrmkPriceList/**
+      url: http://localhost:8088/getCrmkPlist
+    crmkDiscountList:
+      path: /query/getCrmkDiscountList/**
+      url: http://localhost:8088/getCrmkDlist
+    crmkPrice:
+      path: /query/getCrmkPrice/**
+      url: http://localhost:8088/getCrmkPrice
+    dcreTypes:
+      path: /query/getDcreTypes/**
+      url: http://localhost:8088/getDcreTypes
+    dcreSizes:
+      path: /query/getDcreSizes/**
+      url: http://localhost:8088/getDcreSizes
+    dcreDekala:
+      path: /query/getDcreDekala/**
+      url: http://localhost:8088/getDcreDekala
+    dcreSearch:
+      path: /query/getDcreSearch/**
+      url: http://localhost:8088/getDcreSearch
+    dcreSearchDetails:
+      path: /query/getDcreDetails/**
+      url: http://localhost:8088/getDcreDetails
+    dcrePriceList:
+      path: /query/getDcrePlist/**
+      url: http://localhost:8088/getDcrePlist
+    dcreDiscountList:
+      path: /query/getDcreDlist/**
+      url: http://localhost:8088/getDcreDlist
+    dcrePrice:
+      path: /query/getDcrePrice/**
+      url: http://localhost:8088/getDcrePrice
+    sehyTypes:
+      path: /query/getSehyTypes/**
+      url: http://localhost:8088/getSehyTypes
+    sehyNames:
+      path: /query/getSehyNames/**
+      url: http://localhost:8088/getSehyNames
+    sehyDekalas:
+      path: /query/getSehyDekalas/**
+      url: http://localhost:8088/getSehyDekalas
+    sehyTakmDetails:
+      path: /query/getSehyTakmDetails/**
+      url: http://localhost:8088/getSehyTakmDetails
+    sehySearch:
+      path: /query/getSehySearch/**
+      url: http://localhost:8088/getSehySearch
+    queryLogin:
+      path: /validateUser/**
+      url: http://localhost:8088/validateUsergetGroupDetails
+    crmkGroups:
+      path: /query/getCrmkGroups/**
+      url: http://localhost:8088/getCrmkGroups
+    groupDetails:
+      path: /query/getGroupDetails/**
+      url: http://localhost:8088/getGroupDetails
+    dcreGroups:
+      path: /query/getDcreGroups/**
+      url: http://localhost:8088/getDcreGroups
+security:
+  oauth2:
+    client:
+      clientId: ccg-client
+      clientSecret: ccg-secret
+    resource:
+      user-info-uri: http://localhost:8091/users/user
+      token-info-uri: http://localhost:8091/oauth/check_token
+      preferTokenInfo: true
+      filter-order: 3
+  basic:
+    enabled: false      

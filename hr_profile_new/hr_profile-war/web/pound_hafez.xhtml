@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./hr_profile_template.xhtml">
+            <ui:define name="title">
+                <span  style="font-size: 15px;color: gray">
+                    <i class="fa fa-fw fa-history"/>
+                    <h:outputText value="#{msg.FollowUp}" />
+                    <p:spacer width="5" height="1"/>
+                </span>
+                <h:outputText value="#{msg.PoundHafez}" />
+            </ui:define>
+
+            <ui:define name="body">
+                <h:form dir="RTL" id="frm">
+
+                    <p:panelGrid style="width: 100%;margin-top:20px">
+                        <f:facet name="header">
+                            <p:row>
+                                <p:column colspan="6">
+                                    <p:spacer height="50" width="1"/>
+                                    <h:outputText  style="font-weight: bold;font-size: medium;" value="#{msg.FromPeriod}"/>
+                                    <h:outputText style="font-weight: bold;font-size: medium;" value="#{poundHafez.hrPoundHafezDt.hrPoundHafezHd.fromDate}" converter="#{customConvertDateTime}"/>
+                                    <p:spacer height="1" width="50"/>
+                                    <h:outputText style="font-weight: bold;font-size: medium;" value="#{msg.To}"/>
+                                    <h:outputText style="font-weight: bold;font-size: medium;" value="#{poundHafez.hrPoundHafezDt.hrPoundHafezHd.toDate}" converter="#{customConvertDateTime}"/>
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+                        <p:row rendered="#{not empty poundHafez.hrPoundHafezDt.trgt and poundHafez.hrEmpInfo.deptId eq &quot;1&quot;}">
+                            <p:column  style="font-weight: bold;">#{msg.Target}</p:column>
+                            <p:column style="font-weight: bold;">#{poundHafez.hrPoundHafezDt.trgt} %</p:column>
+                            <p:column colspan="2" rowspan="2" style="font-weight: bold;"></p:column>
+                        </p:row>
+                        <p:row rendered="#{not empty poundHafez.hrPoundHafezDt.qty and poundHafez.hrEmpInfo.deptId eq &quot;1&quot;}">
+                            <p:column style="font-weight: bold;">#{msg.Qty}</p:column>
+                            <p:column style="font-weight: bold;">#{poundHafez.hrPoundHafezDt.qty}</p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column style="font-weight: bold;">#{msg.Var}</p:column>
+                            <p:column style="font-weight: bold;">#{poundHafez.hrPoundHafezDt.var}</p:column>
+                            <p:column colspan="2" rowspan="#{poundHafez.rowspanCount}" style="font-weight: bold;">#{msg.Income}</p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column style="font-weight: bold;">#{msg.Basic}</p:column>
+                            <p:column style="font-weight: bold;">#{poundHafez.hrPoundHafezDt.basic}</p:column>
+                        </p:row>
+                        <p:row rendered="#{not empty poundHafez.hrPoundHafezDt.checkupDuty and poundHafez.hrPoundHafezDt.checkupDuty gt 0}">
+                            <p:column style="font-weight: bold;">#{msg.CheckUpDuty}</p:column>
+                            <p:column style="font-weight: bold;">#{poundHafez.hrPoundHafezDt.checkupDuty}</p:column>
+                        </p:row>
+                        <p:row rendered="#{not empty poundHafez.hrPoundHafezDt.storeIssues and poundHafez.hrPoundHafezDt.storeIssues gt 0}">
+                            <p:column style="font-weight: bold;">#{msg.StoreIssues}</p:column>
+                            <p:column style="font-weight: bold;">#{poundHafez.hrPoundHafezDt.storeIssues}</p:column>
+                        </p:row>
+                        <p:row rendered="#{not empty poundHafez.hrPoundHafezDt.raiseBasic2018 and poundHafez.hrPoundHafezDt.raiseBasic2018 gt 0}">
+                            <p:column style="font-weight: bold;">#{msg.RaiseBasic2018}</p:column>
+                            <p:column style="font-weight: bold;">#{poundHafez.hrPoundHafezDt.raiseBasic2018}</p:column>
+                        </p:row>
+                        <p:row rendered="#{not empty poundHafez.hrPoundHafezDt.raiseVar2018 and poundHafez.hrPoundHafezDt.raiseVar2018 gt 0}">
+                            <p:column style="font-weight: bold;">#{msg.RaiseVar2018}</p:column>
+                            <p:column style="font-weight: bold;">#{poundHafez.hrPoundHafezDt.raiseVar2018}</p:column>
+                        </p:row>
+                        <p:row rendered="#{not empty poundHafez.hrPoundHafezDt.loadBonus and poundHafez.hrPoundHafezDt.loadBonus gt 0}">
+                            <p:column style="font-weight: bold;">#{msg.LoadBonus}</p:column>
+                            <p:column style="font-weight: bold;">#{poundHafez.hrPoundHafezDt.loadBonus}</p:column>
+                        </p:row>
+                        <p:row rendered="#{not empty poundHafez.hrPoundHafezDt.driversBonus and poundHafez.hrPoundHafezDt.driversBonus gt 0}">
+                            <p:column style="font-weight: bold;">#{msg.DriversBonus}</p:column>
+                            <p:column style="font-weight: bold;">#{poundHafez.hrPoundHafezDt.driversBonus}</p:column>
+                        </p:row>
+                        <p:row rendered="#{not empty poundHafez.hrPoundHafezDt.trnsBonus and poundHafez.hrPoundHafezDt.trnsBonus gt 0}">
+                            <p:column style="font-weight: bold;">#{msg.TrnsBonus}</p:column>
+                            <p:column style="font-weight: bold;">#{poundHafez.hrPoundHafezDt.trnsBonus}</p:column>
+                        </p:row>
+                        <p:row rendered="#{not empty poundHafez.hrPoundHafezDt.other and poundHafez.hrPoundHafezDt.other gt 0}">
+                            <p:column style="font-weight: bold;">#{msg.OtherBonus}</p:column>
+                            <p:column style="font-weight: bold;">#{poundHafez.hrPoundHafezDt.other}</p:column>
+                        </p:row>
+                        
+                        <p:row>
+                            <p:column style="font-weight: bold;">#{msg.Effections}</p:column>
+                            <p:column style="font-weight: bold;">#{poundHafez.hrPoundHafezDt.effections}</p:column>
+                            <p:column colspan="2" rowspan="3" style="font-weight: bold;">#{msg.Outcome}</p:column>
+                        </p:row>
+                        <p:row rendered="#{not empty poundHafez.hrPoundHafezDt.gza and poundHafez.hrPoundHafezDt.gza gt 0}">
+                            <p:column style="font-weight: bold;">#{msg.Gza}</p:column>
+                            <p:column style="font-weight: bold;">#{poundHafez.hrPoundHafezDt.gza}</p:column>
+                        </p:row>
+                        <p:row rendered="#{not empty poundHafez.hrPoundHafezDt.addTax and poundHafez.hrPoundHafezDt.addTax gt 0}">
+                            <p:column style="font-weight: bold;">#{msg.Tax}</p:column>
+                            <p:column style="font-weight: bold;">#{poundHafez.hrPoundHafezDt.addTax}</p:column>
+                        </p:row>
+
+                        <f:facet name="footer">
+                            <p:row>
+                                <p:column style="text-align: right">
+                                    #{msg.Net}<p:spacer height="50" width="1"/>
+                                </p:column>
+                                <p:column colspan="2" style="text-align: right">
+                                    <h:outputText value="#{poundHafez.hrPoundHafezDt.net}">
+                                        <f:convertNumber maxFractionDigits="2"/>
+                                    </h:outputText>
+                                </p:column>
+                                <p:column style="text-align: center">
+                                    <p:commandButton value="#{msg.Print}" type="button" icon="ui-icon-print" style="margin-bottom: 0px">
+                                        <p:printer target="frm" />
+                                    </p:commandButton>
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+                    </p:panelGrid>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

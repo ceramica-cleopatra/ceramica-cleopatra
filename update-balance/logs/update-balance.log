@@ -1,0 +1,205 @@
+2022-06-30 02:06:56,540 INFO org.springframework.boot.StartupInfoLogger [main] Starting UpdateBalanceApplication using Java 1.8.0_65 on DEV-Ahmedabbas with PID 7892 (E:\workspace\update-balance\target\classes started by DEV in E:\workspace\update-balance)
+2022-06-30 02:06:56,550 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2022-06-30 02:06:57,079 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-06-30 02:06:57,127 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 37 ms. Found 2 JPA repository interfaces.
+2022-06-30 02:06:57,679 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 7072 (http)
+2022-06-30 02:06:57,688 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-7072"]
+2022-06-30 02:06:57,689 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2022-06-30 02:06:57,689 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.64]
+2022-06-30 02:06:57,811 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2022-06-30 02:06:57,811 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1208 ms
+2022-06-30 02:06:58,010 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2022-06-30 02:06:58,176 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2022-06-30 02:06:58,221 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-06-30 02:06:58,267 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.6.9.Final
+2022-06-30 02:06:58,429 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-06-30 02:06:58,535 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.Oracle10gDialect
+2022-06-30 02:06:59,109 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-06-30 02:06:59,117 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-06-30 02:06:59,515 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-06-30 02:06:59,766 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-7072"]
+2022-06-30 02:06:59,783 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 7072 (http) with context path ''
+2022-06-30 02:06:59,789 INFO org.springframework.boot.StartupInfoLogger [main] Started UpdateBalanceApplication in 3.659 seconds (JVM running for 3.94)
+2022-06-30 02:09:11,190 INFO org.apache.juli.logging.DirectJDKLog [http-nio-7072-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-06-30 02:09:11,190 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-7072-exec-1] Initializing Servlet 'dispatcherServlet'
+2022-06-30 02:09:11,191 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-7072-exec-1] Completed initialization in 1 ms
+2022-06-30 02:09:11,235 INFO com.sales.ccg.updatebalance.controller.BalanceController [http-nio-7072-exec-1] Request updatedProducts ::: 29-06-2022 21:00:00
+2022-06-30 02:10:22,601 INFO com.sales.ccg.updatebalance.controller.BalanceController [http-nio-7072-exec-4] Request updatedProducts ::: 29-06-2022 21:00:00
+2022-06-30 19:15:46,009 INFO com.sales.ccg.updatebalance.controller.BalanceController [http-nio-7072-exec-6] Request updatedProducts ::: 29-06-2022 21:00:00
+2022-06-30 19:21:46,465 INFO com.sales.ccg.updatebalance.controller.BalanceController [http-nio-7072-exec-8] Request updatedProducts ::: 29-06-2022 21:00:00
+2022-06-30 19:27:57,352 INFO org.springframework.boot.StartupInfoLogger [main] Starting UpdateBalanceApplication using Java 1.8.0_65 on DEV-Ahmedabbas with PID 10488 (E:\workspace\update-balance\target\classes started by DEV in E:\workspace\update-balance)
+2022-06-30 19:27:57,355 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2022-06-30 19:27:57,875 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-06-30 19:27:57,923 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 36 ms. Found 2 JPA repository interfaces.
+2022-06-30 19:27:58,449 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 7072 (http)
+2022-06-30 19:27:58,458 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-7072"]
+2022-06-30 19:27:58,459 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2022-06-30 19:27:58,459 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.64]
+2022-06-30 19:27:58,578 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2022-06-30 19:27:58,578 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1170 ms
+2022-06-30 19:27:58,780 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2022-06-30 19:27:58,947 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2022-06-30 19:27:58,987 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-06-30 19:27:59,033 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.6.9.Final
+2022-06-30 19:27:59,187 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-06-30 19:27:59,289 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.Oracle10gDialect
+2022-06-30 19:27:59,857 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-06-30 19:27:59,865 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-06-30 19:28:00,269 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-06-30 19:28:00,541 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-7072"]
+2022-06-30 19:28:00,560 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 7072 (http) with context path ''
+2022-06-30 19:28:00,568 INFO org.springframework.boot.StartupInfoLogger [main] Started UpdateBalanceApplication in 3.624 seconds (JVM running for 3.907)
+2022-06-30 19:28:25,901 INFO org.apache.juli.logging.DirectJDKLog [http-nio-7072-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-06-30 19:28:25,901 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-7072-exec-1] Initializing Servlet 'dispatcherServlet'
+2022-06-30 19:28:25,902 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-7072-exec-1] Completed initialization in 0 ms
+2022-06-30 19:28:25,947 INFO com.sales.ccg.updatebalance.controller.BalanceController [http-nio-7072-exec-1] Request updatedProducts ::: 29-06-2022 21:00:00
+2022-06-30 19:28:33,895 INFO com.sales.ccg.updatebalance.controller.BalanceController [http-nio-7072-exec-2] Request updatedProducts ::: 29-06-2022 21:00:001
+2022-06-30 19:28:38,915 INFO com.sales.ccg.updatebalance.controller.BalanceController [http-nio-7072-exec-3] Request updatedProducts ::: 29-06-2022 21:00
+2022-06-30 20:07:59,292 INFO org.springframework.boot.StartupInfoLogger [main] Starting UpdateBalanceApplication using Java 1.8.0_65 on DEV-Ahmedabbas with PID 2000 (E:\workspace\update-balance\target\classes started by DEV in E:\workspace\update-balance)
+2022-06-30 20:07:59,295 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2022-06-30 20:07:59,808 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-06-30 20:07:59,854 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 36 ms. Found 2 JPA repository interfaces.
+2022-06-30 20:08:00,386 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 7072 (http)
+2022-06-30 20:08:00,395 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-7072"]
+2022-06-30 20:08:00,396 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2022-06-30 20:08:00,396 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.64]
+2022-06-30 20:08:00,517 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2022-06-30 20:08:00,518 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1168 ms
+2022-06-30 20:08:00,715 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2022-06-30 20:08:00,879 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2022-06-30 20:08:00,922 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-06-30 20:08:00,969 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.6.9.Final
+2022-06-30 20:08:01,137 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-06-30 20:08:01,244 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.Oracle10gDialect
+2022-06-30 20:08:01,831 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-06-30 20:08:01,839 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-06-30 20:08:02,242 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-06-30 20:08:02,490 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-7072"]
+2022-06-30 20:08:02,507 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 7072 (http) with context path ''
+2022-06-30 20:08:02,513 INFO org.springframework.boot.StartupInfoLogger [main] Started UpdateBalanceApplication in 3.633 seconds (JVM running for 3.926)
+2022-06-30 20:09:06,472 INFO org.apache.juli.logging.DirectJDKLog [http-nio-7072-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-06-30 20:09:06,472 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-7072-exec-1] Initializing Servlet 'dispatcherServlet'
+2022-06-30 20:09:06,473 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-7072-exec-1] Completed initialization in 1 ms
+2022-06-30 20:09:06,507 ERROR com.sales.ccg.updatebalance.validation.validationImpl.RequestParameterValidationImpl [http-nio-7072-exec-1] Invalid Date Format ::: null
+2022-06-30 20:10:02,527 INFO com.sales.ccg.updatebalance.controller.BalanceController [http-nio-7072-exec-2] Request updatedProducts ::: 29-06-2022 21:00:00 ::: ResultCount : Ok ::: ResponseTime : 4382
+2022-06-30 20:13:49,572 INFO org.springframework.boot.StartupInfoLogger [main] Starting UpdateBalanceApplicationTests using Java 1.8.0_65 on DEV-Ahmedabbas with PID 3392 (started by DEV in E:\workspace\update-balance)
+2022-06-30 20:13:49,574 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2022-06-30 20:13:50,117 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-06-30 20:13:50,165 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 40 ms. Found 2 JPA repository interfaces.
+2022-06-30 20:13:50,660 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2022-06-30 20:13:50,906 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2022-06-30 20:13:50,965 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-06-30 20:13:51,020 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.6.9.Final
+2022-06-30 20:13:51,197 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-06-30 20:13:51,305 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.Oracle10gDialect
+2022-06-30 20:13:51,932 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-06-30 20:13:51,940 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-06-30 20:13:52,551 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-06-30 20:13:53,086 INFO org.springframework.boot.StartupInfoLogger [main] Started UpdateBalanceApplicationTests in 3.809 seconds (JVM running for 4.64)
+2022-06-30 20:13:53,203 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-06-30 20:13:53,206 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2022-06-30 20:13:53,221 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2022-06-30 20:14:03,493 INFO org.springframework.boot.StartupInfoLogger [main] Starting UpdateBalanceApplication using Java 1.8.0_65 on DEV-Ahmedabbas with PID 10440 (E:\workspace\update-balance\target\classes started by DEV in E:\workspace\update-balance)
+2022-06-30 20:14:03,496 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2022-06-30 20:14:04,018 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-06-30 20:14:04,068 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 39 ms. Found 2 JPA repository interfaces.
+2022-06-30 20:14:04,584 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 7072 (http)
+2022-06-30 20:14:04,596 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-7072"]
+2022-06-30 20:14:04,596 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2022-06-30 20:14:04,596 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.64]
+2022-06-30 20:14:04,713 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2022-06-30 20:14:04,714 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1164 ms
+2022-06-30 20:14:04,906 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2022-06-30 20:14:05,069 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2022-06-30 20:14:05,113 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-06-30 20:14:05,157 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.6.9.Final
+2022-06-30 20:14:05,316 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-06-30 20:14:05,418 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.Oracle10gDialect
+2022-06-30 20:14:05,980 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-06-30 20:14:05,988 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-06-30 20:14:06,384 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-06-30 20:14:06,627 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-7072"]
+2022-06-30 20:14:06,645 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 7072 (http) with context path ''
+2022-06-30 20:14:06,651 INFO org.springframework.boot.StartupInfoLogger [main] Started UpdateBalanceApplication in 3.574 seconds (JVM running for 3.857)
+2022-06-30 20:14:13,872 INFO org.apache.juli.logging.DirectJDKLog [http-nio-7072-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-06-30 20:14:13,873 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-7072-exec-1] Initializing Servlet 'dispatcherServlet'
+2022-06-30 20:14:13,874 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-7072-exec-1] Completed initialization in 1 ms
+2022-06-30 20:14:13,910 ERROR com.sales.ccg.updatebalance.validation.validationImpl.RequestParameterValidationImpl [http-nio-7072-exec-1] Invalid Date Format ::: Wed Jun 29 21:00:00 EET 2022
+2022-06-30 20:15:40,405 INFO org.springframework.boot.StartupInfoLogger [main] Starting UpdateBalanceApplicationTests using Java 1.8.0_65 on DEV-Ahmedabbas with PID 7720 (started by DEV in E:\workspace\update-balance)
+2022-06-30 20:15:40,407 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2022-06-30 20:15:40,944 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-06-30 20:15:40,991 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 40 ms. Found 2 JPA repository interfaces.
+2022-06-30 20:15:41,482 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2022-06-30 20:15:41,720 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2022-06-30 20:15:41,777 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-06-30 20:15:41,830 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.6.9.Final
+2022-06-30 20:15:42,009 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-06-30 20:15:42,119 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.Oracle10gDialect
+2022-06-30 20:15:42,731 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-06-30 20:15:42,739 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-06-30 20:15:43,356 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-06-30 20:15:43,869 INFO org.springframework.boot.StartupInfoLogger [main] Started UpdateBalanceApplicationTests in 3.754 seconds (JVM running for 4.531)
+2022-06-30 20:15:43,971 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-06-30 20:15:43,978 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2022-06-30 20:15:43,996 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2022-06-30 20:16:02,592 INFO org.springframework.boot.StartupInfoLogger [main] Starting UpdateBalanceApplication using Java 1.8.0_65 on DEV-Ahmedabbas with PID 12184 (E:\workspace\update-balance\target\classes started by DEV in E:\workspace\update-balance)
+2022-06-30 20:16:02,595 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2022-06-30 20:16:03,107 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-06-30 20:16:03,153 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 36 ms. Found 2 JPA repository interfaces.
+2022-06-30 20:16:03,671 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 7072 (http)
+2022-06-30 20:16:03,680 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-7072"]
+2022-06-30 20:16:03,681 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2022-06-30 20:16:03,681 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.64]
+2022-06-30 20:16:03,795 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2022-06-30 20:16:03,796 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1149 ms
+2022-06-30 20:16:03,992 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2022-06-30 20:16:04,148 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2022-06-30 20:16:04,191 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-06-30 20:16:04,239 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.6.9.Final
+2022-06-30 20:16:04,392 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-06-30 20:16:04,492 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.Oracle10gDialect
+2022-06-30 20:16:05,050 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-06-30 20:16:05,058 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-06-30 20:16:05,453 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-06-30 20:16:05,699 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-7072"]
+2022-06-30 20:16:05,721 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 7072 (http) with context path ''
+2022-06-30 20:16:05,727 INFO org.springframework.boot.StartupInfoLogger [main] Started UpdateBalanceApplication in 3.54 seconds (JVM running for 3.822)
+2022-06-30 20:16:09,789 INFO org.apache.juli.logging.DirectJDKLog [http-nio-7072-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-06-30 20:16:09,789 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-7072-exec-1] Initializing Servlet 'dispatcherServlet'
+2022-06-30 20:16:09,792 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-7072-exec-1] Completed initialization in 2 ms
+2022-06-30 20:16:09,827 ERROR com.sales.ccg.updatebalance.validation.validationImpl.RequestParameterValidationImpl [http-nio-7072-exec-1] Date Parameter Out Of Boundries ::: Wed Jun 29 21:00:00 EET 2022
+2022-06-30 20:17:04,542 INFO com.sales.ccg.updatebalance.controller.BalanceController [http-nio-7072-exec-2] Request updatedProducts ::: 30-06-2022 21:00:00 ::: RsponseStatus:No Result Found ::: ResultCount:0 ::: ResponseTime:542
+2022-06-30 20:17:54,166 INFO org.springframework.boot.StartupInfoLogger [main] Starting UpdateBalanceApplicationTests using Java 1.8.0_65 on DEV-Ahmedabbas with PID 12248 (started by DEV in E:\workspace\update-balance)
+2022-06-30 20:17:54,167 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2022-06-30 20:17:54,708 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-06-30 20:17:54,757 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 41 ms. Found 2 JPA repository interfaces.
+2022-06-30 20:17:55,247 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2022-06-30 20:17:55,492 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2022-06-30 20:17:55,550 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-06-30 20:17:55,604 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.6.9.Final
+2022-06-30 20:17:55,783 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-06-30 20:17:55,892 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.Oracle10gDialect
+2022-06-30 20:17:56,500 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-06-30 20:17:56,510 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-06-30 20:17:57,112 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-06-30 20:17:57,619 INFO org.springframework.boot.StartupInfoLogger [main] Started UpdateBalanceApplicationTests in 3.75 seconds (JVM running for 4.528)
+2022-06-30 20:17:57,716 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-06-30 20:17:57,718 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2022-06-30 20:17:57,733 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2022-06-30 22:12:15,352 INFO org.springframework.boot.StartupInfoLogger [main] Starting UpdateBalanceApplicationTests using Java 1.8.0_65 on DEV-Ahmedabbas with PID 11932 (started by DEV in E:\workspace\update-balance)
+2022-06-30 22:12:15,354 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2022-06-30 22:12:15,912 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-06-30 22:12:15,968 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 45 ms. Found 2 JPA repository interfaces.
+2022-06-30 22:12:16,501 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2022-06-30 22:12:16,767 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2022-06-30 22:12:16,826 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-06-30 22:12:16,880 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.6.9.Final
+2022-06-30 22:12:17,066 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-06-30 22:12:17,186 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.Oracle10gDialect
+2022-06-30 22:12:17,862 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-06-30 22:12:17,872 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-06-30 22:12:18,555 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-06-30 22:12:19,186 INFO org.springframework.boot.StartupInfoLogger [main] Started UpdateBalanceApplicationTests in 4.164 seconds (JVM running for 5.046)
+2022-06-30 22:12:19,292 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-06-30 22:12:19,293 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2022-06-30 22:12:19,307 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.

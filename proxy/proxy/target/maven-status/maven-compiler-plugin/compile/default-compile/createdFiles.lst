@@ -1,0 +1,6 @@
+com\zuul\proxy\ProxyApplication.class
+com\zuul\proxy\filters\PostFilter.class
+com\zuul\proxy\filters\RouteFilter.class
+com\zuul\proxy\filters\PreFilter.class
+com\zuul\proxy\config\ResourceServerConfig.class
+com\zuul\proxy\filters\ErrorFilter.class
